@@ -1,3 +1,11 @@
-<p>
-  Read books now.
-</p>
+<% provide(:title, "the eBook reader for people who have no standards") %>
+<h3>
+Current books:
+</h3>
+<ul>
+<%- (1..3).each do |book| %>
+<li>
+<%= link_to "Book #{book.to_s}", book.to_s %>
+</li>
+<%- end %>
+</ul>

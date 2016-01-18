@@ -10,7 +10,7 @@ body {
 font-family: Raleway, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 font-size:32px;
 text-align:center;
-background: url('authorbg.png') center 0px repeat;
+background: #efefef;
 font-weight: 300;
 }
 .clearfix:before,
@@ -29,10 +29,12 @@ font-weight: 400;
 text-align: left;
 }
 h1.box img { width: 100%; }
-h1, h2 {
-font-size:inherit;
+h1, h2, h3 {
 font-weight:normal;
 }
+h1 { font-size: 2em; text-transform: lowercase; letter-spacing: -8px; }
+h2 { font-size:inherit; }
+h3 { font-size: 1em; text-transform: uppercase; }
 #wrapper {
 width: 100%;
 max-width:900px;
@@ -85,7 +87,6 @@ border-bottom:1px black solid;
 }
 #logo {
 border:none;
-background:url('authorlogo.png') no-repeat 0 0;
 font-size:0;
 text-indent:-5000px;
 overflow:hidden;
@@ -96,7 +97,6 @@ padding-bottom:9%;
 background-size: 100% auto;
 }
 a#logo:hover, a#logo:active {
-background-image:url('authorlogo-hover.png');
 }
 .profile-pic {
 float: left; margin-right: 10px; width: 200px; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; height: auto;
