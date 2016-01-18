@@ -2,13 +2,23 @@
 <html>
 <head>
     <title><%= clean_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    'http://fonts.googleapis.com/css?family=Raleway:300', media: 'all' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="wrapper" class="box">
+<h1 class="box"><%= image_tag "authorlogo.png" %></h1>
+<h2><%= clean_title(yield(:title)) %></h2>
 
 <%= yield %>
 
+<ul>
+<%- @links.each do |link| %>
+<li><%= link_to link, "/static_pages/#{link}" %></li>
+<%- end %>
+</ul>
+</div>
 </body>
 </html>
