@@ -2,22 +2,27 @@
 <html>
 <head>
     <title><%= clean_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="wrapper" class="box">
-<h1 class="box">Spineless</h1>
-<h2><%= clean_title(yield(:title)) %></h2>
+    <div id="wrapper" class="box">
+        <header>
+            <h1>Feebee</h1>
+            <nav>
+            <ul>
+            <%- @links.each do |link| %>
+                <li><%= link_to link, "/static_pages/#{link}" %></li>
+            <%- end %>
+            </ul>
+            </nav>
+            <h2><%= clean_title(yield(:title)) %></h2>
+        </header>
 
 <%= yield %>
 
-<ul>
-<%- @links.each do |link| %>
-<li><%= link_to link, "/static_pages/#{link}" %></li>
-<%- end %>
-</ul>
-</div>
+    </div>
 </body>
 </html>

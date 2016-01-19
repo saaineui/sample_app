@@ -1,14 +1,14 @@
 class StaticPagesController < ApplicationController
 
   def home
-      @links = ['help','about']
+      @links = ['home','help','login']
   end
 
   def help
-      @links = ['home','about']
+      @links = ['home','help','login']
   end
 
-  def about
-      @links = ['home','help']
+  def login
+      @links = ['home','help','login']
   end
 end
