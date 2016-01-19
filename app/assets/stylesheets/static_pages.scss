@@ -1,6 +1,9 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$dk-orange: #FF9900;
+$lt-orange: #fffff8;
+
 @font-face{
 font-family: 'Raleway';
 src: asset-url('raleway.woff') format('woff');
@@ -75,16 +78,21 @@ color:black;
 border-bottom:1px black solid;
 }
 li > a:hover, li > a:active, .box a:hover, .box a:active, .here {
-color:#FF9900;
+color: $dk-orange;
 }
 .here {
 border-bottom:1px black solid;
 }
-a img {
+.box h1 a, a img {
 border:none;
 }
-a.btn { width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000; }
-a:hover.btn { background: #ffffe0; }
+a.btn {
+    width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000;
+    &:hover {
+        background: $lt-orange;
+        border-color: $dk-orange;
+    }
+}
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
 }
