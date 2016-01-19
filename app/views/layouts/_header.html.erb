@@ -1,0 +1,11 @@
+<header>
+    <h1>Feebee</h1>
+    <nav>
+        <ul>
+<%- @links.each do |link| %>
+            <li><%= link_to link, "/static_pages/#{link}" %></li>
+<%- end %>
+        </ul>
+    </nav>
+    <h2><%= clean_title(yield(:title)) %></h2>
+</header>
