@@ -1,0 +1,193 @@
+// Place all the styles related to the Books controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#ebook p {
+text-align: justify;
+font-size: 1.1em;
+line-height: 1.5em;
+}
+.Story {
+text-indent: 0.25in;
+margin: 0;
+}
+#ebook p.FrontMatter {
+text-indent: 0;
+text-align: center;
+margin-top: 0;
+}
+#ebook p.Dedication1 {
+text-indent: 0;
+text-align: center;
+font-style: italic;
+margin-top: 20%;
+margin-bottom: 0;
+}
+#ebook p.Dedication2 {
+text-indent: 0;
+text-align: center;
+font-style: italic;
+margin-top: 0;
+margin-bottom: 40%;
+}
+.newyorker {
+margin-left: 0.6in;
+margin-right: 0.6in;
+margin-top: 12pt;
+margin-bottom: 12pt;
+}
+#ebook p.wrapper {
+margin-top: 12pt;
+margin-bottom: 12pt;
+margin-left: 0.35in;
+margin-right: 0.35in;
+}
+.Epigraph1 {
+text-indent: 0;
+margin: 0;
+}
+#ebook p.Epigraph2 {
+text-indent: 0;
+text-align: right;
+font-size: 100%;
+margin: 0;
+}
+.first {
+text-indent: 0;
+margin: 0;
+}
+.last {
+margin-top: 0;
+text-indent: 0.25in;
+}
+.thanks {
+margin-top: 0;
+text-indent: 0;
+}
+h2  {
+margin:0;
+text-align:center;
+font-size:150%;
+font-weight: normal;
+}
+h3  {
+margin-bottom:12.0pt;
+margin-top:0;
+text-align:center;
+font-size:150%;
+font-weight: normal;
+}
+
+img {
+width:100%;
+}
+
+div.sun {
+margin-top:20%;
+margin-bottom:0;
+font-size:300%;
+font-weight: bold;
+width:50%;
+height:auto;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.ninety {
+width: 90%;
+height: auto;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.benchat {
+width: 75%;
+height: auto;
+margin-right: auto;
+margin-left: auto;
+margin-top:5px;
+margin-bottom:5px;
+text-align:center;
+}
+div.stencil  {
+width: 60%;
+height: auto;
+margin-top:0;
+margin-bottom:0;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.charliecolumn {
+width: 100%;
+}
+div.tripcapture {
+width: 30%;
+height: auto;
+margin-top:0;
+margin-bottom:0;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.ouro {
+width: 15.6%;
+height: auto;
+margin-top:0;
+margin-bottom:0;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.sunthanks {
+width: 53%;
+height: auto;
+margin-top:0;
+margin-bottom:0;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.shadowextras {
+width: 10%;
+height: auto;
+margin-top:0;
+margin-bottom:0;
+margin-right: auto;
+margin-left: auto;
+text-align:center;
+}
+div.signature {
+width: 35%;
+height: auto;
+}
+
+#ebook p.tightcenter {
+text-align:center;
+margin:0;
+}
+.email  {
+margin-top:0;
+text-indent:0;
+font-size:90%;
+font-family:sans-serif;
+text-align:left;
+}
+.blog  {
+margin-top:0;
+text-indent:0;
+font-size:90%;
+font-family:sans-serif;
+}
+.pubs  {
+margin-top:0;
+text-indent:0;
+}
+.txtmsg  {
+text-indent: 0.75in;
+margin: 0;
+}
+.posttxt  {
+margin-top:12pt;
+text-indent:0.25in;
+}
