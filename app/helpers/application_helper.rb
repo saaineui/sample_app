@@ -2,7 +2,7 @@ module ApplicationHelper
   
   # return clean title
   def clean_title(page_title = '')
-    base_title = "Feebee"
+    base_title = "Spineless"
     if page_title.empty?
       base_title
     else
