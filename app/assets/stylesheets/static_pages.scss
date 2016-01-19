@@ -1,6 +1,11 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@font-face{
+font-family: 'Raleway';
+src: asset-url('raleway.woff') format('woff');
+}
+
 body, html {
 margin:0;
 padding: 0;
@@ -8,7 +13,6 @@ padding: 0;
 }
 body {
 font-family: Raleway, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
-src: url('/assets/fontawesome-webfont.woff?v=4.0.3') format('woff');
 font-size:32px;
 text-align:center;
 background: #efefef;
