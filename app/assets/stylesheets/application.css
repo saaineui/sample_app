@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+p.cc { font-size: 0.75em; }
+p.cc a img { width: auto; }
+p.cc a { border: none; text-decoration: underline; }
