@@ -4,9 +4,9 @@
 $dk-orange: #FF9900;
 $lt-orange: #fffff8;
 
-@font-face{
-font-family: 'Raleway';
-src: asset-url('raleway.woff') format('woff');
+@font-face {
+font-family: 'Open Sans';
+src: asset-url('open_sans.woff') format('woff');
 }
 
 body, html {
@@ -15,11 +15,11 @@ padding: 0;
 
 }
 body {
-font-family: Raleway, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
+font-family: Open Sans, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 font-size:1em;
 text-align:center;
 background: #efefef;
-font-weight: 300;
+font-weight: 400;
 }
 .clearfix:before,
 .clearfix:after {
