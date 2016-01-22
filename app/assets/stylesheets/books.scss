@@ -2,10 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#ebook { margin-top: 10em;
+h2, p.Dedication2 { margin-bottom: 1em; }
+}
 #ebook p {
 text-align: justify;
 font-size: 1.1em;
-line-height: 1.5em;
+line-height: 1.75em;
 }
 .Story {
 text-indent: 0.25in;
@@ -16,19 +19,14 @@ text-indent: 0;
 text-align: center;
 margin-top: 0;
 }
-#ebook p.Dedication1 {
+#ebook p.Dedication1, #ebook p.Dedication2 {
 text-indent: 0;
 text-align: center;
 font-style: italic;
-margin-top: 20%;
-margin-bottom: 0;
+margin: 0;
 }
 #ebook p.Dedication2 {
-text-indent: 0;
-text-align: center;
-font-style: italic;
-margin-top: 0;
-margin-bottom: 40%;
+margin-bottom: 1em;
 }
 .newyorker {
 margin-left: 0.6in;

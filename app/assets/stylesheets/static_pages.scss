@@ -18,7 +18,7 @@ body {
 font-family: Open Sans, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 font-size:1em;
 text-align:center;
-background: #efefef;
+background: #333;
 font-weight: 400;
 }
 .clearfix:before,
@@ -34,21 +34,20 @@ font-weight:normal;
 }
 h1 { font-size: 4em; text-transform: lowercase; letter-spacing: -8px; margin:0; }
 h2 { font-size: 2em; }
-p { font-size: 1.5em; position: relative; }
+p { font-size: 1.5em; position: relative; text-align: left; }
 #wrapper {
 width: 900px;
 max-width:100%;
 min-height: 100vh;
 margin:0 auto;
-padding: 1em 3em;
-box-shadow: 0 0 25px #ccc;
--moz-box-shadow: 0 0 25px #ccc;
--webkit-box-shadow: 0 0 25px #ccc;
+padding: 1em 4em;
+border-left: 1px solid $dk-orange;
+border-right: 1px solid $dk-orange;
 box-sizing: border-box;
 -moz-box-sizing: border-box;
 -webkit-box-sizing: border-box;
 position: relative;
-background: #fff;
+background: #eee;
 }
 li {
 width: 33.3%;
@@ -72,13 +71,13 @@ font-size:1em;
 text-transform:capitalize;
 }
 li > a, li > a:visited, .box a {
-color:black;
+color: $dk-orange;
 }
 .box a {
 border-bottom:1px black solid;
 }
 li > a:hover, li > a:active, .box a:hover, .box a:active, .here {
-color: $dk-orange;
+color:black;
 }
 .here {
 border-bottom:1px black solid;
@@ -86,15 +85,20 @@ border-bottom:1px black solid;
 .box h1 a, a img {
 border:none;
 }
+footer p {
+font-size: 12px; text-align: center;
+}
 a.btn {
-    width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000;
+width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000; text-align: center;
     &:hover {
         background: $lt-orange;
         border-color: $dk-orange;
     }
 }
+p.cc { text-align: center; }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
+#wrapper { padding: 1em; }
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait), only screen and (max-device-width: 480px) and (orientation: portrait), only screen and (max-device-width: 640px) and (orientation: portrait) {
