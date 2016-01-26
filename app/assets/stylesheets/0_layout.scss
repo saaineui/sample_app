@@ -5,8 +5,34 @@ $dk-orange: #FF9900;
 $lt-orange: #fffff8;
 
 @font-face {
-font-family: 'Open Sans';
-src: asset-url('open_sans.woff') format('woff');
+font-family: 'Lato';
+font-style: normal;
+font-weight: 300;
+src: asset-url('lato_300.woff') format('woff');
+}
+@font-face {
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+src: asset-url('lato_400.woff') format('woff');
+}
+@font-face {
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+src: asset-url('lato_700.woff') format('woff');
+}
+@font-face {
+font-family: 'Lato';
+font-style: italic;
+font-weight: 400;
+src: asset-url('lato_400_italic.woff') format('woff');
+}
+@font-face {
+font-family: 'Lato';
+font-style: italic;
+font-weight: 700;
+src: asset-url('lato_700_italic.woff') format('woff');
 }
 
 body, html {
@@ -15,7 +41,7 @@ padding: 0;
 
 }
 body {
-font-family: Open Sans, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
+font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 font-size:1em;
 text-align:center;
 background: #333;
@@ -29,6 +55,16 @@ display: table; /* 2 */
 .clearfix:after {
 clear: both;
 }
+header > nav {
+    h1, p {
+display: block;
+width: 50%;
+float: left;
+    }
+h1 a:hover img { opacity: 0.8; }
+p { text-align: right; }
+}
+
 h1, h2, h3 {
 font-weight:normal;
 }
@@ -73,17 +109,8 @@ text-transform:capitalize;
 li > a, li > a:visited, .box a {
 color: $dk-orange;
 }
-.box a {
-border-bottom:1px black solid;
-}
 li > a:hover, li > a:active, .box a:hover, .box a:active, .here {
 color:black;
-}
-.here {
-border-bottom:1px black solid;
-}
-.box h1 a, a img {
-border:none;
 }
 footer p {
 font-size: 12px; text-align: center;

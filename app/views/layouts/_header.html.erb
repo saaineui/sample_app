@@ -1,10 +1,6 @@
 <header>
-    <h1><%= link_to "Spineless", root_path %></h1>
-    <nav>
-        <ul>
-    <li><%= link_to "Home", root_path %></li>
-    <li><%= link_to "Help", help_path %></li>
-    <li><%= link_to "Login", login_path %></li>
-        </ul>
+    <nav class="clearfix">
+        <h1><a href="<%= root_path %>"><%= image_tag "spineless_logo.png", alt: "spineless" %></a></h1>
+        <p><%= link_to "Login", login_path %></p>
     </nav>
 </header>
