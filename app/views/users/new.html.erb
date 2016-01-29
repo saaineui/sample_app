@@ -1,18 +1,29 @@
 <% provide(:title, "Sign Up") %>
 <h2>Sign up for Spineless</h2>
-<p>Fill out your information and click submit to sign up.</p>
-<form>
-<label>
-Username:
-<input type="text" placeholder="boywizard13" />
-</label>
-<label>
-Trope:
-<select>
-    <option value="Unreliable Narrator">Unreliable Narrator</option>
-    <option value="Tiresome Ingenue">Tiresome Ingenue</option>
-    <option value="Plucky Orphan">Plucky Orphan</option>
-</select>
-</label>
-<input type="submit" value="submit" />
-</form>
+<p>You know what to do.</p>
+<%= form_for(@user) do |f| %>
+<%= render 'shared/error_messages' %>
+    <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    </p>
+
+    <p>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+    </p>
+
+    <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    </p>
+
+    <p>
+    <%= f.label :password_confirmation, "Password Confirmation" %>
+    <%= f.password_field :password_confirmation %>
+    </p>
+
+    <p>
+    <%= f.submit "Sign Up", class: "btn" %>
+    </p>
+<% end %>

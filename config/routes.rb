@@ -12,6 +12,8 @@ get 'signup' => 'users#new'
 get 'login' => 'static_pages#login'
 get 'books/o' => 'books#show'
 
+resources :users
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

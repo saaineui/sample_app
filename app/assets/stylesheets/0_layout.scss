@@ -1,6 +1,24 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Development stuff */
+
+@mixin box_sizing {
+-moz-box-sizing:    border-box;
+-webkit-box-sizing: border-box;
+box-sizing:         border-box;
+}
+.debug_dump {
+clear: both;
+float: left;
+width: 100%;
+margin-top: 45px;
+border: 1px solid #444; 
+@include box_sizing;
+}
+
+
 $dk-orange: #FF9900;
 $lt-orange: #fffff8;
 
@@ -57,18 +75,16 @@ clear: both;
 }
 header > nav {
     h1, p {
-display: block;
-width: 50%;
-float: left;
+        display: block;
+        width: 50%;
+        float: left;
     }
-h1 a:hover img { opacity: 0.8; }
-p { text-align: right; }
+    h1 a:hover img { opacity: 0.8; }
+    p { text-align: right; }
 }
 
-h1, h2, h3 {
-font-weight:normal;
-}
-h1 { font-size: 4em; text-transform: lowercase; letter-spacing: -8px; margin:0; }
+h1, h2, h3 { font-weight: 300; }
+h1 { font-size: 4em; margin: 0; }
 h2 { font-size: 2em; }
 p { font-size: 1.5em; position: relative; text-align: left; }
 #wrapper {
@@ -115,14 +131,27 @@ color:black;
 footer p {
 font-size: 12px; text-align: center;
 }
-a.btn {
-width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000; text-align: center;
+a.btn, input.btn {
+width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000; text-align: center; font-size: inherit; background: none; cursor: pointer;
     &:hover {
         background: $lt-orange;
         border-color: $dk-orange;
     }
 }
 p.cc { text-align: center; }
+
+#profile {
+    max-width: 600px;
+    margin: 0 auto;
+    h2 { }
+    h3, p { text-align: left; margin-bottom: 1em; }
+}
+
+/* Form Helpers */
+form { text-align: left; }
+form label::after { content: ": "; }
+div.field_with_errors { display: inline; font-size: 1.5em; color: $dk-orange; }
+#error_explanation { color: $dk-orange; p { margin: 0; font-size: 1em; } }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
 #wrapper { padding: 1em; }
