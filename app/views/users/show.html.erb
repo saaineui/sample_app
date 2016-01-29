@@ -1,4 +1,4 @@
-<% provide(:title, "#{@user.name}'s Profile'") %>
+<% provide(:title, "#{@user.name}'s Profile".html_safe) %>
 <section id="profile">
 <h2>Welcome back, <%= @user.name %></h2>
 <h3>Account Info</h3>
