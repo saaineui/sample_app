@@ -131,6 +131,11 @@ color:black;
 footer p {
 font-size: 12px; text-align: center;
 }
+
+
+.alert { font-size: 13px; font-weight: 700; color: #fff; text-align: center; background: #000; }
+.alert-success { background: $dk-orange; }
+
 a.btn, input.btn {
 width: 200px; display: block; margin: 2px auto; padding: 1em; border: 1px solid #000; text-align: center; font-size: inherit; background: none; cursor: pointer;
     &:hover {
@@ -150,7 +155,7 @@ p.cc { text-align: center; }
 /* Form Helpers */
 form { text-align: left; }
 form label::after { content: ": "; }
-div.field_with_errors { display: inline; font-size: 1.5em; color: $dk-orange; }
+div.field_with_errors { display: inline; font-size: 1.5em; color: $dk-orange; input { border: 1px solid $dk-orange; } }
 #error_explanation { color: $dk-orange; p { margin: 0; font-size: 1em; } }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
