@@ -2,22 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* Development stuff */
-
 @mixin box_sizing {
 -moz-box-sizing:    border-box;
 -webkit-box-sizing: border-box;
 box-sizing:         border-box;
 }
-.debug_dump {
-clear: both;
-float: left;
-width: 100%;
-margin-top: 45px;
-border: 1px solid #444; 
-@include box_sizing;
-}
-
 
 $dk-orange: #FF9900;
 $lt-orange: #fffff8;
@@ -96,9 +85,7 @@ margin:0 auto;
 padding: 1em 4em;
 border-left: 1px solid $dk-orange;
 border-right: 1px solid $dk-orange;
-box-sizing: border-box;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
+@include box_sizing;
 position: relative;
 background: #eee;
 box-shadow: 0 0 25px #000;
@@ -135,7 +122,7 @@ font-size: 12px; text-align: center;
 }
 
 
-.alert { font-size: 13px; font-weight: 700; color: #fff; text-align: center; background: #000; }
+.alert { font-size: 13px; font-weight: 700; color: #fff; text-align: center; background: #000; padding: 1em; margin-bottom: 1em; }
 .alert-success { background: $dk-orange; }
 
 a.btn, input.btn {
