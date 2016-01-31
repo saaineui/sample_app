@@ -1,6 +1,6 @@
 <h1>Spineless</h1>
 
-<p>Rails application created with help from the highly recommended <%= link_to "Rails tutorial by Michael Hartl", "http://www.railstutorial.org/" %>.</p>
+<p>Rails application created with help from the highly recommended <a href="http://www.railstutorial.org/">Rails tutorial by Michael Hartl</a>.</p>
 
 <h2>Dependencies:</h2>
 
