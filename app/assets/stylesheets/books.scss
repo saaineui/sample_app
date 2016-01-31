@@ -11,7 +11,7 @@ font-size: 1.1em;
 line-height: 1.75em;
 }
 .Story {
-text-indent: 0.25in;
+text-indent: 1.5em;
 margin: 0;
 }
 #ebook p.FrontMatter {
@@ -29,16 +29,10 @@ margin: 0;
 margin-bottom: 1em;
 }
 .newyorker {
-margin-left: 0.6in;
-margin-right: 0.6in;
-margin-top: 12pt;
-margin-bottom: 12pt;
+margin: 1em 3em;
 }
-#ebook p.wrapper {
-margin-top: 12pt;
-margin-bottom: 12pt;
-margin-left: 0.35in;
-margin-right: 0.35in;
+#ebook div.wrapper {
+margin: 1em;
 }
 .Epigraph1 {
 text-indent: 0;
@@ -56,7 +50,7 @@ margin: 0;
 }
 .last {
 margin-top: 0;
-text-indent: 0.25in;
+text-indent: 1.5em;
 }
 .thanks {
 margin-top: 0;
@@ -85,79 +79,46 @@ margin-top:20%;
 margin-bottom:0;
 font-size:300%;
 font-weight: bold;
-width:50%;
-height:auto;
+width:60%;
+max-width:288px;
 margin-right: auto;
 margin-left: auto;
-text-align:center;
 }
 div.ninety {
 width: 90%;
-height: auto;
 margin-right: auto;
 margin-left: auto;
-text-align:center;
-}
-div.benchat {
-width: 75%;
-height: auto;
-margin-right: auto;
-margin-left: auto;
-margin-top:5px;
-margin-bottom:5px;
-text-align:center;
 }
 div.stencil  {
 width: 60%;
+max-width: 364px;
 height: auto;
-margin-top:0;
-margin-bottom:0;
-margin-right: auto;
-margin-left: auto;
+margin: 1em auto;
 text-align:center;
 }
 div.charliecolumn {
 width: 100%;
+max-width: 700px;
+margin: 0.5em auto;
+}
+div.benchat {
+width: 100%;
+max-width: 600px;
+margin: 0.5em auto;
 }
 div.tripcapture {
-width: 30%;
+width: 40%;
+max-width: 146px;
 height: auto;
-margin-top:0;
-margin-bottom:0;
-margin-right: auto;
-margin-left: auto;
+margin: 0 auto;
 text-align:center;
 }
 div.ouro {
-width: 15.6%;
+width: 33%;
+max-width: 138px;
 height: auto;
-margin-top:0;
-margin-bottom:0;
-margin-right: auto;
-margin-left: auto;
+margin: 2em auto;
 text-align:center;
-}
-div.sunthanks {
-width: 53%;
-height: auto;
-margin-top:0;
-margin-bottom:0;
-margin-right: auto;
-margin-left: auto;
-text-align:center;
-}
-div.shadowextras {
-width: 10%;
-height: auto;
-margin-top:0;
-margin-bottom:0;
-margin-right: auto;
-margin-left: auto;
-text-align:center;
-}
-div.signature {
-width: 35%;
-height: auto;
 }
 
 #ebook p.tightcenter {
@@ -182,12 +143,12 @@ margin-top:0;
 text-indent:0;
 }
 .txtmsg  {
-text-indent: 0.75in;
+text-indent: 3em;
 margin: 0;
 }
 .posttxt  {
-margin-top:12pt;
-text-indent:0.25in;
+margin-top:1em;
+text-indent:1em;
 }
 
 p.cc { font-size: 0.75em; }
