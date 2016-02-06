@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
     attr_accessor :remember_token
+    has_and_belongs_to_many :species
 
 
     before_save { self.email = email.downcase }
@@ -10,6 +11,7 @@ class User < ActiveRecord::Base
     has_secure_password
     
     validates :password, presence: true, length: { minimum: 6 }
+    validates :species, presence: true
 
     # Returns the hash digest of the given string.
     def User.digest(string)

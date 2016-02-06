@@ -3,4 +3,5 @@
 <h2>Welcome back, <%= @user.name %></h2>
 <h3>Account Info</h3>
 <p>Email: <%= @user.email %></p>
+<p>Species: <%= @user.species.map { |s| s.name }.join(", ") %></p>
 </section>

@@ -13,6 +13,11 @@
     </p>
 
     <p>
+    <%= f.label :species, class: "species-label" %>
+    <%= f.select :species_ids, options_for_select(Species.all.map { |s| [s.name, s.id] }), {}, {:multiple => true, :class => "species"} %>
+    </p>
+
+    <p>
     <%= f.label :password %>
     <%= f.password_field :password %>
     </p>

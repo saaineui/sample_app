@@ -8,7 +8,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
             post_via_redirect users_path, user: { name:  "Example User",
             email: "user@example.com",
             password:              "password",
-            password_confirmation: "password" }
+            password_confirmation: "password",
+            species_ids: [Species.all.first.id]}
         end
         assert_template 'users/show'
         assert is_logged_in?
