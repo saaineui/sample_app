@@ -143,6 +143,8 @@ p.cc { text-align: center; }
 /* Form Helpers */
 form { text-align: left; max-width: 400px; width: 100%; float: none; margin: 1em auto; }
 form label::after { content: ": "; }
+label.species-label { display: block; }
+select.species { height: 10em; }
 div.field_with_errors { display: inline; font-size: 1.5em; color: $dk-orange; input { border: 1px solid $dk-orange; } }
 #error_explanation { color: $dk-orange; p { margin: 0; font-size: 1em; } }
 
