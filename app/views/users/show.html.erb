@@ -1,7 +1,13 @@
-<% provide(:title, "#{@user.name}'s Profile".html_safe) %>
+<% provide(:title, "About #{@user.name}") %>
 <section id="profile">
 <h2>Welcome back, <%= @user.name %></h2>
 <h3>Account Info</h3>
-<p>Email: <%= @user.email %></p>
-<p>Species: <%= @user.species.map { |s| s.name }.join(", ") %></p>
+<table>
+    <tbody>
+        <tr><td>Name:</td><td><%= @user.name %></td></tr>
+        <tr><td>Email:</td><td><%= @user.email %></td></tr>
+        <tr><td>Species:</td><td><%= @user.species.map { |s| s.name }.join("<br />").html_safe %></td></tr>
+    </tbody>
+</table>
+<p><%= link_to "Edit", edit_user_path(current_user), class: "btn" %></p>
 </section>
