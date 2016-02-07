@@ -1,0 +1,34 @@
+<% provide(:title, "Edit #{@user.name}") %>
+<h2>Change is good.</h2>
+<%= form_for(@user) do |f| %>
+<%= render 'shared/error_messages' %>
+
+<p>
+<%= f.label :name %>
+<%= f.text_field :name %>
+</p>
+
+<p>
+<%= f.label :email %>
+<%= f.email_field :email %>
+</p>
+
+<p>
+<%= f.label :species, class: "species-label" %>
+<%= f.select :species_ids, options_for_select(Species.all.map { |s| [s.name, s.id] }), {}, {:multiple => true, :class => "species"} %>
+</p>
+
+<p>
+<%= f.label :password %>
+<%= f.password_field :password %>
+</p>
+
+<p>
+<%= f.label :password_confirmation, "Password Confirmation" %>
+<%= f.password_field :password_confirmation %>
+</p>
+
+<p>
+<%= f.submit "Save", class: "btn" %>
+</p>
+<% end %>
