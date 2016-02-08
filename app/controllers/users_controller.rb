@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, species_ids: [])
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, affinity_ids: [])
     end
 
     # Before filters
