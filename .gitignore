@@ -20,4 +20,4 @@
 .DS_Store
 
 # Ignore compiled assets
-public/assets/
+public/assets/*
