@@ -4,8 +4,8 @@
 
 #ebook { margin-top: 10em;
 p.Dedication2 { margin-bottom: 1em; }
-}
-#ebook p {
+
+p {
 text-align: justify;
 font-size: 1.1em;
 line-height: 1.75em;
@@ -14,31 +14,31 @@ line-height: 1.75em;
 text-indent: 1.5em;
 margin: 0;
 }
-#ebook p.FrontMatter {
+p.FrontMatter {
 text-indent: 0;
 text-align: center;
 margin-top: 0;
 }
-#ebook p.Dedication1, #ebook p.Dedication2 {
+p.Dedication1, p.Dedication2 {
 text-indent: 0;
 text-align: center;
 font-style: italic;
 margin: 0;
 }
-#ebook p.Dedication2 {
+p.Dedication2 {
 margin-bottom: 1em;
 }
 .newyorker {
 margin: 1em 3em;
 }
-#ebook div.wrapper {
+div.wrapper {
 margin: 1em;
 }
 .Epigraph1 {
 text-indent: 0;
 margin: 0;
 }
-#ebook p.Epigraph2 {
+p.Epigraph2 {
 text-indent: 0;
 text-align: right;
 font-size: 100%;
@@ -121,7 +121,7 @@ margin: 2em auto;
 text-align:center;
 }
 
-#ebook p.tightcenter {
+p.tightcenter {
 text-align:center;
 margin:0;
 }
@@ -150,3 +150,4 @@ margin: 0;
 margin-top:1em;
 text-indent:1em;
 }
+} /* Close #ebook */

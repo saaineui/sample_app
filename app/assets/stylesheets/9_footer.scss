@@ -1,6 +1,6 @@
-footer.web-copyright { position: absolute; left: 0; bottom: 0; width: 100%; }
+footer.web-copyright { position: absolute; left: 0; bottom: 0; width: 100%; background: rgba(238,238,238,0.9); border-top: 1px solid #eee; }
 footer p, #ebook footer p { font-size: 12px; text-align: center; }
 #ebook footer.cc-license p  { margin-bottom: 2em; }
-footer.cc-license a img { width: auto; opacity: 0.5; }
+#ebook footer.cc-license a img { width: auto; opacity: 0.5; }
 footer.cc-license a { border: none; text-decoration: underline; color: inherit; }
 footer.cc-license a:hover { color: #ccc; }
