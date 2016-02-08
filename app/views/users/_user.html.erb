@@ -1,0 +1,4 @@
+<li class="clearfix">
+    <div class="one_two"><%= link_to user.name, user %></div>
+    <div class="one_two"><%= user.affinities.map { |a| a.name }.join(", ").html_safe %></div>
+</li>
