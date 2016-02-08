@@ -13,8 +13,8 @@
     </p>
 
     <p>
-    <%= f.label :species, class: "species-label" %>
-    <%= f.select :species_ids, options_for_select(Species.all.map { |s| [s.name, s.id] }), {}, {:multiple => true, :class => "species"} %>
+    <%= f.label :affinities, class: "affinities-label" %>
+    <%= f.select :affinity_ids, options_for_select(Affinity.all.map { |a| [a.name, a.id] }), {}, {:multiple => true, :class => "affinities"} %>
     </p>
 
     <p>

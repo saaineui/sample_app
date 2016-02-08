@@ -3,11 +3,11 @@
 user:
     name: User Example
     email: fixture@example.com
-    species: <%= Species.all.first %>
+    affinities: <%= Affinity.all.first %>
     password_digest: <%= User.digest('password') %>
 
 other:
     name: Mister Other
     email: duchess@example.gov
-    species: <%= Species.all.first %>
+    affinities: <%= Affinity.all.first %>
     password_digest: <%= User.digest('password') %>

@@ -22,12 +22,12 @@ test "successful edit with friendly forwarding" do
     assert_redirected_to edit_user_path(@user)
     name  = "Foo Bar"
     email = "foo@bar.com"
-    species_ids = [Species.all.first.id]
+    affinity_ids = [Affinity.all.first.id]
     patch user_path(@user), user: { name:  name,
         email: email,
         password:              "",
         password_confirmation: "",
-        species_ids: species_ids}
+        affinity_ids: affinity_ids}
     assert_not flash.empty?
     assert_redirected_to @user
     @user.reload

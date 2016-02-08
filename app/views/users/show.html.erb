@@ -6,7 +6,7 @@
     <tbody>
         <tr><td>Name:</td><td><%= @user.name %></td></tr>
         <tr><td>Email:</td><td><%= @user.email %></td></tr>
-        <tr><td>Species:</td><td><%= @user.species.map { |s| s.name }.join("<br />").html_safe %></td></tr>
+        <tr><td>Affinities:</td><td><%= @user.affinities.map { |a| a.name }.join("<br />").html_safe %></td></tr>
     </tbody>
 </table>
 <p><%= link_to "Edit", edit_user_path(current_user), class: "btn" %></p>
