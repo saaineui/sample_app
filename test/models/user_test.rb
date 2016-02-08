@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
     
     def setup
-        @user = User.new(name: "Example User", email: "user@example.com", affinities: Affinity.all, password: "foobar", password_confirmation: "foobar")
+        @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
     end
     
     test "should be valid" do
@@ -26,7 +26,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     test "email validation should accept valid addresses" do
-        valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+        valid_addresses = %w[uzer@example.com USER@foo.COM A_US-ER@foo.bar.org
         first.last@foo.jp alice+bob@baz.cn]
         valid_addresses.each do |valid_address|
             @user.email = valid_address
@@ -60,9 +60,9 @@ class UserTest < ActiveSupport::TestCase
         assert_not @user.valid?
     end
 
-    test "affinities should be present" do
-        @user.affinities = []
-        assert_not @user.valid?
+    test "affinities should be present if set" do
+        @user.affinities = Affinity.all
+        assert_equal @user.affinities, Affinity.all
     end
 
 end
