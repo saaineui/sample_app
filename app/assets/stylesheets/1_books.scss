@@ -2,7 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#ebook { margin-top: 10em;
+#scroll-wrap {
+margin-top: 1em;
+height: 100vh;
+overflow: hidden;
+position: relative;
+}
+
+#ebook {
+position: absolute;
+top: 0;
+left: 0;
+
 p.Dedication2 { margin-bottom: 1em; }
 
 p {
