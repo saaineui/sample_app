@@ -162,3 +162,9 @@ margin-top:1em;
 text-indent:1em;
 }
 } /* Close #ebook */
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
+    #ebook h1 { font-size: 1.5em; }
+    #ebook h2, #ebook h3, #ebook p { font-size: 1em; }
+    #ebook p { line-height: 1.5em; }
+}
