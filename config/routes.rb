@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   get 'signup' => 'users#new'
-  get 'books/o' => 'books#show'
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
@@ -17,6 +16,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :users
+  resources :books
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

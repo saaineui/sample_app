@@ -1,0 +1,23 @@
+<% provide(:title, "New Book") %>
+<h2>I have no words.</h2>
+<%= form_for(@book) do |f| %>
+<% if @book.errors.any? %>
+<div id="error_explanation">
+<% @book.errors.full_messages.each do |msg| %>
+<p><%= msg %></p>
+<% end %>
+</div>
+<% end %><p>
+<%= f.label :title %>
+<%= f.text_field :title %>
+</p>
+
+<p>
+<%= f.label :slug %>
+<%= f.text_field :slug %>
+</p>
+
+<p>
+<%= f.submit "Create Book", class: "btn" %>
+</p>
+<% end %>

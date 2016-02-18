@@ -1,0 +1,8 @@
+<% provide(:title, 'Manage Books') %>
+<h2>Manage Books (<%= @books.count %>)</h2>
+
+<ul class="users">
+<% @books.each do |book| %>
+<%= render book %>
+<% end %>
+</ul>

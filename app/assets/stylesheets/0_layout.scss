@@ -153,6 +153,20 @@ td:first-child { font-weight: 700; }
 ul.users { @include box_sizing; position: relative; padding: 1em; border: 1px solid #000; }
 ul.users li { @include box_sizing; position: relative; width: 100%; border-bottom: 1px solid #000; padding: 1em; margin: 0; }
 
+/* Navigation */
+#book-nav {
+width: 48px;
+height: 104px;
+position: fixed;
+right: 1em;
+top: 50%;
+margin-top: -52px;
+nav { float: left; display: block; width: 48px; height: 47px; font-size: 0.001px; text-indent: -9999px; overflow: hidden; background-image: url('up-down.png'); background-size: 100% auto; background-repeat: no-repeat; cursor: pointer; }
+nav:hover { opacity: 0.5; }
+nav.up { background-position: center top; margin-bottom: 10px; }
+    nav.down { background-position: center bottom; }
+}
+
 /* Mobile */
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
