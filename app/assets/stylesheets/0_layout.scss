@@ -161,7 +161,7 @@ position: fixed;
 right: 1em;
 top: 50%;
 margin-top: -52px;
-nav { float: left; display: block; width: 48px; height: 47px; font-size: 0.001px; text-indent: -9999px; overflow: hidden; background-image: url('up-down.png'); background-size: 100% auto; background-repeat: no-repeat; cursor: pointer; }
+nav { float: left; display: block; width: 48px; height: 47px; font-size: 0.001px; text-indent: -9999px; overflow: hidden; background-image: asset-url('up-down.png'); background-size: 100% auto; background-repeat: no-repeat; cursor: pointer; }
 nav:hover { opacity: 0.5; }
 nav.up { background-position: center top; margin-bottom: 10px; }
     nav.down { background-position: center bottom; }
