@@ -16,37 +16,6 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 $dk-orange: #FF9900;
 $lt-orange: #fffff8;
 
-@font-face {
-font-family: 'Lato';
-font-style: normal;
-font-weight: 300;
-src: asset-url('lato_300.woff') format('woff');
-}
-@font-face {
-font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-src: asset-url('lato_400.woff') format('woff');
-}
-@font-face {
-font-family: 'Lato';
-font-style: normal;
-font-weight: 700;
-src: asset-url('lato_700.woff') format('woff');
-}
-@font-face {
-font-family: 'Lato';
-font-style: italic;
-font-weight: 400;
-src: asset-url('lato_400_italic.woff') format('woff');
-}
-@font-face {
-font-family: 'Lato';
-font-style: italic;
-font-weight: 700;
-src: asset-url('lato_700_italic.woff') format('woff');
-}
-
 /* End Meta Stuff */
 
 body, html {
@@ -58,7 +27,8 @@ body {
 font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 font-size:1em;
 text-align:center;
-background: #414141;
+background: url('rodin.jpg') center 0px no-repeat;
+background-size: 100% auto;
 font-weight: 400;
 box-shadow: 0 0 45px #181818 inset;
 }
