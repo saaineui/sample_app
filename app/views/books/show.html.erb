@@ -1,4 +1,5 @@
-<% provide(:title, "The Orientations") %>
+<% provide(:title, @book.author) %>
+
 <div id="scroll-wrap">
     <%= render 'books/o/index' %>
     <%= render 'layouts/cc' %>
@@ -11,3 +12,4 @@
     Next
     </nav>
 </div>
+    <%= render 'shared/books_js' %>

@@ -12,7 +12,6 @@ class BooksController < ApplicationController
     def create
         @book = Book.new(book_params)
         if @book.save
-            log_in @book
             flash[:success] = "#{@book.title} has been added."
             redirect_to @book
         else
@@ -21,14 +20,30 @@ class BooksController < ApplicationController
     end
 
     def show
+		@override_title_logo = true
+		@book = Book.find(params[:id])
     end
+
+    def edit
+		@book = Book.find(params[:id])
+    end
+
+	def update
+		@book = Book.find(params[:id])
+		if @book.update_attributes(book_params)
+			redirect_to @book
+			flash[:success] = "#{@book.title} has been updated."
+		else
+			render 'edit'
+		end
+	end
 
     def destroy
     end
 
   private
   def book_params
-      params.require(:book).permit(:title, :slug, section_ids: [])
+      params.require(:book).permit(:title, :slug, :author, :logo_url, :copyright, :epigraph, section_ids: [])
   end
   
   # Before filters

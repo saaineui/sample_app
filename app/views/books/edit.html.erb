@@ -1,4 +1,4 @@
-<% provide(:title, "New Book") %>
+<% provide(:title, "Edit #{@book.title}") %>
 
 <h2>I have no words.</h2>
 
@@ -43,6 +43,8 @@
 	</p>
 
 	<p>
-	<%= f.submit "Create Book", class: "btn" %>
+	<%= f.submit "Save", class: "btn" %>
 	</p>
+	<p><%= link_to "Cancel", @book %></p>
 <% end %>
+
