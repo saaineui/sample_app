@@ -19,14 +19,23 @@
 	*/
 
 	/* Principal Element Styles */
+	img {
+		display: block;
+		margin: 0 auto;
+		max-width: 100%;
+		height: auto;
+	}
 	h2  {
 		margin: 0;
 		text-align: center;
 		font-size: 1.5em;
 		font-weight: normal;
+		img {
+			max-width:60%;
+		}
 	}
 	h3  {
-		margin: 0 0 1em 0;
+		margin: 0;
 		text-align: center;
 		font-size: 1.5em;
 		font-weight: normal;
@@ -59,12 +68,20 @@
 		text-indent: 0;
 	}
 	.last {
-		margin: 0 0 1em 0;
+		margin: 0 0 1.75em 0;
 	}
-	.tightcenter {
-		text-align:center;
+	.tightcenter, .buffcenter {
+		text-align: center;
+		text-indent: 0;
+	}
+	.buffcenter {
+		margin: 1.75em 0;
 	}
 
+	/* Chapter Heads and Drop Caps */
+	header.chapter-head {
+		margin: 0 0 1.75em 0;
+	}
 	p.first-of-chapter:first-letter { float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; }
 
 	/* Text within the text overrides */
@@ -75,47 +92,33 @@
 		margin: 1.75em;
 		p { text-align: center; }
 	}
-	div.newyorker {
+	div.padded-left {
+		margin: 1.75em;
+		p { text-align: left; text-indent: 0; }
+	}
+	div.magazine-column {
 		margin: 1.75em 3em;
+	}
+	div.text-wrapper {
+		margin: 1.75em auto;
+		width: 30em;
+		max-width: 60%;
+		font-style: italic;
+		p { text-align: left; text-indent: 0; }
 	}
 
 	p.email  {
-		margin: 0 0 1.75em 0;
 		text-indent: 0;
 		text-align: left;
 	}
-
-	/* Refactor?? */
-	p.blog, .pubs  {
-		margin: 0 0 1.75em 0;
+	p.blog, p.pubs  {
+		margin: 0;
 		text-indent: 0;
 	}
-	p.txtmsg  {
-		text-indent: 3em;
+	p.blog.with-break, p.pubs.with-break, p.email.with-break, p.with-break {
+		margin-bottom: 1.75em;
 	}
-	p.posttxt  {
-		margin: 1em 0;
-	}
-
-.thanks {
-margin-top: 0;
-text-indent: 0;
-}
-
-img {
-width:100%;
-}
-
-div.sun {
-margin-top:20%;
-margin-bottom:0;
-font-size:300%;
-font-weight: bold;
-width:60%;
-max-width:288px;
-margin-right: auto;
-margin-left: auto;
-}
+	
 div.ninety {
 width: 90%;
 margin-right: auto;

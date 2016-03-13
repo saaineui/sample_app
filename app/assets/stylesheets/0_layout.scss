@@ -60,7 +60,7 @@ p { position: relative; text-align: left; }
 a, a:visited, input { font-weight: 700; color: $dk-orange; text-decoration: none; }
 a:hover, a:active, .here, input:hover { color:black; }
 
-header > nav {
+header#sticky-bar > nav {
     h1, p {
         display: block;
         float: left;
