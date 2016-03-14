@@ -1,23 +1,38 @@
 <script type="text/javascript">
 (function() {
 
-	var direction, scroll_interval;
+	var direction, scroll_interval, margin, sticky_bar_height, box_height;
 	var anchor = 0;
-	var margin = 16*4;
 
 	jQuery(function() {
 	
 		if (document.getElementById('scroll-wrap') != null ) {
 		
-		
-			scroll_interval = jQuery(window).height() - jQuery('header').height() - margin;
-			jQuery('#scroll-wrap').height(scroll_interval);
+			/* Get line height */
+			var line_height = parseInt( jQuery("#ebook p").css("line-height") );
+			
+			/* Resize book images */
+			jQuery("#ebook figure, #ebook h2").each(function() {
+				box_height = parseInt( jQuery(this).innerHeight() ); 
+				jQuery(this).innerHeight( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
+			});
+			
+			/* Compute margin */
+			margin = line_height*4;
+			
+			/* Get sticky bar height */
+			sticky_bar_height = parseInt( jQuery("#sticky-bar").innerHeight() );
+			
+			/* Compute scroll interval */
+			box_height = jQuery(window).innerHeight() - sticky_bar_height;
+			scroll_interval = box_height - (box_height % line_height) - margin;
+			
+			/* Resize bounding box */
+			jQuery('#scroll-wrap').innerHeight(scroll_interval);
 
 			window.addEventListener("resize", function() {
 				/* Reset when window resizes or screen orientation changes */
-				scroll_interval = jQuery(window).height() - jQuery('header').height() - margin;
-				jQuery('#scroll-wrap').height(scroll_interval);
-			});
+			}); 
 
 			jQuery("#book-nav nav").click(function(){
 			
