@@ -38,12 +38,16 @@ class BooksController < ApplicationController
 		end
 	end
 
+	def upload
+		@book = Book.find(params[:id])
+	end
+
     def destroy
     end
 
   private
   def book_params
-      params.require(:book).permit(:title, :slug, :author, :logo_url, :copyright, :epigraph, section_ids: [])
+      params.require(:book).permit(:title, :slug, :author, :logo_url, :copyright, :epigraph, :background_image_url, section_ids: [])
   end
   
   # Before filters

@@ -1,0 +1,22 @@
+<% provide(:title, "Upload #{@book.title}") %>
+
+<h2>Feed the beast.</h2>
+
+<%= form_for(:sections, url: upload_review_path) do |f| %>
+
+<p>Your file should be an HTML document containing your entire book test marked up with HTML5 and the classes and tags defined in 1_books.scss.</p>
+<p>The inner HTML of each section element in your file will be saved automatically in a separate section.</p>
+
+<%= hidden_field_tag(:book_id, @book.id) %>
+
+	<p>
+	<%= f.label :ebook_dump %>
+	<%= f.file_field :ebook_dump %>
+	</p>
+
+	<p>
+	<%= f.submit "Upload", class: "btn" %>
+	</p>
+	
+	<p><%= link_to "Cancel", books_path %></p>
+<% end %>

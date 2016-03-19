@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313003154) do
+ActiveRecord::Schema.define(version: 20160319053321) do
 
   create_table "affinities", force: :cascade do |t|
     t.string   "name"
@@ -27,12 +27,13 @@ ActiveRecord::Schema.define(version: 20160313003154) do
   create_table "books", force: :cascade do |t|
     t.string   "title"
     t.string   "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "author"
     t.string   "logo_url"
     t.text     "epigraph"
     t.text     "copyright"
+    t.string   "background_image_url"
   end
 
   create_table "books_sections", id: false, force: :cascade do |t|
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160313003154) do
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "chapter"
   end
 
   create_table "users", force: :cascade do |t|
