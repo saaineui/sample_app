@@ -62,15 +62,12 @@ a, a:visited, input { font-weight: 700; color: $dk-orange; text-decoration: none
 a:hover, a:active, .here, input:hover { color:black; }
 
 header#sticky-bar > nav {
-    h1, p {
-        display: block;
-        float: left;
-    }
-    h1 { width: 60%; }
+    h1, p { display: block; }
+    h1 { width: 60%; float: left; }
     h1 a img { display: block; max-width: 100%; }
     h1 a:hover img { opacity: 0.5; }
     p {
-        text-align: right; margin: 0 0 1em 0; width: 40%; font-size: 0.75em;
+        float: right; text-align: right; margin: 0 0 1em 0; width: 40%; font-size: 0.75em;
         a { text-transform: uppercase; }
     }
 }

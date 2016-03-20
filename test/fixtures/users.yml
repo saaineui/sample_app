@@ -9,6 +9,6 @@ user:
 
 other:
     name: Mister Other
-    email: duchess@example.gov
+    email: dutchess@example.gov
     affinities: <%= Affinity.first %>
     password_digest: <%= User.digest('password') %>

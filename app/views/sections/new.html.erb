@@ -1,3 +1,8 @@
 <% provide(:title, "Review Upload for #{@book.title}") %>
 
-<p><%= @book.title %></p>
+<ol>
+<%- @sections.each do |section| %>
+<li><%= section.xpath("//header").length > 0 ? section.xpath("//header").first.inner_text.to_s : "[No Header]" %> (<%= section.inner_text.length %>)</li>
+<%- section.unlink %>
+<%- end %>
+</ol>

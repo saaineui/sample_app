@@ -1,0 +1,5 @@
+one:
+    title: MyString
+    order: 1
+    text: MyString
+    chapter: true

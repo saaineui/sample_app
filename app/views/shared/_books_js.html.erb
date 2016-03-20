@@ -4,31 +4,32 @@
 	var direction, scroll_interval, margin, sticky_bar_height, box_height;
 	var anchor = 0;
 
-	jQuery(function() {
+	jQuery(document).ready(function() {
 	
 		if (document.getElementById('scroll-wrap') != null ) {
+		  setTimeout(function(){
 		
 			/* Get line height */
 			var line_height = parseInt( jQuery("#ebook p").css("line-height") );
 			
 			/* Resize book images */
 			jQuery("#ebook figure, #ebook h2").each(function() {
-				box_height = parseInt( jQuery(this).innerHeight() ); 
-				jQuery(this).innerHeight( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
+				box_height = parseInt( jQuery(this).height() ); 
+				jQuery(this).height( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
 			});
 			
 			/* Compute margin */
-			margin = line_height*4;
+			margin = line_height;
 			
 			/* Get sticky bar height */
-			sticky_bar_height = parseInt( jQuery("#sticky-bar").innerHeight() );
+			sticky_bar_height = parseInt( jQuery("#sticky-bar > nav").height() );
 			
-			/* Compute scroll interval */
-			box_height = jQuery(window).innerHeight() - sticky_bar_height;
+			/* Compute scroll interval (16 is wrapper padding) */
+			box_height = jQuery(window).height() - sticky_bar_height - 16;
 			scroll_interval = box_height - (box_height % line_height) - margin;
 			
 			/* Resize bounding box */
-			jQuery('#scroll-wrap').innerHeight(scroll_interval);
+			jQuery('#scroll-wrap').height(scroll_interval + 'px');
 
 			window.addEventListener("resize", function() {
 				/* Reset when window resizes or screen orientation changes */
@@ -40,13 +41,15 @@
 				if (jQuery(this).hasClass("up")) { direction = "+"; anchor++; } else { direction = "-"; anchor--; }
 				
 				if (anchor <= 0) {
-					jQuery("#ebook").animate({ top: direction + "=" + scroll_interval + "px" }, 1000);
+					jQuery("#ebook").animate({ top: direction + "=" + scroll_interval + "px" }, 700);
 				} else {
 					anchor = 0;
 				}
 				
 			});
-		}
+		  }, 100); /* close delay */
+		} /* close if */
+		
 		
 	});
 		
