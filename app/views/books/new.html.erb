@@ -33,6 +33,11 @@
 	</p>
 
 	<p>
+	<%= f.label :background_image_url %>
+	<%= f.text_field :background_image_url %>
+	</p>
+
+	<p>
 	<%= f.label :epigraph %>
 	<%= f.text_area :epigraph %>
 	</p>
@@ -45,4 +50,5 @@
 	<p>
 	<%= f.submit "Create Book", class: "btn" %>
 	</p>
+	<p><%= link_to "Cancel", books_path %></p>
 <% end %>

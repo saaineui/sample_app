@@ -4,7 +4,7 @@ module ApplicationHelper
   def clean_title(override, page_title = '')
     # get base title
 	if override
-		base_title = params[:id] && Book.find(params[:id]) ? Book.find(params[:id]).title : "Book"
+		base_title = params[:id] && Book.find(params[:id]) ? Book.find(params[:id]).title : "Book Not Found"
 	else
 		base_title = "Spineless"
 	end
@@ -16,4 +16,5 @@ module ApplicationHelper
       base_title + " | " + page_title
     end
   end
+    
 end

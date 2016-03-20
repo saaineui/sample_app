@@ -8,12 +8,12 @@
         <tr><td>Affinities:</td><td><%= @user.affinities.map { |a| a.name }.join("<br />").html_safe %></td></tr>
     </tbody>
 </table>
-<%- if current_user.admin? %>
+<%- if current_user.admin? && current_user?(@user) %>
 <p><%= link_to "New Book", new_book_path, class: "btn" %></p>
 <p><%= link_to "Manage Books", books_path, class: "btn" %></p>
 <%- end %>
 <%- if current_user?(@user) %>
-<p><%= link_to "Edit", edit_user_path(current_user), class: "btn" %></p>
+<p><%= link_to "Edit Profile", edit_user_path(current_user), class: "btn" %></p>
 <%- end %>
 <p><%= link_to "All Readers", users_path, class: "btn" %></p>
 </section>

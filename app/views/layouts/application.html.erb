@@ -1,4 +1,5 @@
 <%- @override_title_logo ||= false %>
+<%- @override_background ||= false %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 </head>
 <%- if @override_background %>
 <style>
-body { background-image: url('http://www.stephsun.com/books/o/arrow.png'); }
+body { background-image: url('<%= @background_image_url %>'); }
 </style>
 <%- end %>
 <body>
