@@ -22,6 +22,8 @@ class BooksController < ApplicationController
     def show
 		@override_title_logo = true
 		@book = Book.find(params[:id])
+		
+		@override_background = @book.background_image_url.present?
     end
 
     def edit

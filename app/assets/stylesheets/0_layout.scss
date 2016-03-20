@@ -27,7 +27,9 @@ body {
 	font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 	font-size:1em;
 	text-align:center;
-	background: url('http://www.stephsun.com/books/o/arrow.png') center 0px repeat;
+	background-image: asset-url('spineless_tesselation.png');
+	background-position: center 0px;
+	background-repeat: repeat;
 	font-weight: 400;
 	box-shadow: 0 0 45px #181818 inset;
 }

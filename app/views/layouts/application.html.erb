@@ -10,6 +10,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 </head>
+<%- if @override_background %>
+<style>
+body { background-image: url('http://www.stephsun.com/books/o/arrow.png'); }
+</style>
+<%- end %>
 <body>
     <div id="wrapper" class="box">
 <%= render 'layouts/header' %>
