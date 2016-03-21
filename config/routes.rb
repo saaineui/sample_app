@@ -19,11 +19,11 @@ Rails.application.routes.draw do
   resources :books do
 	member do
 		get 'upload'
+		post 'toc_check'
 	end
   end
   
   post	'upload_review'	=>	'sections#new'
-  post	'sections/bulkmake'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

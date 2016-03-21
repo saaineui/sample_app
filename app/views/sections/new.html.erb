@@ -1,40 +1,41 @@
 <% provide(:title, "Review Upload for #{@book.title}") %>
-<% order = 0 %>
 <% total_characters = 0 %>
+<% chars_per_page = 2000 %>
+
+<p>Please review and edit the book data that the scanner found and submit.</p>
 
 <table class="book-data-review">
-<%= form_tag("/sections/bulkmake", method: "post") do %>
+<%= form_for(@book, url: toc_check_book_path(@book)) do |book_form| %>
 	<thead>
 		<tr>
 			<th>Order</th>
 			<th>Title</th>
 			<th>Characters</th>
-			<th>Pages (estimated)</th>
+			<th>Pages <br />(estimated)</th>
 		</tr>
 	</thead>
 	<tbody>
-	<%- @sections.each do |section| %>
-		<%- characters = section.inner_text.length %>
+  <% @book.sections.each do |section| %>
+    <%= book_form.fields_for section, index: section do |section_form|%>
+		<%- characters = section.text.length %>
 		<%- total_characters += characters %>
 		<tr>
-		<%- order += 1 %>
-			<td><%= number_field_tag(:section,:order, {value: order}) %></td>
-		<%- title = section.xpath("//header").length > 0 ? section.xpath("//header").first.inner_text.to_s.gsub(/\s+/," ") : "" %>
-			<td><%= text_field_tag(:section,:title, {value: title}) %></td>
+			<td><%= section.order %></td>
+			<td><%= section_form.text_field :title %></td>
 			<td><%= number_with_delimiter(characters) %></td>
-			<td><%= characters / 3000 %></td>
+			<td><%= characters / chars_per_page %></td>
 		</tr>
-		<%- section.unlink %>
-	<%- end %>
+    <% end %>
+  <%- end %>
 		<tr>
 			<td>Total</td>
 			<td></td>
-			<td><%= total_characters %></td>
-			<td><%= total_characters / 3000 %></td>
+			<td><%= number_with_delimiter(total_characters) %></td>
+			<td><%= total_characters / chars_per_page %></td>
 		</tr>
 		<tr>
-			<td colspan=4><%= submit_tag("Submit") %></td>
+			<td colspan=4><%= book_form.submit "Submit", class: "btn" %></td>
 		</tr>
 	</tbody>
-<%- end %>
+<% end %>
 </table>

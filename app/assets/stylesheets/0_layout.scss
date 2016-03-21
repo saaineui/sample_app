@@ -143,6 +143,9 @@ th:first-child, td:first-child { font-weight: 700; }
 
 table.book-data-review {
 	th, td { width: auto; }
+	input[type=number] { width: 50px; }
+	input[type=text] { width: 240px; }
+	td:nth-child(3), td:last-child { text-align: right; }
 }
 
 /* Columns */
