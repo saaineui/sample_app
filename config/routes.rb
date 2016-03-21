@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
   
   post	'upload_review'	=>	'sections#new'
+  post	'sections/bulkmake'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

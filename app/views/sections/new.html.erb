@@ -1,8 +1,40 @@
 <% provide(:title, "Review Upload for #{@book.title}") %>
+<% order = 0 %>
+<% total_characters = 0 %>
 
-<ol>
-<%- @sections.each do |section| %>
-<li><%= section.xpath("//header").length > 0 ? section.xpath("//header").first.inner_text.to_s : "[No Header]" %> (<%= section.inner_text.length %>)</li>
-<%- section.unlink %>
+<table class="book-data-review">
+<%= form_tag("/sections/bulkmake", method: "post") do %>
+	<thead>
+		<tr>
+			<th>Order</th>
+			<th>Title</th>
+			<th>Characters</th>
+			<th>Pages (estimated)</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%- @sections.each do |section| %>
+		<%- characters = section.inner_text.length %>
+		<%- total_characters += characters %>
+		<tr>
+		<%- order += 1 %>
+			<td><%= number_field_tag(:section,:order, {value: order}) %></td>
+		<%- title = section.xpath("//header").length > 0 ? section.xpath("//header").first.inner_text.to_s.gsub(/\s+/," ") : "" %>
+			<td><%= text_field_tag(:section,:title, {value: title}) %></td>
+			<td><%= number_with_delimiter(characters) %></td>
+			<td><%= characters / 3000 %></td>
+		</tr>
+		<%- section.unlink %>
+	<%- end %>
+		<tr>
+			<td>Total</td>
+			<td></td>
+			<td><%= total_characters %></td>
+			<td><%= total_characters / 3000 %></td>
+		</tr>
+		<tr>
+			<td colspan=4><%= submit_tag("Submit") %></td>
+		</tr>
+	</tbody>
 <%- end %>
-</ol>
+</table>

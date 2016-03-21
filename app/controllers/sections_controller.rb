@@ -7,6 +7,9 @@ class SectionsController < ApplicationController
 		   @sections = raw_text.xpath("//section")
     end
     
+    def bulkmake
+    end
+
     def destroy
     end
 
