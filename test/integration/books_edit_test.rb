@@ -13,6 +13,12 @@ class BooksEditTest < ActionDispatch::IntegrationTest
         assert_redirected_to root_path
     end
 
+    test "regular user can not upload books" do
+        log_in_as(@user)
+        get upload_book_path(@book)
+        assert_redirected_to root_path
+    end
+
     test "regular user can not edit books" do
         log_in_as(@user)
         get edit_book_path(@book)
