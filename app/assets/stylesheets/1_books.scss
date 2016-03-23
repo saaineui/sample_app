@@ -29,9 +29,9 @@
 	h2  {
 		margin: 0;
 		text-align: center;
-		font-size: 56px;
-		line-height: 60px;
-		font-weight: normal;
+		font-size: 36px;
+		line-height: 45px;
+		font-weight: 300;
 		img {
 			max-width:60%;
 		}
@@ -52,18 +52,15 @@
 	}
 
 	/* Front Matter */
-	p.epi-quote, p.epi-attribution, p.cc-license {
+	p.epi-quote, p.epi-attribution {
 		text-indent: 0;
-		text-align: center;
 		font-style: italic;
 		margin: 0;
 	}
-	p.epi-attribution {
-		text-align: right;
-	}
-	p.cc-license a img { width: auto; opacity: 0.5; }
-	p.cc-license a { border: none; text-decoration: underline; color: inherit; }
-	p.cc-license a:hover { color: #ccc; }
+	p.epi-quote { text-align: left; }
+	p.epi-attribution { text-align: right; }
+	div.cc-license p { text-indent: 0px; text-align: center; }
+
 	
 
 	/* Body */
@@ -128,7 +125,9 @@
 	.dead-center {
 		/* tbd */
 	}
-
+	
+	
+	
 } /* Close #ebook */
 
 

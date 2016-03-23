@@ -2,7 +2,18 @@
 
 <div id="scroll-wrap">
 	<div id="ebook">
-    <%= @book.sections.sort_by(&:order).first.text.html_safe %>
+		<%- case @location %>
+		<%- when 0 %>
+		<h2><%= @book.title %></h2>
+		<h2>by <%= @book.author %></h2>
+		<%- when 1 %>
+		<section><%= @book.epigraph.html_safe %></section>
+		<%- when 2 %>
+		<section><%= @book.copyright.html_safe %></section>
+		<%- else %>
+		<%= @book.sections[@location-3].text.html_safe %>
+		<%- end %>
+		<p class="buffcenter"><%= link_to "Next", book_path(@book) + "?r=" + (@location + 1).to_s, class: "btn" %></p>
 	</div>
 </div>
 <div id="book-nav">
