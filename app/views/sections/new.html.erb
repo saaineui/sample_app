@@ -1,11 +1,11 @@
-<% provide(:title, "Review Upload for #{@book.title}") %>
+<% provide(:title, "Edit Table of Contents for #{@book.title}") %>
 <% total_characters = 0 %>
-<% chars_per_page = 2000 %>
+<% chars_per_page = 3000 %>
 
 <p>Please review and edit the book data that the scanner found and submit.</p>
 
 <table class="book-data-review">
-<%= form_for(@book, url: toc_check_book_path(@book)) do |book_form| %>
+<%= form_for(@book, url: book_path(@book)) do |book_form| %>
 	<thead>
 		<tr>
 			<th>Order</th>
@@ -16,7 +16,7 @@
 	</thead>
 	<tbody>
   <% @book.sections.each do |section| %>
-    <%= book_form.fields_for section, index: section do |section_form|%>
+    <%= book_form.fields_for section, index: section.id do |section_form|%>
 		<%- characters = section.text.length %>
 		<%- total_characters += characters %>
 		<tr>

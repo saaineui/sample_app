@@ -2,7 +2,7 @@
 
 <div id="scroll-wrap">
 	<div id="ebook">
-    <%= render 'books/o/index' %>
+    <%= @book.sections.sort_by(&:order).first.text.html_safe %>
 	</div>
 </div>
 <div id="book-nav">
