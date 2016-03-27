@@ -27,8 +27,6 @@ module SampleApp
     config.assets.enabled = true
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     
-    # Remote storage
-    config.steph_remote = "http://www.stephsun.com/books/"
   end
 end
 

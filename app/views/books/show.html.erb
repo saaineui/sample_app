@@ -4,16 +4,17 @@
 	<div id="ebook">
 		<%- case @location %>
 		<%- when 0 %>
+		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title %></figure></p>
+		<%- when 1 %>
 		<h2><%= @book.title %></h2>
 		<h2>by <%= @book.author %></h2>
-		<%- when 1 %>
-		<section><%= @book.epigraph.html_safe %></section>
 		<%- when 2 %>
+		<section><%= @book.epigraph.html_safe %></section>
+		<%- when 3 %>
 		<section><%= @book.copyright.html_safe %></section>
 		<%- else %>
-		<%= @book.sections[@location-3].text.html_safe %>
+		<%= @book.sections[@location-4].text.html_safe %>
 		<%- end %>
-		<p class="buffcenter"><%= link_to "Next", book_path(@book) + "?r=" + (@location + 1).to_s, class: "btn" %></p>
 	</div>
 </div>
 <div id="book-nav">
@@ -24,4 +25,6 @@
     Next
     </nav>
 </div>
+<%= link_to "Back", book_path(@book) + "?r=" + (@location - 1).to_s, id: "back-btn" %>
+<%= link_to "Next", book_path(@book) + "?r=" + (@location + 1).to_s, id: "next-btn" %>
     <%= render 'shared/books_js' %>

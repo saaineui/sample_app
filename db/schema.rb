@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319053321) do
+ActiveRecord::Schema.define(version: 20160327064537) do
 
   create_table "affinities", force: :cascade do |t|
     t.string   "name"
@@ -24,9 +24,20 @@ ActiveRecord::Schema.define(version: 20160319053321) do
     t.integer "affinity_id", null: false
   end
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.integer  "location"
+    t.integer  "percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bookmarks", ["book_id"], name: "index_bookmarks_on_book_id"
+  add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
+
   create_table "books", force: :cascade do |t|
     t.string   "title"
-    t.string   "slug"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.string   "author"
@@ -34,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160319053321) do
     t.text     "epigraph"
     t.text     "copyright"
     t.string   "background_image_url"
+    t.string   "cover_image_url"
   end
 
   create_table "books_sections", id: false, force: :cascade do |t|

@@ -51,7 +51,7 @@ class BooksController < ApplicationController
 
   private
   def book_params
-      params.require(:book).permit(:title, :slug, :author, :logo_url, :copyright, :epigraph, :background_image_url, section_ids: [])
+      params.require(:book).permit(:title, :author, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, section_attributes: [:id,:title])
   end
   
   # Before filters

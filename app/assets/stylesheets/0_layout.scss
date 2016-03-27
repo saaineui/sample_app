@@ -63,11 +63,11 @@ a:hover, a:active, .here, input:hover { color:black; }
 
 header#sticky-bar > nav {
     h1, p { display: block; }
-    h1 { width: 60%; float: left; }
+    h1 { width: 50%; float: left; }
     h1 a img { display: block; max-width: 100%; }
     h1 a:hover img { opacity: 0.5; }
     p {
-        float: right; text-align: right; margin: 0 0 1em 0; width: 40%; font-size: 0.75em;
+        float: right; text-align: right; margin: 0 0 1em 0; width: 50%; font-size: 0.75em;
         a { text-transform: uppercase; }
     }
 }
@@ -157,6 +157,9 @@ table.book-data-review {
 ul.users { @include box_sizing; position: relative; padding: 1em; border: 1px solid #000; }
 ul.users li { @include box_sizing; position: relative; width: 100%; border-bottom: 1px solid #000; padding: 1em; margin: 0; }
 
+figure.index-logos { text-align: center; }
+figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
+
 /* Navigation */
 #book-nav {
 	width: 48px;
@@ -170,6 +173,9 @@ ul.users li { @include box_sizing; position: relative; width: 100%; border-botto
 	nav.up { background-position: center top; margin-bottom: 10px; }
     nav.down { background-position: center bottom; }
 }
+#next-btn, #back-btn { position: fixed; bottom: 6px; text-decoration: underline; width: 60px; }
+#next-btn { right: 6px; }
+#back-btn { left: 6px; }
 
 /* Mobile */
 
