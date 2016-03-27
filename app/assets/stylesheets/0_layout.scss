@@ -66,8 +66,9 @@ header#sticky-bar > nav {
     h1 { width: 50%; float: left; }
     h1 a img { display: block; max-width: 100%; }
     h1 a:hover img { opacity: 0.5; }
-    p {
-        float: right; text-align: right; margin: 0 0 1em 0; width: 50%; font-size: 0.75em;
+    div.nav-wrapper {
+        float: right; width: 50%; font-size: 0.75em;
+		p { text-align: right; margin: 0 0 1em 0; }
         a { text-transform: uppercase; }
     }
 }

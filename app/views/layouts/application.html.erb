@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<%= stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,700italic', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 </head>
 <%- if @override_background %>
@@ -24,5 +23,7 @@ body { background-image: url('<%= @background_image_url %>'); }
 <% end %>
 <%= yield %>
     </div>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= render 'shared/books_js' %>
 </body>
 </html>

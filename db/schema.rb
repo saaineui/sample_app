@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327064537) do
+ActiveRecord::Schema.define(version: 20160327210357) do
 
   create_table "affinities", force: :cascade do |t|
     t.string   "name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160327064537) do
     t.text     "copyright"
     t.string   "background_image_url"
     t.string   "cover_image_url"
+    t.integer  "text_length"
   end
 
   create_table "books_sections", id: false, force: :cascade do |t|

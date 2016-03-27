@@ -1,5 +1,5 @@
 sample_book:
     title: The Lady Knows What She Wants
     author: Jimmy Stewart
-    slug: l
+    cover_image_url: http://www.example.org/image.jpg
     logo_url: http://www.example.org/image.jpg

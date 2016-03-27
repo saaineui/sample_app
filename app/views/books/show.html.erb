@@ -25,6 +25,5 @@
     Next
     </nav>
 </div>
-<%= link_to "Back", book_path(@book) + "?r=" + (@location - 1).to_s, id: "back-btn" %>
-<%= link_to "Next", book_path(@book) + "?r=" + (@location + 1).to_s, id: "next-btn" %>
-    <%= render 'shared/books_js' %>
+<%= link_to "Back", book_path(@book) + "?l=" + (@location - 1).to_s, id: "back-btn" %>
+<%= link_to "Next", book_path(@book) + "?l=" + (@location + 1).to_s, id: "next-btn" %>

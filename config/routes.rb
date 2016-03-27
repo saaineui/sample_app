@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :books do
 	member do
 		get 'upload'
+		get 'update_length'
 	end
   end
   
