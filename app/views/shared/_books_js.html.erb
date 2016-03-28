@@ -3,6 +3,7 @@
 
 	var direction, scroll_interval, margin, sticky_bar_height, box_height;
 	var anchor = 0;
+	var max_clicks = 0;
 
 	jQuery(document).ready(function() {
 	
@@ -21,16 +22,23 @@
 			/* Compute margin */
 			margin = line_height;
 			
-			/* Get sticky bar height */
+			/* Get sticky bar and content box heights */
 			sticky_bar_height = parseInt( jQuery("#sticky-bar > nav").height() );
+			content_height = parseInt( jQuery("#ebook").height() );
 			
 			/* Compute scroll interval (16 is wrapper padding) */
-			box_height = jQuery(window).height() - sticky_bar_height - 16;
+			var box_height = jQuery(window).height() - sticky_bar_height - 16;
 			scroll_interval = box_height - (box_height % line_height) - margin;
 			
-			/* Hide buttons if one page section */
-			if (parseInt( jQuery("#ebook").height() ) < scroll_interval) {
+			if (content_height < scroll_interval) {
+				
+				/* Hide buttons if one page section */
 				jQuery("#book-nav").hide();
+				
+			} else {
+			
+				/* Calculate Max Clicks */
+				max_clicks = Math.floor(content_height / scroll_interval);
 			}
 			
 			/* Resize bounding box */
@@ -43,10 +51,14 @@
 			jQuery("#book-nav nav").click(function(){
 			
 				/* Get scroll direction */
-				if (jQuery(this).hasClass("up")) { direction = "+"; anchor++; } else { direction = "-"; anchor--; }
+				if (jQuery(this).hasClass("up")) { direction = "+"; anchor--; } else { direction = "-"; anchor++; }
 				
-				if (anchor <= 0) {
-					jQuery("#ebook").animate({ top: direction + "=" + scroll_interval + "px" }, 700);
+				if (anchor >= 0) {
+					if (anchor <= max_clicks) {
+						jQuery("#ebook").animate({ top: direction + "=" + scroll_interval + "px" }, 700);
+					} else {
+						anchor = max_clicks;
+					}
 				} else {
 					anchor = 0;
 				}
