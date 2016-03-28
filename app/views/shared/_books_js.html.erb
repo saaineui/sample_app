@@ -28,6 +28,11 @@
 			box_height = jQuery(window).height() - sticky_bar_height - 16;
 			scroll_interval = box_height - (box_height % line_height) - margin;
 			
+			/* Hide buttons if one page section */
+			if (parseInt( jQuery("#ebook").height() ) < scroll_interval) {
+				jQuery("#book-nav").hide();
+			}
+			
 			/* Resize bounding box */
 			jQuery('#scroll-wrap').height(scroll_interval + 'px');
 

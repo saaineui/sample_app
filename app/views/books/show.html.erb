@@ -8,10 +8,11 @@
 		<%- when 1 %>
 		<h2><%= @book.title %></h2>
 		<h2>by <%= @book.author %></h2>
+		<p class="buffcenter">A Novel</p>
 		<%- when 2 %>
-		<section><%= @book.epigraph.html_safe %></section>
+		<%= @book.epigraph.html_safe %>
 		<%- when 3 %>
-		<section><%= @book.copyright.html_safe %></section>
+		<%= @book.copyright.html_safe %>
 		<%- else %>
 		<%= @book.sections[@location-4].text.html_safe %>
 		<%- end %>
@@ -25,5 +26,5 @@
     Next
     </nav>
 </div>
-<%= link_to "Back", book_path(@book) + "?l=" + (@location - 1).to_s, id: "back-btn" %>
-<%= link_to "Next", book_path(@book) + "?l=" + (@location + 1).to_s, id: "next-btn" %>
+<%= link_to "Back", book_path(@book) + "?l=" + (@location - 1).to_s, id: "back-btn" if @location > 0 %>
+<%= link_to "Next", book_path(@book) + "?l=" + (@location + 1).to_s, id: "next-btn" if @location < (@book.sections.count + 3) %>
