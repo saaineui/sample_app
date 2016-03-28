@@ -23,6 +23,8 @@ body { background-image: url('<%= @background_image_url %>'); }
 <% end %>
 <%= yield %>
     </div>
+	<!-- Lightbox -->
+	<div id="lightbox"><span id="close">x</span></div>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= render 'shared/books_js' %>
 </body>

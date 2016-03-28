@@ -7,6 +7,16 @@
 
 	jQuery(document).ready(function() {
 	
+		jQuery("#ebook figure img").click(function(){
+			jQuery("#lightbox").css("background-image", "url('" + jQuery(this).attr("src") + "')");
+			jQuery("#lightbox").show();
+		});
+
+		jQuery("#close").click(function(){
+			jQuery("#lightbox").hide();
+		});
+
+	
 		if (document.getElementById('scroll-wrap') != null ) {
 		  setTimeout(function(){
 		
