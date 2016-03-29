@@ -6,12 +6,16 @@
 	var max_clicks = 0;
 
 	jQuery(document).ready(function() {
-	
+
+		/* Toggle menus */
+		jQuery("div.nav-wrapper > ul > li").click(function(){
+			jQuery(this).children("ul.menu").toggle();
+		});
+		/* Open and close lightbox */
 		jQuery("#ebook figure img").click(function(){
 			jQuery("#lightbox").css("background-image", "url('" + jQuery(this).attr("src") + "')");
 			jQuery("#lightbox").show();
 		});
-
 		jQuery("#close").click(function(){
 			jQuery("#lightbox").hide();
 		});
@@ -40,12 +44,10 @@
 			var box_height = jQuery(window).height() - sticky_bar_height - 16;
 			scroll_interval = box_height - (box_height % line_height) - margin;
 			
-			if (content_height < scroll_interval) {
+			if (content_height > scroll_interval) {
 				
-				/* Hide buttons if one page section */
-				jQuery("#book-nav").hide();
-				
-			} else {
+				/* Show buttons if not one page section */
+				jQuery("#book-nav").fadeTo("slow",1);
 			
 				/* Calculate Max Clicks */
 				max_clicks = Math.floor(content_height / scroll_interval);

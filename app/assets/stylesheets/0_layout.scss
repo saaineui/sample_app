@@ -68,9 +68,31 @@ header#sticky-bar > nav {
     h1 a:hover img { opacity: 0.5; }
     div.nav-wrapper {
         float: right; width: 50%; font-size: 0.75em;
-		p { text-align: right; margin: 0 0 1em 0; }
-        a { text-transform: uppercase; }
+		ul.menu { 
+			li { text-align: right; margin: 0 0 1em 0; }
+			a { text-transform: uppercase; }
+		}
     }
+	div.nav-wrapper > ul > li {
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		background-image: asset-url('menu-icons-sprite.png'); 
+		float: right;
+		margin: 0.5em;
+		span {
+			display: block;
+			width: 1px;
+			height: 1px;
+			text-indent: -999999px;
+			overflow: hidden;
+		}
+		&:first-child { background-position: left center; }
+		&:last-child { background-position: right center; }
+		ul.menu { display: none; position: absolute; right: 0px; top: 40px; z-index: 99; width: 16em; padding: 1em; background: #eee; }
+	}
 }
 
 #wrapper {
@@ -163,6 +185,7 @@ figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
 
 /* Navigation */
 #book-nav {
+	display: none;
 	width: 48px;
 	height: 104px;
 	position: fixed;
