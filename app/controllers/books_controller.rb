@@ -28,9 +28,11 @@ class BooksController < ApplicationController
 		@background_image_url = @book.background_image_url
 		
 		@progress_start = 0 
-		@book.sections.limit(@location-3).each do |section| 
-			@progress_start += section.text.length 
-		end 
+		if @location > 3
+			@book.sections.first(@location-3).each do |section| 
+				@progress_start += section.text.length 
+			end
+		end
 		@progress_start = @progress_start * 100 / @book.text_length.to_i
     end
 
