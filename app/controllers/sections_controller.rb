@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-    before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
+    before_action :admin_user, only: [:new]
     
     def new
 		@book = Book.find(params[:upload][:book_id])
@@ -10,6 +10,7 @@ class SectionsController < ApplicationController
 			section.delete
 		end
 		
+		@book.text_length = raw_text.to_s.length
 		@book.sections = []
 		
 		raw_text.xpath("//section").each do |section|
@@ -17,21 +18,18 @@ class SectionsController < ApplicationController
 			this_section.order = @book.sections.count + 1
 			this_section.title = section.xpath("//header").length > 0 ? section.xpath("//header").first.inner_text.to_s.gsub(/\a/,"").gsub(/\s+/," ") : ""
 			this_section.text = section.to_s
-			this_section.chapter = true
+			this_section.chapter = !this_section.title.empty?
 			this_section.save
 			@book.sections << this_section
 			section.unlink
 		end
 		if @book.save
-			flash[:success] = "Your file was uploaded. Edit your chapter titles below."
+			flash[:success] = "Your file was uploaded successfully."
 		else
 			render upload_book_path(@book)
 		end
     end
     
-    def destroy
-    end
-
   private
   def section_params
       params.require(:section).permit()

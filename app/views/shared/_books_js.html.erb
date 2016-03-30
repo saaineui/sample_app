@@ -4,12 +4,22 @@
 	var direction, scroll_interval, margin, sticky_bar_height, box_height;
 	var anchor = 0;
 	var max_clicks = 0;
+	<%- progress_start = 0 %>
+	<%- @book.sections.limit(@location-3).each do |section| %>
+	<%- progress_start += section.text.length %>
+	<%- end %>
+	var progress_start = <%= progress_start * 100 / @book.text_length %>
 
 	jQuery(document).ready(function() {
 
 		/* Toggle menus */
 		jQuery("div.nav-wrapper > ul > li").click(function(){
+			jQuery(this).next().children("ul.menu").hide();
+			jQuery(this).next().removeClass("open");
+			jQuery(this).prev().children("ul.menu").hide();
+			jQuery(this).prev().removeClass("open");
 			jQuery(this).children("ul.menu").toggle();
+			jQuery(this).toggleClass("open");
 		});
 		/* Open and close lightbox */
 		jQuery("#ebook figure img").click(function(){
@@ -74,6 +84,8 @@
 				} else {
 					anchor = 0;
 				}
+				
+				jQuery("#progress").css("width",progress_start+"%");
 				
 			});
 		  }, 300); /* close delay */

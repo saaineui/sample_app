@@ -46,18 +46,6 @@ class BooksController < ApplicationController
 		@book = Book.find(params[:id])
 	end
 
-    def update_length
-		@book = Book.find(params[:id])
-        @book.text_length = 0
-		@book.sections.each do |section|
-			@book.text_length += section.text.length
-		end
-        if @book.save
-            flash[:success] = "#{@book.title} text length has been updated to #{@book.text_length}."
-		end
-		redirect_to books_path
-    end
-
     def destroy
     end
 

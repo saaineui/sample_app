@@ -7,7 +7,7 @@
 <% end %>
 		<div class="nav-wrapper">
 			<ul>
-				<li>
+				<li class="main">
 					<span>Main Menu</span>
 					<ul class="menu">
 						<% if logged_in? %>
@@ -20,7 +20,7 @@
 					</ul>
 				</li>
 						<% if @book %>
-				<li>
+				<li class="toc">
 					<span>Table of Contents</span>
 					<ul class="menu">
 						<li><%= link_to "Cover", book_path(@book) + "?l=0" %></li>
@@ -31,6 +31,7 @@
 							<%- end %>
 					</ul>
 				</li>
+				<div id="progress-bar"><span id="progress"></span></div>
 						<% end %>
 			</ul>
 		</div>

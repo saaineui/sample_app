@@ -69,19 +69,26 @@ header#sticky-bar > nav {
     div.nav-wrapper {
         float: right; width: 50%; font-size: 0.75em;
 		ul.menu { 
+			display: none; position: absolute; right: 0px; top: 40px; z-index: 99; width: 16em; padding: 1em; background: rgba(255,255,255,0.9); 
 			li { text-align: right; margin: 0 0 1em 0; }
 			a { text-transform: uppercase; }
+		}
+		div#progress-bar { 
+			height: 23px; border: 1px solid $dk-orange; margin: 0.5em; float: right; width: 300px; position: relative;
+			span#progress { display: block; position: absolute; top: 0px; left: 0px; height: 23px; width: 0px; background: $dk-orange; }
 		}
     }
 	div.nav-wrapper > ul > li {
 		width: 25px;
 		height: 25px;
 		cursor: pointer;
-		background-size: auto 100%;
+		background-size: auto 25px;
 		background-repeat: no-repeat;
 		background-image: asset-url('menu-icons-sprite.png'); 
 		float: right;
 		margin: 0.5em;
+		padding-bottom: 3px;
+		border-bottom: 1px solid #eee;
 		span {
 			display: block;
 			width: 1px;
@@ -89,11 +96,12 @@ header#sticky-bar > nav {
 			text-indent: -999999px;
 			overflow: hidden;
 		}
-		&:first-child { background-position: left center; }
-		&:last-child { background-position: right center; }
-		ul.menu { display: none; position: absolute; right: 0px; top: 40px; z-index: 99; width: 16em; padding: 1em; background: #eee; }
+		&.open { border-color: $dk-orange; }
+		&.main { background-position: left 0px; }
+		&.toc { background-position: right 0px; }
 	}
 }
+
 
 #wrapper {
 	width: 900px;
