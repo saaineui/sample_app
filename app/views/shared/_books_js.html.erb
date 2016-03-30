@@ -4,11 +4,15 @@
 	var direction, scroll_interval, margin, sticky_bar_height, box_height;
 	var anchor = 0;
 	var max_clicks = 0;
-	<%- progress_start = 0 %>
-	<%- @book.sections.limit(@location-3).each do |section| %>
-	<%- progress_start += section.text.length %>
+	<%- if @book %>
+		<%- progress_start = 0 %>
+		<%- @book.sections.limit(@location-3).each do |section| %>
+			<%- progress_start += section.text.length %>
+		<%- end %>
+		var progress_start = <%= progress_start * 100 / @book.text_length %>;
+	<%- else %>
+		var progress_start = 0;
 	<%- end %>
-	var progress_start = <%= progress_start * 100 / @book.text_length %>
 
 	jQuery(document).ready(function() {
 
