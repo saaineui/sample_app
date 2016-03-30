@@ -26,6 +26,12 @@ class BooksController < ApplicationController
 		
 		@override_background = @book.background_image_url.present?
 		@background_image_url = @book.background_image_url
+		
+		@progress_start = 0 
+		@book.sections.limit(@location-3).each do |section| 
+			@progress_start += section.text.length 
+		end 
+		@progress_start = @progress_start * 100 / @book.text_length.to_i
     end
 
     def edit
