@@ -219,7 +219,8 @@ figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
 
-	#wrapper { padding: 1em; min-height: 100%; }
+	body { background-image: none !important; background-color: #eee; }
+	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
 
 }
 

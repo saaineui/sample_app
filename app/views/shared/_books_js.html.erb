@@ -48,7 +48,7 @@
 			
 			/* Compute scroll interval (16 is wrapper padding) */
 			var box_height = jQuery(window).height() - sticky_bar_height - 16;
-			scroll_interval = box_height - (box_height % line_height) - margin;
+			scroll_interval = box_height - (box_height % line_height) - margin*2;
 			
 			if (content_height > scroll_interval) {
 				
