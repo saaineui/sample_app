@@ -4,7 +4,8 @@
 	var direction, scroll_interval, margin, sticky_bar_height, box_height;
 	var anchor = 0;
 	var max_clicks = 0;
-	var progress_start = <%= @progress_start || "0" %>;
+	var progress = <%= @progress_start || "0" %>;
+	var slice_length = <%= @section_slice_length || "0" %>;
 
 	jQuery(document).ready(function() {
 
@@ -26,6 +27,7 @@
 			jQuery("#lightbox").hide();
 		});
 
+		jQuery("#progress").css("width",progress+"%");
 	
 		if (document.getElementById('scroll-wrap') != null ) {
 		  setTimeout(function(){
@@ -39,16 +41,16 @@
 				jQuery(this).height( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
 			});
 			
-			/* Compute margin */
-			margin = line_height;
-			
 			/* Get sticky bar and content box heights */
 			sticky_bar_height = parseInt( jQuery("#sticky-bar > nav").height() );
 			content_height = parseInt( jQuery("#ebook").height() );
 			
-			/* Compute scroll interval (16 is wrapper padding) */
-			var box_height = jQuery(window).height() - sticky_bar_height - 16;
-			scroll_interval = box_height - (box_height % line_height) - margin*2;
+			/* Get multiplier */
+			var multiplier = (jQuery("body").css("background-color") == "rgb(238, 238, 238)") ? 2 : 1
+			
+			/* Compute scroll interval (16 is wrapper padding, 16 is scroll-wrap top margin, 27 is next/back links) */
+			var box_height = jQuery(window).height() - sticky_bar_height - 16 - 16 - 30;
+			scroll_interval = box_height - (box_height % line_height);
 			
 			if (content_height > scroll_interval) {
 				
@@ -71,9 +73,12 @@
 				/* Get scroll direction */
 				if (jQuery(this).hasClass("up")) { direction = "+"; anchor--; } else { direction = "-"; anchor++; }
 				
+				
 				if (anchor >= 0) {
 					if (anchor <= max_clicks) {
 						jQuery("#ebook").animate({ marginTop: direction + "=" + scroll_interval + "px" }, 700);
+						
+						jQuery("#progress").css("width",Math.floor((anchor * slice_length * 100 / (max_clicks+1))*0.01 + progress)+"%");
 					} else {
 						anchor = max_clicks;
 					}
@@ -81,7 +86,6 @@
 					anchor = 0;
 				}
 				
-				jQuery("#progress").css("width",progress_start+"%");
 				
 			});
 		  }, 300); /* close delay */

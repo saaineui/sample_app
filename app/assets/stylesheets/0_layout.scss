@@ -74,7 +74,7 @@ header#sticky-bar > nav {
 			a { text-transform: uppercase; }
 		}
 		div#progress-bar { 
-			height: 23px; border: 1px solid $dk-orange; margin: 0.5em; float: right; width: 300px; max-width: 50%; position: relative;
+			height: 23px; border: 1px solid $dk-orange; margin: 0.5em; float: right; width: 300px; max-width: 40%; position: relative;
 			span#progress { display: block; position: absolute; top: 0px; left: 0px; height: 23px; width: 0px; background: $dk-orange; }
 		}
     }
@@ -205,7 +205,7 @@ figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
 	nav.up { background-position: center top; margin-bottom: 10px; }
     nav.down { background-position: center bottom; }
 }
-#next-btn, #back-btn { position: fixed; bottom: 0px; text-decoration: underline; width: 60px; padding: 6px; }
+#next-btn, #back-btn { position: fixed; bottom: 0px; text-decoration: underline; width: 60px; padding: 4px; height: 19px; }
 #next-btn { right: 0px; }
 #back-btn { left: 0px; }
 

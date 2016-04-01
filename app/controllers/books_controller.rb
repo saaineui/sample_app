@@ -28,12 +28,19 @@ class BooksController < ApplicationController
 		@background_image_url = @book.background_image_url
 		
 		@progress_start = 0 
-		if @location > 3
-			@book.sections.first(@location-3).each do |section| 
+		@section_slice_length = 0
+		skips = 4 # Cover, title page, epigraph, copyright
+		
+		if @location > skips
+			@book.sections.first(@location-skips).each do |section| 
 				@progress_start += section.text.length 
 			end
 		end
-		@progress_start = @progress_start * 100 / @book.text_length.to_i
+		@progress_start = @progress_start * 100 / to_valid_dividend(@book.text_length)
+
+		if @location >= skips
+			@section_slice_length = @book.sections[@location-skips].text.length * 100 / to_valid_dividend(@book.text_length)
+		end
     end
 
     def edit
@@ -60,6 +67,10 @@ class BooksController < ApplicationController
   private
   def book_params
       params.require(:book).permit(:title, :author, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
+  end
+  
+  def to_valid_dividend(num)
+	num.to_i == 0 ? 1 : num
   end
   
   # Before filters
