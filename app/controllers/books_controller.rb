@@ -23,6 +23,7 @@ class BooksController < ApplicationController
 		@override_title_logo = true
 		@book = Book.find(params[:id])
 		@location = params[:l].to_i || 0
+		@scroll = params[:s].to_i * 0.01
 		
 		@override_background = @book.background_image_url.present?
 		@background_image_url = @book.background_image_url
@@ -41,6 +42,9 @@ class BooksController < ApplicationController
 		if @location >= skips
 			@section_slice_length = @book.sections[@location-skips].text.length * 100 / to_valid_dividend(@book.text_length)
 		end
+		
+		# Prescroll if bookmark link
+		@progress_start += @scroll * @section_slice_length
     end
 
     def edit

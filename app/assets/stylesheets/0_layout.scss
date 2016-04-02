@@ -74,8 +74,11 @@ header#sticky-bar > nav {
 			a { text-transform: uppercase; }
 		}
 		div#progress-bar { 
-			height: 23px; border: 1px solid $dk-orange; margin: 0.5em; float: right; width: 300px; max-width: 40%; position: relative;
+			height: 23px; border: 1px solid $dk-orange; margin: 0.5em; float: right; width: 50%; position: relative;
 			span#progress { display: block; position: absolute; top: 0px; left: 0px; height: 23px; width: 0px; background: $dk-orange; }
+		}
+		div#progress-percent {
+			color: $dk-orange; text-align: right; font-size: 1.35em; padding: 0.5em; margin-right: 0.5em; font-weight: 300; float: right;
 		}
     }
 	div.nav-wrapper > ul > li {
@@ -213,6 +216,11 @@ figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
 
 @media only screen and (max-width: 900px) {
 	#next-btn, #back-btn { background: #eee; }
+}
+
+/* Small Desktop */
+@media only screen and (max-width: 730px) {
+	div#progress-bar { display: none; }
 }
 
 /* Mobile */

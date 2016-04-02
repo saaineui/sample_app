@@ -6,6 +6,8 @@
 	var max_clicks = 0;
 	var progress = <%= @progress_start || "0" %>;
 	var slice_length = <%= @section_slice_length || "0" %>;
+	var progress_percent = progress + "%";
+	var scroll_percent = <%= @scroll || "0" %>;
 
 	jQuery(document).ready(function() {
 
@@ -63,6 +65,12 @@
 			
 			/* Resize bounding box */
 			jQuery('#scroll-wrap').height(scroll_interval + 'px');
+			
+			/* Scroll to bookmark position */
+			if (scroll_interval <= (content_height*scroll_percent)) {
+				anchor = Math.floor((content_height*scroll_percent)/scroll_interval);
+				jQuery("#ebook").css("margin-top","-"+(scroll_interval*anchor)+"px");
+			}
 
 			window.addEventListener("resize", function() {
 				/* Reset when window resizes or screen orientation changes */
@@ -78,7 +86,9 @@
 					if (anchor <= max_clicks) {
 						jQuery("#ebook").animate({ marginTop: direction + "=" + scroll_interval + "px" }, 700);
 						
-						jQuery("#progress").css("width",Math.floor((anchor * slice_length * 100 / (max_clicks+1))*0.01 + progress)+"%");
+						progress_percent = Math.floor(anchor * slice_length * 10 / (max_clicks+1))*0.1 + progress + "%";
+						jQuery("#progress").css("width",progress_percent);
+						jQuery("#progress-percent").text(progress_percent);
 					} else {
 						anchor = max_clicks;
 					}
