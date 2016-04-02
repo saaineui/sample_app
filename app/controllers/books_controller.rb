@@ -45,6 +45,8 @@ class BooksController < ApplicationController
 		
 		# Prescroll if bookmark link
 		@progress_start += @scroll * @section_slice_length
+		@progress_start = @progress_start.to_i
+		
     end
 
     def edit

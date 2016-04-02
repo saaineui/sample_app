@@ -86,7 +86,7 @@
 					if (anchor <= max_clicks) {
 						jQuery("#ebook").animate({ marginTop: direction + "=" + scroll_interval + "px" }, 700);
 						
-						progress_percent = Math.floor(anchor * slice_length * 10 / (max_clicks+1))*0.1 + progress + "%";
+						progress_percent = Math.floor(anchor * slice_length / (max_clicks+1)) + progress + "%";
 						jQuery("#progress").css("width",progress_percent);
 						jQuery("#progress-percent").text(progress_percent);
 					} else {
