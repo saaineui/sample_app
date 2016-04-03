@@ -17,9 +17,12 @@
 						<li><%= link_to "Login", login_path %></li>
 						<li><%= link_to "Sign up", signup_path %></li>
 						<% end %>
+						<% if @book && !@book.id.nil? %>
+						<li><%= link_to "Get Bookmark", request.original_url, id: "bookmark" %></li>
+						<% end %>
 					</ul>
 				</li>
-						<% if @book %>
+						<% if @book && !@book.id.nil? %>
 				<li class="toc">
 					<span>Table of Contents</span>
 					<ul class="menu">
@@ -32,9 +35,7 @@
 					</ul>
 				</li>
 				<div id="progress-bar"><span id="progress"></span></div>
-				<div id="progress-percent">
-					<%= @progress_start %>%
-				</div>
+				<div id="progress-percent"><%= @progress_start %>%</div>
 						<% end %>
 			</ul>
 		</div>

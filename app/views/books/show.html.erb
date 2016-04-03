@@ -14,7 +14,7 @@
 		<%- when 3 %>
 		<%= @book.copyright.html_safe %>
 		<%- else %>
-		<%= @book.sections[@location-4].text.html_safe %>
+		<%= @book.sections[@location-@skips].text.html_safe %>
 		<%- end %>
 	</div>
 </div>

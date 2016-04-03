@@ -1,7 +1,7 @@
 <script type="text/javascript">
 (function() {
 
-	var direction, scroll_interval, margin, sticky_bar_height, box_height;
+	var direction, scroll_interval, margin, sticky_bar_height, box_height, bookmark;
 	var anchor = 0;
 	var max_clicks = 0;
 	var progress = <%= @progress_start || "0" %>;
@@ -76,19 +76,26 @@
 				/* Reset when window resizes or screen orientation changes */
 			}); 
 
+			/* Scroll exactly one page up or down and then increment progress bar and bookmark link */
 			jQuery("#book-nav nav").click(function(){
 			
-				/* Get scroll direction */
+				/* Get scroll direction and increment anchor */
 				if (jQuery(this).hasClass("up")) { direction = "+"; anchor--; } else { direction = "-"; anchor++; }
 				
 				
 				if (anchor >= 0) {
 					if (anchor <= max_clicks) {
+						/* Scroll Page */
 						jQuery("#ebook").animate({ marginTop: direction + "=" + scroll_interval + "px" }, 700);
 						
+						/* Progress Bar */
 						progress_percent = Math.floor(anchor * slice_length / (max_clicks+1)) + progress + "%";
 						jQuery("#progress").css("width",progress_percent);
 						jQuery("#progress-percent").text(progress_percent);
+						
+						/* Bookmark Link */
+						bookmark = jQuery("#bookmark").attr("href").replace(/&s=[0-9|.]*/,"");
+						jQuery("#bookmark").attr("href", bookmark + "&s=" + Math.floor((anchor+1) * 100/(max_clicks+1)));
 					} else {
 						anchor = max_clicks;
 					}
