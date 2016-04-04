@@ -1,3 +1,5 @@
+<% @location ||= 0 %>
+<% @scroll_int = @scroll ? (@scroll * 100).to_i : 0 %>
 <header id="sticky-bar">
     <nav class="clearfix">
 <% if @override_title_logo %>
@@ -18,7 +20,10 @@
 						<li><%= link_to "Sign up", signup_path %></li>
 						<% end %>
 						<% if @book && !@book.id.nil? %>
-						<li><%= link_to "Get Bookmark", request.original_url, id: "bookmark" %></li>
+						<li><%= link_to "Get Bookmark", request.original_url.html_safe, id: "bookmark" %></li>
+							<% if logged_in? %>
+						<li><%= link_to "Save Bookmark", "#{new_bookmark_path}?book_id=#{@book.id.to_s}&location=#{@location.to_s}&scroll=#{@scroll_int.to_s}".html_safe , id: "new-bookmark" %></li>
+							<% end %>
 						<% end %>
 					</ul>
 				</li>
@@ -30,7 +35,7 @@
 						<%- location = 3 %>
 							<%- @book.sections.each do |section| %>
 								<%- location += 1 %>
-						<li><%= link_to section.title, book_path(@book) + "?l=#{location}" %></li>
+						<li><%= link_to section.title, book_path(@book) + "?location=#{location}" %></li>
 							<%- end %>
 					</ul>
 				</li>

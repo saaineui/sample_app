@@ -14,11 +14,6 @@
 </p>
 
 <p>
-<%= f.label :affinities, class: "affinities-label" %>
-<%= f.select :affinity_ids, options_for_select(Affinity.all.map { |a| [a.name, a.id] },@user.affinities.map { |a| a.id }), {}, {:multiple => true, :class => "affinities"} %>
-</p>
-
-<p>
 <%= f.label :password %>
 <%= f.password_field :password %>
 </p>

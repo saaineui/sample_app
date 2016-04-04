@@ -3,12 +3,10 @@
 user:
     name: User Example
     email: fixture@example.com
-    affinities: <%= Affinity.first %>
     password_digest: <%= User.digest('password') %>
     admin: true
 
 other:
     name: Mister Other
     email: dutchess@example.gov
-    affinities: <%= Affinity.first %>
     password_digest: <%= User.digest('password') %>

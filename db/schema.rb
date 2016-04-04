@@ -11,26 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327210357) do
-
-  create_table "affinities", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "affinities_users", id: false, force: :cascade do |t|
-    t.integer "user_id",     null: false
-    t.integer "affinity_id", null: false
-  end
+ActiveRecord::Schema.define(version: 20160403232453) do
 
   create_table "bookmarks", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "book_id"
     t.integer  "location"
-    t.integer  "percent"
+    t.integer  "scroll"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   add_index "bookmarks", ["book_id"], name: "index_bookmarks_on_book_id"

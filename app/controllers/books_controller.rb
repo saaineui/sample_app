@@ -24,8 +24,8 @@ class BooksController < ApplicationController
 		@book = Book.find(params[:id])
 
 		@skips = 4 # Cover, title page, epigraph, copyright
-		@location = (@book.sections.count+@skips) > params[:l].to_i ? params[:l].to_i : (@book.sections.count+@skips-1)
-		@scroll = params[:s].to_i <= 100 ? params[:s].to_i * 0.01 : 1
+		@location = (@book.sections.count+@skips) > params[:location].to_i ? params[:location].to_i : (@book.sections.count+@skips-1)
+		@scroll = params[:scroll].to_i <= 100 ? params[:scroll].to_i * 0.01 : 1
 		
 		@override_background = @book.background_image_url.present?
 		@background_image_url = @book.background_image_url
@@ -69,6 +69,15 @@ class BooksController < ApplicationController
 	end
 
     def destroy
+	  @book = Book.find(params[:id])
+	  title = @book.title
+	  sections_count = @book.sections.count
+	  @book.sections.each do |section|
+		section.destroy
+	  end
+      @book.destroy
+      flash[:success] = "The book #{title} and #{sections_count} section(s) were deleted."
+      redirect_to books_url
     end
 
   private

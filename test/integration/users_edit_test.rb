@@ -23,12 +23,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 		assert_redirected_to edit_user_path(@user)
 		name  = "Foo Bar"
 		email = "foo@bar.com"
-		affinity_ids = [Affinity.all.first.id]
 		patch user_path(@user), user: { name:  name,
 			email: email,
 			password:              "",
-			password_confirmation: "",
-			affinity_ids: affinity_ids}
+			password_confirmation: ""}
 		assert_not flash.empty?
 		assert_redirected_to @user
 		@user.reload
@@ -41,12 +39,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
         get edit_user_path(@user)
         name  = "Foo Bar"
         email = "foo@bar.com"
-        affinity_ids = [Affinity.all.first.id]
         patch user_path(@user), user: { name:  name,
             email: email,
             password:              "",
             password_confirmation: "",
-            affinity_ids: affinity_ids,
             admin: false
         }
         assert_not flash.empty?

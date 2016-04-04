@@ -166,7 +166,6 @@ a.btn, input.btn {
 form { @include box_sizing; @include round_corners; text-align: left; max-width: 600px; width: 100%; float: none; margin: 1em auto; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; }
 form label::after { content: ": "; }
 label { display: block; }
-select.affinities { height: 10em; width: 100%; }
 div.field_with_errors { display: inline; font-size: 1em; color: $dk-orange; input { border: 1px solid $dk-orange; } }
 #error_explanation { color: $dk-orange; p { margin: 0; font-size: 1em; } }
 

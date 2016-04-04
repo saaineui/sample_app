@@ -1,7 +1,7 @@
 <script type="text/javascript">
 (function() {
 
-	var direction, scroll_interval, margin, sticky_bar_height, box_height, bookmark;
+	var direction, scroll_interval, margin, sticky_bar_height, box_height, bookmark, new_bookmark;
 	var anchor = 0;
 	var max_clicks = 0;
 	var progress = <%= @progress_start || "0" %>;
@@ -93,9 +93,16 @@
 						jQuery("#progress").css("width",progress_percent);
 						jQuery("#progress-percent").text(progress_percent);
 						
-						/* Bookmark Link */
-						bookmark = jQuery("#bookmark").attr("href").replace(/&s=[0-9|.]*/,"");
-						jQuery("#bookmark").attr("href", bookmark + "&s=" + Math.floor((anchor+1) * 100/(max_clicks+1)));
+						/* Bookmark Links */
+						scroll_param = "&scroll=" + Math.floor((anchor+1) * 100/(max_clicks+1));
+						
+						bookmark = jQuery("#bookmark").attr("href").replace(/&scroll=[0-9|.]*/,"");
+						jQuery("#bookmark").attr("href", bookmark + scroll_param);
+						
+						if (document.getElementById("new-bookmark") != null) {
+							new_bookmark = jQuery("#bookmark").attr("href").replace(/\?/,"&").replace(/books\//,"bookmarks/new?book_id=").replace(/&scroll=[0-9|.]*/,"");
+							jQuery("#new-bookmark").attr("href", new_bookmark + scroll_param);
+						}
 					} else {
 						anchor = max_clicks;
 					}

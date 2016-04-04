@@ -60,9 +60,4 @@ class UserTest < ActiveSupport::TestCase
         assert_not @user.valid?
     end
 
-    test "affinities should be present if set" do
-        @user.affinities = Affinity.all
-        assert_equal @user.affinities, Affinity.all
-    end
-
 end
