@@ -4,9 +4,10 @@
 	var direction, scroll_interval, margin, sticky_bar_height, box_height, bookmark, new_bookmark;
 	var anchor = 0;
 	var max_clicks = 0;
-	var progress = <%= @progress_start || "0" %>;
+	var progress_start = <%= @progress_start || "0" %>;
+	var progress_with_scroll = <%= @progress_with_scroll || "0" %>;
 	var slice_length = <%= @section_slice_length || "0" %>;
-	var progress_percent = progress + "%";
+	var progress_percent = progress_with_scroll + "%";
 	var scroll_percent = <%= @scroll || "0" %>;
 
 	jQuery(document).ready(function() {
@@ -29,7 +30,7 @@
 			jQuery("#lightbox").hide();
 		});
 
-		jQuery("#progress").css("width",progress+"%");
+		jQuery("#progress").css("width",progress_with_scroll+"%");
 	
 		if (document.getElementById('scroll-wrap') != null ) {
 		  setTimeout(function(){
@@ -60,7 +61,8 @@
 				jQuery("#book-nav").fadeTo("slow",1);
 			
 				/* Calculate Max Clicks */
-				max_clicks = Math.floor(content_height / scroll_interval);
+				max_clicks = (content_height % scroll_interval == 0) ? ((content_height / scroll_interval) - 1) : Math.floor(content_height / scroll_interval); 
+
 			}
 			
 			/* Resize bounding box */
@@ -89,7 +91,7 @@
 						jQuery("#ebook").animate({ marginTop: direction + "=" + scroll_interval + "px" }, 700);
 						
 						/* Progress Bar */
-						progress_percent = Math.floor(anchor * slice_length / (max_clicks+1)) + progress + "%";
+						progress_percent = Math.floor(anchor * slice_length / (max_clicks+1)) + progress_start + "%";
 						jQuery("#progress").css("width",progress_percent);
 						jQuery("#progress-percent").text(progress_percent);
 						

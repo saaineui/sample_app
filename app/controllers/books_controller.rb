@@ -30,7 +30,7 @@ class BooksController < ApplicationController
 		@override_background = @book.background_image_url.present?
 		@background_image_url = @book.background_image_url
 		
-		@progress_start = 0 
+		@progress_start = 0
 		@section_slice_length = 0
 		
 		if @location > @skips
@@ -45,9 +45,10 @@ class BooksController < ApplicationController
 		end
 		
 		# Prescroll if bookmark link
-		@progress_start += @scroll * @section_slice_length
-		@progress_start = @progress_start.to_i
+		@progress_with_scroll = (@progress_start + @scroll * @section_slice_length).to_i
 		
+		# Convert to integer
+		@progress_start = @progress_start.to_i
     end
 
     def edit

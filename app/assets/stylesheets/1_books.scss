@@ -15,6 +15,12 @@
 	width: 100%;
 
 	/* Principal Element Styles */
+	section, header {
+		position: relative;
+	}
+	section { 
+		padding-top: 90px;
+	}
 	img {
 		max-width: 100%;
 		height: auto;
@@ -78,7 +84,7 @@
 
 	/* Chapter Heads and Drop Caps */
 	header.chapter-head {
-		margin: 120px 0 30px 0;
+		margin-bottom: 30px;
 	}
 	p.first-of-chapter:first-letter { float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; }
 
