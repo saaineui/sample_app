@@ -22,6 +22,7 @@ class BooksController < ApplicationController
     def show
 		@override_title_logo = true
 		@book = Book.find(params[:id])
+		@page_subtitle = @book.author
 
 		@skips = 4 # Cover, title page, epigraph, copyright
 		@location = (@book.sections.count+@skips) > params[:location].to_i ? params[:location].to_i : (@book.sections.count+@skips-1)
@@ -42,6 +43,9 @@ class BooksController < ApplicationController
 
 		if @location >= @skips
 			@section_slice_length = @book.sections[@location-@skips].text.length * 100 / to_valid_dividend(@book.text_length)
+			
+			# Override subtitle with chapter title if section is a chapter
+			@page_subtitle = @book.sections[@location-@skips].index_title if @book.sections[@location-@skips].chapter?
 		end
 		
 		# Prescroll if bookmark link
