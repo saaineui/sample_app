@@ -31,11 +31,11 @@
 				<li class="toc">
 					<span>Table of Contents</span>
 					<ul class="menu">
-						<li><%= link_to "Cover", book_path(@book) + "?l=0" %></li>
-						<%- location = 3 %>
-							<%- @book.sections.each do |section| %>
+						<li><%= link_to "Cover", book_path(@book) + "?location=0" %></li>
+						<%- location = @skips %>
+							<%- @book.sections.chapters.order(:order).each do |section| %>
+						<li><%= link_to section.index_title, book_path(@book) + "?location=#{location}" %></li>
 								<%- location += 1 %>
-						<li><%= link_to section.title, book_path(@book) + "?location=#{location}" %></li>
 							<%- end %>
 					</ul>
 				</li>
