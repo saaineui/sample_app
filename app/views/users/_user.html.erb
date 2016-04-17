@@ -1,6 +1,6 @@
 <li class="clearfix">
     <div class="one_four"><%= link_to user.name, user %></div>
-    <div class="one_two"><%= user.books.map { |book| link_to book.title, book }.join("<br />").html_safe %></div>
+    <div class="one_two"><%= user.books.uniq.map { |book| link_to book.title, book }.join("<br />").html_safe %></div>
 <% if current_user.admin? && !current_user?(user) %>
 <div class="one_four"><%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %></div>
 <% end %>

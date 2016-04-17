@@ -33,10 +33,10 @@
 					<span>Table of Contents</span>
 					<ul class="menu">
 						<li><%= link_to "Cover", book_path(@book) + "?location=0" %></li>
-						<%- location = @skips %>
+						<%- location_index = @skips || 4 %>
 							<%- @book.sections.chapters.order(:order).each do |section| %>
-						<li><%= link_to section.index_title, book_path(@book) + "?location=#{location}" %></li>
-								<%- location += 1 %>
+						<li><%= link_to section.index_title, book_path(@book) + "?location=#{location_index}" %></li>
+								<%- location_index += 1 %>
 							<%- end %>
 					</ul>
 				</li>
