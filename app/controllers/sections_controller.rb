@@ -16,7 +16,7 @@ class SectionsController < ApplicationController
 		raw_text.xpath("//section").each do |section|
 			this_section = Section.new
 			this_section.order = @book.sections.count + 1
-			this_section.title = section.xpath("//header").length > 0 ? section.xpath("//header").first.inner_text.to_s.gsub(/\a/,"").gsub(/\s+/," ") : ""
+			this_section.title = section.xpath("//header").length > 0 && section.xpath("//header").first.parent == section ? section.xpath("//header").first.inner_text.to_s.gsub(/\a/,"").gsub(/\s+/," ") : ""
 			this_section.text = section.to_s
 			this_section.chapter = !this_section.title.empty?
 			this_section.save

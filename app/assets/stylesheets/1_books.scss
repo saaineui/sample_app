@@ -110,6 +110,18 @@
 		font-style: italic;
 		p { text-align: left; text-indent: 0; }
 	}
+	div.slide { 
+		float: none;
+		padding: 30px;
+		background: #fff;
+		height: 300px;
+		width: 500px;
+		max-width: 100%;
+		margin: -30px auto 0px auto;
+		border: 1px solid #ccc;
+		display: table-cell;
+		vertical-align: middle;
+	}
 
 	p.email, p.blog, p.pubs {
 		font-weight: 300;
