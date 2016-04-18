@@ -71,10 +71,10 @@
 	.first {
 		text-indent: 0;
 	}
-	.last {
+	.last, .aftercenter {
 		margin: 0 0 30px 0;
 	}
-	.tightcenter, .buffcenter {
+	.tightcenter, .buffcenter, .aftercenter {
 		text-align: center;
 		text-indent: 0;
 	}
