@@ -1,11 +1,11 @@
 <% provide(:title, "Review Table of Contents for #{@book.title}") %>
 <% total_characters = 0 %>
-<% chars_per_page = 3000 %>
+<% chars_per_page = 3500 %>
 
 <table class="book-data-review">
 	<thead>
 		<tr>
-			<th>Order</th>
+			<th>Chapter No.</th>
 			<th>Title</th>
 			<th>Characters</th>
 			<th>Pages <br />(estimated)</th>
@@ -16,8 +16,8 @@
 		<%- characters = section.text.length %>
 		<%- total_characters += characters %>
 		<tr>
-			<td><%= section.order %></td>
-			<td><%= section.title %></td>
+			<td><%= section.chapter rescue nil %></td>
+			<td><%= section.title rescue nil %></td>
 			<td><%= number_with_delimiter(characters) %></td>
 			<td><%= characters / chars_per_page %></td>
 		</tr>

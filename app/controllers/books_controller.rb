@@ -44,8 +44,8 @@ class BooksController < ApplicationController
 		if @location >= @skips
 			@section_slice_length = @book.sections[@location-@skips].text.length * 100 / to_valid_dividend(@book.text_length)
 			
-			# Override subtitle with chapter title if section is a chapter
-			@page_subtitle = @book.sections[@location-@skips].index_title if @book.sections[@location-@skips].chapter?
+			# Override subtitle with section title if section is indexable
+			@page_subtitle = @book.sections[@location-@skips].index_title if @book.sections[@location-@skips].indexable?
 		end
 		
 		# Prescroll if bookmark link

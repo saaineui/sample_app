@@ -111,16 +111,16 @@
 		p { text-align: left; text-indent: 0; }
 	}
 	div.slide { 
-		float: none;
 		padding: 30px;
 		background: #fff;
-		height: 300px;
-		width: 500px;
+		height: 360px;
+		width: 540px;
 		max-width: 100%;
-		margin: -30px auto 0px auto;
+		margin: -30px auto;
 		border: 1px solid #ccc;
-		display: table-cell;
-		vertical-align: middle;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
 	}
 
 	p.email, p.blog, p.pubs {
@@ -177,6 +177,8 @@
 	background: #ccc;
 	color: #fff;
 }
+
+
 
 
 /* Mobile */
