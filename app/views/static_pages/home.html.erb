@@ -8,6 +8,14 @@
 	<p>Here are some tips if you need help navigating the app. I hope you enjoy reading on it!</p>
 </article>
 <article id="help">
+	<h2>Books</h2>
+	<p class="covers">
+	<%- Book.display.each do |book| %>
+		<%= link_to image_tag(book.cover_image_url, alt: book.title), book_path(book) %> 
+	<%- end %>
+	</p>
+</article>
+<article id="help">
 	<h2>Help</h2>
 	<h3>Basic Navigation</h3>
 	<p>When you open a book on Spineless, you will see one or two orange links at the bottom of the browser window:</p>

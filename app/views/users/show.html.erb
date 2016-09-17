@@ -4,11 +4,20 @@
 <h3>Reader Profile</h3>
 <table>
     <tbody>
-        <tr><td>Name:</td><td><%= @user.name %></td></tr>
+        <tr>
+			<th>Name:</th>
+			<td colspan=2><%= @user.name %></td>
+		</tr>
 <%- if current_user?(@user) %>
-        <tr><td colspan=2>Bookmarks:</td></tr>
+        <tr>
+			<th colspan=3>Bookmarks:</th>
+		</tr>
 		<%- @user.bookmarks.each do |bookmark| %>
-		<tr><td><%= link_to "#{bookmark.book.title} (#{bookmark.updated_at})", bookmark.url %></td><td><%= link_to "delete", bookmark, method: :delete %></td></tr>
+		<tr>
+			<th><%= link_to "#{bookmark.book.title}", bookmark.url %></th>
+			<td><%= bookmark.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %e, %Y %-I:%M %p") %></td>
+			<td><%= link_to "delete", bookmark, method: :delete %></td>
+		</tr>
 		<%- end %>
 <%- end %>
     </tbody>

@@ -87,7 +87,7 @@ class BooksController < ApplicationController
 
   private
   def book_params
-      params.require(:book).permit(:title, :author, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
+      params.require(:book).permit(:title, :author, :subtitle, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
   end
   
   def to_valid_dividend(num)
