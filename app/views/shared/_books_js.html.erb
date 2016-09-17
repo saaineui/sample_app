@@ -12,15 +12,6 @@
 
 	jQuery(document).ready(function() {
 
-		/* Toggle menus */
-		jQuery("div.nav-wrapper > ul > li").click(function(){
-			jQuery(this).next().children("ul.menu").hide();
-			jQuery(this).next().removeClass("open");
-			jQuery(this).prev().children("ul.menu").hide();
-			jQuery(this).prev().removeClass("open");
-			jQuery(this).children("ul.menu").toggle();
-			jQuery(this).toggleClass("open");
-		});
 		/* Open and close lightbox */
 		jQuery("#ebook figure img").click(function(){
 			jQuery("#lightbox").css("background-image", "url('" + jQuery(this).attr("src") + "')");
@@ -96,14 +87,14 @@
 						jQuery("#progress-percent").text(progress_percent);
 						
 						/* Bookmark Links */
-						scroll_param = "&scroll=" + Math.floor((anchor+1) * 100/(max_clicks+1));
+						scroll_param = "scroll=" + Math.floor((anchor+1) * 100/(max_clicks+1));
 						
-						bookmark = jQuery("#bookmark").attr("href").replace(/&scroll=[0-9|.]*/,"");
-						jQuery("#bookmark").attr("href", bookmark + scroll_param);
+						bookmark = jQuery("#bookmark").attr("href").replace(/\?scroll=[0-9|.]*/,"")+"?"+scroll_param;
+						jQuery("#bookmark").attr("href", bookmark);
 						
 						if (document.getElementById("new-bookmark") != null) {
-							new_bookmark = jQuery("#bookmark").attr("href").replace(/\?/,"&").replace(/books\//,"bookmarks/new?book_id=").replace(/&scroll=[0-9|.]*/,"");
-							jQuery("#new-bookmark").attr("href", new_bookmark + scroll_param);
+							new_bookmark = jQuery("#new-bookmark").attr("href").replace(/scroll=[0-9|.]*/,scroll_param);
+							jQuery("#new-bookmark").attr("href", new_bookmark);
 						}
 					} else {
 						anchor = max_clicks;
