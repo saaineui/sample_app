@@ -26,5 +26,5 @@
     Next
     </nav>
 </div>
-<%= link_to "Back", book_path(@book) + "?location=" + (@location - 1).to_s, id: "back-btn" if @location > 0 %>
-<%= link_to "Next", book_path(@book) + "?location=" + (@location + 1).to_s, id: "next-btn" if @location < (@book.sections.count + 3) %>
+<%= link_to "Back", open_book_path(@book, @location - 1), id: "back-btn" if @location > 0 %>
+<%= link_to "Next", open_book_path(@book, @location + 1), id: "next-btn" if @location < (@book.sections.count + 3) %>

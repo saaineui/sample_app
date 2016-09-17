@@ -32,10 +32,10 @@
 				<li class="toc">
 					<span>Table of Contents</span>
 					<ul class="menu">
-						<li><%= link_to "Cover", book_path(@book) + "?location=0" %></li>
+						<li><%= link_to "Cover", open_book_path(@book, 0) %></li>
 						<%- skips = @skips || 4 %>
 							<%- @book.sections.chapters.order(:order).each do |section| %>
-						<li><%= link_to section.index_title, book_path(@book) + "?location=#{section.order+skips-1}" %></li>
+						<li><%= link_to section.index_title, open_book_path(@book, section.order+skips-1) %></li>
 							<%- end %>
 					</ul>
 				</li>
