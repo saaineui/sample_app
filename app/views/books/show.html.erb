@@ -4,7 +4,7 @@
 	<div id="ebook">
 		<%- case @location %>
 		<%- when 0 %>
-		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title %></figure></p>
+		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title, class: "book-cover" %></figure></p>
 		<%- when 1 %>
 		<h2><%= @book.title %></h2>
 		<h2>by <%= @book.author %></h2>
