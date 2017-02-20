@@ -20,39 +20,23 @@ class BooksController < ApplicationController
     end
 
     def show
-		@override_title_logo = true
 		@book = Book.find(params[:id])
-		@page_subtitle = @book.author
 
-		@skips = 4 # Cover, title page, epigraph, copyright
-		@location = (@book.sections.count+@skips) > params[:location].to_i ? params[:location].to_i : (@book.sections.count+@skips-1)
-		@scroll = params[:scroll].to_i <= 100 ? params[:scroll].to_i * 0.01 : 1
-		
+        # Adjust graphics
+        @override_title_logo = true
 		@override_background = @book.background_image_url.present?
 		@background_image_url = @book.background_image_url
-		
-		@progress_start = 0
-		@section_slice_length = 0
-		
-		if @location > @skips
-			@book.sections.first(@location-@skips).each do |section| 
-				@progress_start += section.text.length 
-			end
-		end
-		@progress_start = @progress_start * 100 / to_valid_dividend(@book.text_length)
 
-		if @location >= @skips
-			@section_slice_length = @book.sections[@location-@skips].text.length * 100 / to_valid_dividend(@book.text_length)
-			
-			# Override subtitle with section title if section is indexable
-			@page_subtitle = @book.sections[@location-@skips].index_title if @book.sections[@location-@skips].indexable?
-		end
-		
-		# Prescroll if bookmark link
-		@progress_with_scroll = (@progress_start + @scroll * @section_slice_length).to_i
-		
-		# Convert to integer
-		@progress_start = @progress_start.to_i
+        # Get progress variables
+		progress_vars = @book.get_progress_vars(params[:location].to_i, params[:scroll].to_i)
+        @location = progress_vars[:location] 
+        @scroll = progress_vars[:scroll]
+        @section_slice_length = progress_vars[:section_slice_length]
+        @progress_start = progress_vars[:progress_start].to_i
+		@progress_with_scroll = progress_vars[:progress_with_scroll].to_i
+
+        # Get page subtitle
+		@page_subtitle = @location >= @book.skips && @book.sections[@location-@book.skips].indexable? ? @book.sections[@location-@book.skips].index_title : @book.author
     end
 
     def edit
@@ -88,10 +72,6 @@ class BooksController < ApplicationController
   private
   def book_params
       params.require(:book).permit(:title, :author, :subtitle, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
-  end
-  
-  def to_valid_dividend(num)
-	num.to_i == 0 ? 1 : num
   end
   
   # Before filters

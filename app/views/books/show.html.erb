@@ -7,14 +7,14 @@
 		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title, class: "book-cover" %></figure></p>
 		<%- when 1 %>
 		<h2><%= @book.title %></h2>
-		<h2>by <%= @book.author %></h2>
+		<h2><%= @book.author %></h2>
 		<p class="buffcenter"><%= @book.subtitle %></p>
 		<%- when 2 %>
 		<%= @book.epigraph.html_safe %>
 		<%- when 3 %>
 		<%= @book.copyright.html_safe %>
 		<%- else %>
-		<%= @book.sections[@location-@skips].text.html_safe %>
+		<%= @book.sections[@location-@book.skips].text.html_safe %>
 		<%- end %>
 	</div>
 </div>

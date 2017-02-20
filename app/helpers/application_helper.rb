@@ -17,4 +17,8 @@ module ApplicationHelper
     end
   end
     
+  def to_valid_dividend(num)
+	num.to_i == 0 ? 1 : num
+  end
+  
 end
