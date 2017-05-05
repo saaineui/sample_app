@@ -3,3 +3,27 @@ one:
     order: 1
     text: MyString
     chapter: true
+
+two:
+    title: MyString 2
+    order: 2
+    text: MyString 2
+    chapter: true
+    
+three:
+    title: MyString 3
+    order: 1
+    text: MyString 3
+    chapter: true
+
+four:
+    title: MyString 4
+    order: 2
+    text: MyString 4
+    chapter: false
+
+five:
+    title: MyString 5
+    order: 3
+    text: MyString 5
+    chapter: false

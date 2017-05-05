@@ -1,8 +1,13 @@
 public:
     title: The Model Views Controllers
+    subtitle: A Novel
     author: Ruby Rails
+    epigraph: "<p>For DHH</p>"
+    copyright: "<p>CC-BY, 2016"
     cover_image_url: https://www.rubyonrails.org/cover%20image%202016-10-06.jpg
     logo_url: https://www.rubyonrails.org/logo%20image%202016-10-06.jpg
+    background_image_url: https://www.rubyonrails.org/mvc_bg%202016-10-06.jpg
+    text_length: 200003
 
 hidden:
     title: "Lorem Ipsum: A Love Story"
