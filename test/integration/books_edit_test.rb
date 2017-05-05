@@ -4,7 +4,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
 
     def setup
         @user = users(:other)
-		@book = books(:sample_book)
+		@book = books(:public)
     end
     
     test "regular user can not create books" do

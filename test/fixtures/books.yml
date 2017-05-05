@@ -1,5 +1,11 @@
-sample_book:
-    title: The Lady Knows What She Wants
-    author: Jimmy Stewart
-    cover_image_url: http://www.example.org/image.jpg
-    logo_url: http://www.example.org/image.jpg
+public:
+    title: The Model Views Controllers
+    author: Ruby Rails
+    cover_image_url: https://www.rubyonrails.org/cover%20image%202016-10-06.jpg
+    logo_url: https://www.rubyonrails.org/logo%20image%202016-10-06.jpg
+
+hidden:
+    title: "Lorem Ipsum: A Love Story"
+    author: Stephanie Sun
+    cover_image_url: http://www.stephsun.com/assets/l/lorem_cover.png
+    logo_url: http://www.stephsun.com/assets/l/lorem_logo.png
