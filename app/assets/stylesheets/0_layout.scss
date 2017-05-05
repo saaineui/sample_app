@@ -27,11 +27,10 @@ body {
 	font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 	font-size:1em;
 	text-align:center;
-	background-image: asset-url('spineless_photo.jpg');
+	background-image: asset-url('snake_bg.png');
 	background-position: center 0px;
 	background-repeat: repeat;
 	font-weight: 400;
-	box-shadow: 0 0 45px #181818 inset;
 }
 
 .clearfix:before, .clearfix:after {
@@ -126,7 +125,6 @@ figure.help-icon {
 	@include box_sizing;
 	position: relative;
 	background: #eee;
-	box-shadow: 0 0 25px #000;
 }
 
 ul {
