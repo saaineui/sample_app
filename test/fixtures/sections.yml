@@ -32,3 +32,10 @@ five:
     order: 3
     text: MyString 5
     chapter: false
+
+five:
+    id: 6
+    title: MyString 6
+    order: 3
+    text: MyString 6
+    chapter: false

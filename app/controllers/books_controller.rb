@@ -33,7 +33,7 @@ class BooksController < ApplicationController
         @scroll_as_decimal = percent_to_raw(@scroll)
         @section_slice_length = @book.section_slice_length(@location)
         @progress_start = @book.progress_start(@location)
-		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll_as_decimal)
+		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
         
         # Get section content 
         @section = @book.get_section_from_location(@location) if @book.is_main_text?(@location) 

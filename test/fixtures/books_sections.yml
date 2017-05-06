@@ -6,6 +6,10 @@ public_two:
     book_id: 1
     section_id: 2
 
+public_six:
+    book_id: 1
+    section_id: 6
+
 hidden_three:
     book_id: 2
     section_id: 3

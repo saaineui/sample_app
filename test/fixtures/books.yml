@@ -8,7 +8,7 @@ public:
     cover_image_url: https://www.rubyonrails.org/cover%20image%202016-10-06.jpg
     logo_url: https://www.rubyonrails.org/logo%20image%202016-10-06.jpg
     background_image_url: https://www.rubyonrails.org/mvc_bg%202016-10-06.jpg
-    text_length: 18
+    text_length: 28
 
 hidden:
     id: 2
