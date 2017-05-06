@@ -9,4 +9,8 @@ class Section < ActiveRecord::Base
 		prefix = self.chapter.nil? ? "" : self.chapter.to_s + ". "		
 		prefix + self.title.gsub(/(\A\s?|\s?\Z)/,"")
 	end
+    
+    def book_location
+        order + Book::SKIPS - 1
+    end
 end

@@ -20,5 +20,9 @@ module ApplicationHelper
   def to_valid_dividend(num)
 	num.to_i == 0 ? 1 : num
   end
+    
+  def percent_to_raw(num)
+      num * 0.01
+  end
   
 end

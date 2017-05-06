@@ -27,6 +27,16 @@ class BooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get show with out of range location" do
+    get :show, id: @public_book, location: 500, scroll: 50
+    assert_response :success
+  end
+
+  test "should get show with out of range scroll" do
+    get :show, id: @public_book, location: 5, scroll: -2
+    assert_response :success
+  end
+
   test "should redirect index when not logged in" do
     get :index
     assert_redirected_to root_url

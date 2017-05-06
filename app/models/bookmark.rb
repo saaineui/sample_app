@@ -9,6 +9,10 @@ class Bookmark < ActiveRecord::Base
 	end
     
     def name
-        "#{book.title.to_s} (#{book.progress_with_scroll(book.clean_location(location), book.clean_scroll(scroll)).to_s}%)"
+        "#{book.title.to_s} (#{percent_read.to_s}%)"
+    end
+    
+    def percent_read
+        book.progress_with_scroll(book.location_in_range(location), percent_to_raw(book.scroll_in_range(scroll)))
     end
 end

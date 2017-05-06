@@ -14,7 +14,7 @@
 		<%- when 3 %>
 		<%= @book.copyright.html_safe %>
 		<%- else %>
-		<%= @book.get_section_from_location(@location).text.html_safe %>
+		<%= @section.text.html_safe if @section %>
 		<%- end %>
 	</div>
 </div>
@@ -27,7 +27,7 @@
     </nav>
 </div>
 <%= link_to "Back", open_book_path(@book, @location - 1), id: "back-btn" if @location > 0 %>
-<%= link_to "Next", open_book_path(@book, @location + 1), id: "next-btn" if @location < (@book.max_number_of_locations-1) %>
+<%= link_to "Next", open_book_path(@book, @location + 1), id: "next-btn" if @location + 1 < @book.max_number_of_locations %>
     </div>
 	<!-- Lightbox -->
 	<div id="lightbox"><span id="close">x</span></div>

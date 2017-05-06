@@ -53,8 +53,8 @@
 			jQuery('#scroll-wrap').height(scroll_interval + 'px');
 			
 			/* Scroll to bookmark position */
-			if (scroll_interval <= (content_height*spineless.scroll_percent)) {
-				anchor = Math.floor((content_height*spineless.scroll_percent)/scroll_interval);
+			if (scroll_interval <= (content_height*spineless.scroll_as_decimal)) {
+				anchor = Math.floor((content_height*spineless.scroll_as_decimal)/scroll_interval);
 				jQuery("#ebook").css("margin-top","-"+(scroll_interval*anchor)+"px");
 			}
 

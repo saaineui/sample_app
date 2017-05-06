@@ -11,14 +11,14 @@ class Book < ActiveRecord::Base
     
     SKIPS = 4
     
-    def clean_location(location = 0)
-        location = location.to_i
+    def location_in_range(location = 0)
+        location = location.to_i >= 0 ? location.to_i : 0
 		max_number_of_locations > location ? location : (max_number_of_locations-1)
     end
     
-    def clean_scroll(scroll = 0)
+    def scroll_in_range(scroll = 0)
         scroll = scroll.to_i >= 0 ? scroll.to_i : 0
-        scroll <= 100 ? scroll * 0.01 : 1
+        scroll <= 100 ? scroll : 100
     end
     
     def progress_with_scroll(location, scroll)

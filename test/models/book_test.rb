@@ -44,25 +44,22 @@ class BookTest < ActiveSupport::TestCase
         assert_equal Book::SKIPS.to_i, Book::SKIPS
     end
     
-    test "clean_location method returns integer" do
-        assert_equal @book.clean_location(3), 3
-        assert_equal @book.clean_location("3"), 3
-        assert_equal @book.clean_location("three"), 0
-        assert_equal @book.clean_location, 0
+    test "location_in_range method returns integer" do
+        assert_equal @book.location_in_range(3), 3
+        assert_equal @book.location_in_range("3"), 3
+        assert_equal @book.location_in_range("three"), 0
+        assert_equal @book.location_in_range, 0
     end
     
-    test "clean_location method maxes out" do
-        assert_equal @book.clean_location(300), 3
+    test "location_in_range method maxes out" do
+        assert_equal @book.location_in_range(300), 3
     end
     
-    test "clean_scroll method returns percentage" do
-        assert_equal @book.clean_scroll(3), 0.03
-        assert_equal @book.clean_scroll(33.33), 0.33
-    end
-
-    test "clean_scroll method returns value within range" do
-        assert_equal @book.clean_scroll(-3), 0
-        assert_equal @book.clean_scroll(101), 1
+    test "scroll_in_range method returns integer within range" do
+        assert_equal @book.scroll_in_range(-3), 0
+        assert_equal @book.scroll_in_range(3), 3
+        assert_equal @book.scroll_in_range(33.33), 33
+        assert_equal @book.scroll_in_range(101), 100
     end
     
     test "section_slice_length method returns section length as percent of total" do

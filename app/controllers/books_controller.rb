@@ -28,11 +28,12 @@ class BooksController < ApplicationController
 		@background_image_url = @book.background_image_url
 
         # Get progress variables
-        @location = @book.clean_location(params[:location])
-        @scroll = @book.clean_scroll(params[:scroll])
+        @location = @book.location_in_range(params[:location])
+        @scroll = @book.scroll_in_range(params[:scroll])
+        @scroll_as_decimal = percent_to_raw(@scroll)
         @section_slice_length = @book.section_slice_length(@location)
         @progress_start = @book.progress_start(@location)
-		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
+		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll_as_decimal)
         
         # Get section content 
         @section = @book.get_section_from_location(@location) if @book.is_main_text?(@location) 
