@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-    before_action :admin_user, only: [:index, :new, :create, :edit, :update, :destroy, :upload, :update_length]
+    before_action :admin_user, only: [:index, :new, :create, :edit, :update, :destroy, :upload]
 
     def index
         @books = Book.all
@@ -33,9 +33,12 @@ class BooksController < ApplicationController
         @section_slice_length = @book.section_slice_length(@location)
         @progress_start = @book.progress_start(@location)
 		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
-
+        
+        # Get section content 
+        @section = @book.get_section_from_location(@location) if @book.is_main_text?(@location) 
+        
         # Get page subtitle
-		@page_subtitle = use_custom_page_subtitle? ? @book.get_section_from_location(@location).index_title : @book.author
+		@page_subtitle = use_custom_page_subtitle? ? @section.index_title : @book.author
     end
 
     def edit
@@ -74,7 +77,7 @@ class BooksController < ApplicationController
     end
     
     def use_custom_page_subtitle?
-        @book.is_main_text?(@location) && @book.get_section_from_location(@location).indexable?
+        @section && @section.indexable?
     end
     
     # Before filters
