@@ -5,10 +5,10 @@ class Bookmark < ActiveRecord::Base
 	validates :user_id, :book_id, :location, :scroll, :presence => true
 	
 	def url
-		"/books/" + self.book_id.to_s + "/" + self.location.to_s + "?scroll=" + self.scroll.to_s
+		"/books/" + book_id.to_s + "/" + location.to_s + "?scroll=" + scroll.to_s
 	end
     
     def name
-        book.title.to_s + " (#{book.get_progress_vars(location, scroll)[:progress_with_scroll].to_i}%)"
+        "#{book.title.to_s} (#{book.progress_with_scroll(book.clean_location(location), book.clean_scroll(scroll)).to_s}%)"
     end
 end

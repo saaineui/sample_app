@@ -28,15 +28,14 @@ class BooksController < ApplicationController
 		@background_image_url = @book.background_image_url
 
         # Get progress variables
-		progress_vars = @book.get_progress_vars(params[:location].to_i, params[:scroll].to_i)
-        @location = progress_vars[:location] 
-        @scroll = progress_vars[:scroll]
-        @section_slice_length = progress_vars[:section_slice_length]
-        @progress_start = progress_vars[:progress_start].to_i
-		@progress_with_scroll = progress_vars[:progress_with_scroll].to_i
+        @location = @book.clean_location(params[:location])
+        @scroll = @book.clean_scroll(params[:scroll])
+        @section_slice_length = @book.section_slice_length(@location)
+        @progress_start = @book.progress_start(@location)
+		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
 
         # Get page subtitle
-		@page_subtitle = @location >= @book.skips && @book.sections[@location-@book.skips].indexable? ? @book.sections[@location-@book.skips].index_title : @book.author
+		@page_subtitle = use_custom_page_subtitle? ? @book.get_section_from_location(@location).index_title : @book.author
     end
 
     def edit
@@ -70,14 +69,18 @@ class BooksController < ApplicationController
     end
 
   private
-  def book_params
+    def book_params
       params.require(:book).permit(:title, :author, :subtitle, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
-  end
+    end
+    
+    def use_custom_page_subtitle?
+        @book.is_main_text?(@location) && @book.get_section_from_location(@location).indexable?
+    end
+    
+    # Before filters
   
-  # Before filters
-  
-  # Confirms an admin user.
-  def admin_user
+    # Confirms an admin user.
+    def admin_user
       redirect_to(root_url) unless logged_in? && current_user.admin?
-  end
+    end
 end

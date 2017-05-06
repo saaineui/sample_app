@@ -9,19 +9,50 @@ class Book < ActiveRecord::Base
     
     validates :title, :author, :logo_url, :cover_image_url, presence: true
     
-    def skips
-        4
+    SKIPS = 4
+    
+    def clean_location(location = 0)
+        location = location.to_i
+		max_number_of_locations > location ? location : (max_number_of_locations-1)
     end
     
-    def get_progress_vars(location, scroll)
-		location = (sections.count+skips) > location ? location : (sections.count+skips-1)
-		scroll = scroll <= 100 ? scroll * 0.01 : 1
-        
-		section_slice_length = location >= skips ? sections[location-skips].text.length * 100 / to_valid_dividend(text_length) : 0
-				
-		text_read_length = location > skips ? sections.first(location-skips).map { |section| section.text.length }.reduce(:+) : 0
-		progress_start = text_read_length * 100 / to_valid_dividend(text_length)
-
-        return { location: location, scroll: scroll, section_slice_length: section_slice_length, progress_start: progress_start, progress_with_scroll: (progress_start + scroll * section_slice_length) }
+    def clean_scroll(scroll = 0)
+        scroll = scroll.to_i >= 0 ? scroll.to_i : 0
+        scroll <= 100 ? scroll * 0.01 : 1
     end
+    
+    def progress_with_scroll(location, scroll)
+		progress_start(location) + (scroll * section_slice_length(location)).to_i
+    end
+
+    def progress_start(location)
+		text_read_length = completed_sections(location).map { |section| section.text.length }.reduce(:+).to_i
+        text_read_length * 100 / to_valid_dividend(text_length)
+    end
+    
+    def section_slice_length(location)
+        is_main_text?(location) ? get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length) : 0
+    end
+    
+    def completed_sections(location)
+        has_completed_sections?(location) ? sections.first(location-SKIPS) : []
+    end
+    
+    def max_number_of_locations
+        sections.count + SKIPS
+    end
+    
+    def is_main_text?(location)
+        location >= SKIPS
+    end
+    
+    def has_completed_sections?(location)
+        location > SKIPS
+    end
+    
+    def get_section_from_location(location)
+        section_index = location - SKIPS
+        sections[section_index]
+    end
+    
 end

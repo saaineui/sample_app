@@ -1,4 +1,5 @@
 public:
+    id: 1
     title: The Model Views Controllers
     subtitle: A Novel
     author: Ruby Rails
@@ -7,9 +8,10 @@ public:
     cover_image_url: https://www.rubyonrails.org/cover%20image%202016-10-06.jpg
     logo_url: https://www.rubyonrails.org/logo%20image%202016-10-06.jpg
     background_image_url: https://www.rubyonrails.org/mvc_bg%202016-10-06.jpg
-    text_length: 200003
+    text_length: 18
 
 hidden:
+    id: 2
     title: "Lorem Ipsum: A Love Story"
     author: Stephanie Sun
     cover_image_url: http://www.stephsun.com/assets/l/lorem_cover.png
