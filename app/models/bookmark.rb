@@ -4,15 +4,11 @@ class Bookmark < ActiveRecord::Base
 	
 	validates :user_id, :book_id, :location, :scroll, :presence => true
 	
-	def url
-		"/books/" + book_id.to_s + "/" + location.to_s + "?scroll=" + scroll.to_s
-	end
-    
     def name
-        "#{book.title.to_s} (#{percent_read.to_s}%)"
+        book ? "#{book.title} (#{percent_read.to_s}%)" : "Book ##{book_id} can not be found."
     end
     
     def percent_read
-        book.progress_with_scroll(book.location_in_range(location), book.scroll_in_range(scroll))
+        book ? book.progress_with_scroll(book.location_in_range(location), book.scroll_in_range(scroll)) : 0
     end
 end

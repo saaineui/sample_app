@@ -14,7 +14,7 @@
 		</tr>
 		<%- @user.bookmarks.each do |bookmark| %>
 		<tr>
-			<th><%= link_to bookmark.name, bookmark.url %></th>
+			<th><%= link_to bookmark.name, open_book_path(bookmark.book, bookmark.location, scroll: bookmark.scroll) %></th>
 			<td><%= bookmark.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %e, %Y %-I:%M %p") %></td>
 			<td><%= link_to "delete", bookmark, method: :delete %></td>
 		</tr>

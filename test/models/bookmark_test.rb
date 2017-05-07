@@ -5,7 +5,7 @@ class BookmarkTest < ActiveSupport::TestCase
     def setup
         @user = User.first
         @book = Book.last
-        @bookmark = Bookmark.new(user: @user, book: @book, location: 10, scroll: 50)
+        @bookmark = Bookmark.create(user: @user, book: @book, location: 5, scroll: 50)
     end
     
     test "should be valid" do
@@ -30,6 +30,28 @@ class BookmarkTest < ActiveSupport::TestCase
     test "scroll should be present" do
         @bookmark.scroll = nil
         assert_not @bookmark.valid?
+    end
+    
+    test "percent_read method returns integer" do
+        assert_equal @bookmark.percent_read.class, Fixnum
+    end
+    
+    test "name method prints book title and progress" do
+        assert_equal @bookmark.name, "Lorem Ipsum: A Love Story (49%)"
+    end
+
+    test "percent_read method returns integer if book is deleted" do
+        @book.delete
+        @bookmark.reload
+
+        assert_equal @bookmark.percent_read.class, Fixnum
+    end
+    
+    test "name method prints string if book is deleted" do
+        @book.delete
+        @bookmark.reload
+        
+        assert_equal @bookmark.name, "Book #2 can not be found."
     end
 
 end
