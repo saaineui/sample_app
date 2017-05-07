@@ -6,9 +6,12 @@ class Section < ActiveRecord::Base
 	scope :chapters, -> { where(indexable: true) }
 	
 	def index_title
-		prefix = self.chapter.nil? ? "" : self.chapter.to_s + ". "		
-		prefix + self.title.gsub(/(\A\s?|\s?\Z)/,"")
+		index_prefix + title.gsub(/(\A\s?|\s?\Z)/,"")
 	end
+    
+    def index_prefix
+		chapter ? chapter.to_s + ". " : ""		
+    end
     
     def book_location
         order + Book::SKIPS - 1
