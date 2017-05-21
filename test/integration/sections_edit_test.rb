@@ -13,23 +13,4 @@ class SectionsEditTest < ActionDispatch::IntegrationTest
         assert_redirected_to root_path
     end
 
-=begin
-    test "regular user can not edit sections" do
-        log_in_as(@user)
-        get edit_section_path(@section)
-		original_title = @section.title
-        title  = "Foo Bar"
-        patch section_path(@section), section: { title:  title }
-
-        @section.reload
-        assert_equal original_title, @section.title
-    end
-
-    test "regular user can not delete sections" do
-        log_in_as(@user)
-        delete section_path(@section)
-        assert_redirected_to root_path
-    end
-=end
-
 end
