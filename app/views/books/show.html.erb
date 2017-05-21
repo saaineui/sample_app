@@ -10,9 +10,9 @@
 		<h2><%= @book.author %></h2>
 		<p class="buffcenter"><%= @book.subtitle %></p>
 		<%- when 2 %>
-		<%= @book.epigraph.html_safe %>
+		<%= @book.epigraph.html_safe if @book.epigraph %>
 		<%- when 3 %>
-		<%= @book.copyright.html_safe %>
+		<%= @book.copyright.html_safe if @book.copyright %>
 		<%- else %>
 		<%= @section.text.html_safe if @section %>
 		<%- end %>
