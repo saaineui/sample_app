@@ -20,4 +20,16 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "p.covers a img[alt=?]", books(:hidden).title, false
   end
       
+  test "should get home when logged in as read-only user" do
+    log_in_as(users(:read))
+    get root_path
+    assert_response :success
+  end
+
+  test "should get home when logged in as admin" do
+    log_in_as(users(:admin))
+    get root_path
+    assert_response :success
+  end
+
 end
