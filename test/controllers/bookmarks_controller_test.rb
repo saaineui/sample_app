@@ -5,6 +5,7 @@ class BookmarksControllerTest < ActionController::TestCase
     def setup
         @public_book = books(:public)
         @read_user = users(:read)
+        @admin_user = users(:admin)
         @bookmark = Bookmark.create(book: @public_book, user: @read_user, location: 5, scroll: 25)
     end
     
@@ -34,6 +35,15 @@ class BookmarksControllerTest < ActionController::TestCase
     test "destroy should redirect to login page when not logged in" do
         delete :destroy, id: @bookmark
         assert_redirected_to login_url
+    end
+    
+    test "destroy should not delete bookmark if not bookmark owner" do
+        log_in_as(@admin_user)
+
+        assert_no_difference 'Bookmark.count' do
+            delete :destroy, id: @bookmark
+        end
+        assert_redirected_to @admin_user
     end
     
 end
