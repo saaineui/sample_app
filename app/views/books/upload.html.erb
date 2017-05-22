@@ -5,24 +5,27 @@
 
 <%= form_for(:upload, url: upload_review_path) do |f| %>
 
-<p>Your file should be an HTML document containing your entire book test marked up with HTML5 and the classes and tags defined in 1_books.scss.</p>
-<p>The inner HTML of each section element in your file will be saved automatically in a separate section.</p>
+    <p>Your file should be an HTML document containing your entire book test marked up with HTML5 and the classes and tags defined in 1_books.scss.</p>
+    <p>The inner HTML of each section element in your file will be saved automatically in a separate section.</p>
 
-<%=  f.hidden_field :book_id, :value => @book.id %>
+    <%=  f.hidden_field :book_id, :value => @book.id %>
 
-	<p>
-	<%= f.label :ebook_file %>
-	<%= f.file_field :ebook_file %>
-	</p>
+    <p>
+        <%= f.label :ebook_file %>
+        <%= f.file_field :ebook_file %>
+    </p>
 
-	<p>
-	<%= f.label :auto_assign_chapter_nums, "Assign chapter numbers automatically?" %>
-	<%= f.check_box :auto_assign_chapter_nums %>
-	</p>
+    <p>
+        <%= f.label :auto_assign_chapter_nums, "Assign chapter numbers automatically?" %>
+        <%= f.check_box :auto_assign_chapter_nums %>
+    </p>
 
-	<p>
-	<%= f.submit "Upload", class: "btn" %>
-	</p>
+    <p>
+        <%= f.submit "Upload", class: "btn" %>
+    </p>
 	
-	<p><%= link_to "Cancel", books_path %></p>
+    <p>
+        <%= link_to "Cancel", books_path %>
+    </p>
+
 <% end %>

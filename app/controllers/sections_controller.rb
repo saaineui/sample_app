@@ -33,15 +33,15 @@ class SectionsController < ApplicationController
             new_section = Section.new(order: index + 1, title: "", text: section.to_s)
 
             if is_a_new_chapter?(section)
-				new_section.title = get_title(section)
+                new_section.title = get_title(section)
                 new_section.chapter = @chapter_num += 1 if auto_assign_chapter_nums
-			end
+            end
 		
-			new_section.indexable = !new_section.title.empty?
+            new_section.indexable = !new_section.title.empty?
 			
             if new_section.save
                 @book.sections << new_section
-			end
+            end
         end
     
         def is_a_new_chapter?(data)

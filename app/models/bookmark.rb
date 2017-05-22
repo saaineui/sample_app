@@ -1,8 +1,8 @@
 class Bookmark < ActiveRecord::Base
-	belongs_to :user
-	belongs_to :book
+    belongs_to :user
+    belongs_to :book
 	
-	validates :user_id, :book_id, :location, :scroll, :presence => true
+    validates :user_id, :book_id, :location, :scroll, :presence => true
 	
     def name
         book ? "#{book.title} (#{percent_read.to_s}%)" : "Book ##{book_id} can not be found."

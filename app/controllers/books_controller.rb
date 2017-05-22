@@ -21,12 +21,12 @@ class BooksController < ApplicationController
     end
 
     def show
-		@book = Book.find(params[:id])
+        @book = Book.find(params[:id])
 
         # Adjust graphics
         @override_title_logo = true
-		@override_background = @book.background_image_url.present?
-		@background_image_url = @book.background_image_url
+        @override_background = @book.background_image_url.present?
+        @background_image_url = @book.background_image_url
 
         # Get progress variables
         @location = @book.location_in_range(params[:location])
@@ -34,32 +34,32 @@ class BooksController < ApplicationController
         @scroll_as_decimal = percent_to_raw(@scroll)
         @section_slice_length = @book.section_slice_length(@location)
         @progress_start = @book.progress_start(@location)
-		@progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
+        @progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
         
         # Get section content 
         @section = @book.get_section_from_location(@location) if @book.is_main_text?(@location) 
         
         # Get page subtitle
-		@page_subtitle = use_custom_page_subtitle? ? @section.index_title : @book.author
+        @page_subtitle = use_custom_page_subtitle? ? @section.index_title : @book.author
     end
 
     def edit
-		@book = Book.find(params[:id])
+        @book = Book.find(params[:id])
     end
 
 	def update
-		@book = Book.find(params[:id])
+            @book = Book.find(params[:id])
         
-		if @book.update_attributes(book_params)
-			redirect_to @book
-			flash[:success] = "#{@book.title} has been updated."
-		else
-			render 'edit'
-		end
+            if @book.update_attributes(book_params)
+                redirect_to @book
+                flash[:success] = "#{@book.title} has been updated."
+            else
+                render 'edit'
+            end
 	end
 
 	def upload
-		@book = Book.find(params[:id])
+            @book = Book.find(params[:id])
 	end
 
     def destroy

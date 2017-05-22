@@ -3,14 +3,14 @@ class Section < ActiveRecord::Base
     
     validates :order, presence: true
 	
-	scope :chapters, -> { where(indexable: true) }
+    scope :chapters, -> { where(indexable: true) }
 	
-	def index_title
-		index_prefix + title.gsub(/(\A\s?|\s?\Z)/,"")
-	end
+    def index_title
+        index_prefix + title.gsub(/(\A\s?|\s?\Z)/,"")
+    end
     
     def index_prefix
-		chapter ? chapter.to_s + ". " : ""		
+        chapter ? chapter.to_s + ". " : ""		
     end
     
     def book_location

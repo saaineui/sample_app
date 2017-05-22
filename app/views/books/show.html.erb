@@ -20,16 +20,16 @@
 </div>
 <div id="book-nav">
     <nav class="up">
-    Scroll Up
+        Scroll Up
     </nav>
     <nav class="down">
-    Scroll Down
+        Scroll Down
     </nav>
 </div>
 <%= link_to "Back", open_book_path(@book, @location - 1), id: "back-btn" if @location > 0 %>
 <%= link_to "Next", open_book_path(@book, @location + 1), id: "next-btn" if @location + 1 < @book.max_number_of_locations %>
     </div>
-	<!-- Lightbox -->
-	<div id="lightbox"><span id="close">x</span></div>
+    <!-- Lightbox -->
+    <div id="lightbox"><span id="close">x</span></div>
     <%= render 'shared/books_js' %>
-	<div><!-- matching div close tag in application.html.erb -->
+    <div><!-- matching div close tag in application.html.erb -->

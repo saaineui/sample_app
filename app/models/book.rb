@@ -2,10 +2,10 @@ include ApplicationHelper
 
 class Book < ActiveRecord::Base
     has_and_belongs_to_many :sections
-	has_many :bookmarks
-	has_many :users, through: :bookmarks
+    has_many :bookmarks
+    has_many :users, through: :bookmarks
 	
-	scope :display, -> { where("author!=?","Stephanie Sun") }
+    scope :display, -> { where("author!=?","Stephanie Sun") }
     
     validates :title, :author, :logo_url, :cover_image_url, presence: true
     
@@ -14,7 +14,7 @@ class Book < ActiveRecord::Base
     
     def location_in_range(location = 0)
         location = location.to_i >= 0 ? location.to_i : 0
-		max_number_of_locations > location ? location : (max_number_of_locations-1)
+        max_number_of_locations > location ? location : (max_number_of_locations-1)
     end
     
     def scroll_in_range(scroll = 0)
@@ -23,11 +23,11 @@ class Book < ActiveRecord::Base
     end
     
     def progress_with_scroll(location, scroll)
-		progress_start(location) + (percent_to_raw(scroll) * section_slice_length(location)).to_i
+        progress_start(location) + (percent_to_raw(scroll) * section_slice_length(location)).to_i
     end
 
     def progress_start(location)
-		text_read_length = completed_sections(location).map { |section| section.text.length }.reduce(:+).to_i
+        text_read_length = completed_sections(location).map { |section| section.text.length }.reduce(:+).to_i
         text_read_length * 100 / to_valid_dividend(text_length)
     end
     

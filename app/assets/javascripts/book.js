@@ -1,23 +1,23 @@
-	jQuery(document).ready(function(spineless) {
+jQuery(document).ready(function(spineless) {
 
         var direction, scroll_interval, margin, sticky_bar_height, box_height, bookmark, new_bookmark;
-	    var anchor = 0;
+	var anchor = 0;
         var max_clicks = 0;
         var progress_percent = spineless.progress_with_scroll + "%";
         
-		/* Open and close lightbox */
-		jQuery("#ebook figure img").click(function(){
+	/* Open and close lightbox */
+	jQuery("#ebook figure img").click(function(){
 			jQuery("#lightbox").css("background-image", "url('" + jQuery(this).attr("src") + "')");
 			jQuery("#lightbox").show();
-		});
-		jQuery("#close").click(function(){
+	});
+	jQuery("#close").click(function(){
 			jQuery("#lightbox").hide();
-		});
+	});
 
-		jQuery("#progress").css("width",spineless.progress_with_scroll+"%");
+	jQuery("#progress").css("width",spineless.progress_with_scroll+"%");
 	
-		if (document.getElementById('scroll-wrap') != null ) {
-		  setTimeout(function(){
+	if (document.getElementById('scroll-wrap') != null ) {
+		setTimeout(function(){
 		
 			/* Get line height */
 			var line_height = parseInt( jQuery("#ebook p").css("line-height") );
@@ -97,9 +97,9 @@
 				}
 				
 				
-			});
-		  }, 300); /* close delay */
-		} /* close if */
+                            });
+                    }, 300); /* close delay */
+        } /* close if */
 		
 		
-	}(spineless));
+}(spineless));
