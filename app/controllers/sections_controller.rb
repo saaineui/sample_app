@@ -1,8 +1,9 @@
 class SectionsController < ApplicationController
     before_action :admin_user, only: [:new]
+    before_action :has_valid_form_data, only: [:new]
     
     def new
-        if params[:upload] && Book.exists?(params[:upload][:book_id])
+        if Book.exists?(params[:upload][:book_id])
             @book = Book.find(params[:upload][:book_id])
             raw_text = Nokogiri::HTML(params[:upload][:ebook_file])
             @book.text_length = raw_text.to_s.length
@@ -62,6 +63,10 @@ class SectionsController < ApplicationController
         # Confirms an admin user.
         def admin_user
             redirect_to(root_url) unless logged_in? && current_user.admin?
+        end
+    
+        def has_valid_form_data
+            params[:upload] && params[:upload][:book_id] && params[:upload][:ebook_file]
         end
 	
 end

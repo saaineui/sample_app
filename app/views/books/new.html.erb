@@ -55,5 +55,8 @@
 	<p>
 	<%= f.submit "Create Book", class: "btn" %>
 	</p>
-	<p><%= link_to "Cancel", books_path %></p>
+
+        <p class="form-nav-links">
+            <%= link_to "Back to Manage Books", books_path %>
+        </p>
 <% end %>

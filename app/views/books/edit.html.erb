@@ -70,9 +70,12 @@
 </div>" %></pre>
         </div>
 
-	<p>
-	<%= f.submit "Save", class: "btn" %>
-	</p>
-	<p><%= link_to "Cancel", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %></p>
+        <p>
+            <%= f.submit "Save", class: "btn" %>
+        </p>
+
+        <p class="form-nav-links">
+            <%= link_to "Back to Manage Books", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
+        </p>
 <% end %>
 

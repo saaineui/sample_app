@@ -26,4 +26,9 @@
 		</tr>
 	</tbody>
 </table>
-<p><%= link_to "Read #{@book.title}", @book, class: "btn" %>
+
+        <p><%= link_to "Edit #{@book.title}", edit_book_path(@book), class: "btn" %></p>
+
+        <p class="form-nav-links">
+            <%= link_to "Back to Manage Books", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
+        </p>

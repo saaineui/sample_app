@@ -12,7 +12,7 @@
 
     <p>
         <%= f.label :ebook_file %>
-        <%= f.file_field :ebook_file %>
+        <%= f.file_field :ebook_file, { required: true } %>
     </p>
 
     <p>
@@ -24,8 +24,7 @@
         <%= f.submit "Upload", class: "btn" %>
     </p>
 	
-    <p>
-        <%= link_to "Cancel", books_path %>
+    <p class="form-nav-links">
+        <%= link_to "Back to Manage Books", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
     </p>
-
 <% end %>
