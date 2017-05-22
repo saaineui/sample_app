@@ -6,6 +6,8 @@ class BooksControllerTest < ActionController::TestCase
         @public_book = books(:public)
         @read_user = users(:read)
         @admin_user = users(:admin)
+        @book_form_data = { title: "", author: "", subtitle: "", logo_url: "", copyright: "", epigraph: "", cover_image_url: "", background_image_url: "" }
+        @valid_book_form_data = { title: "MyString", author: "MyString", subtitle: "", logo_url: "MyString", copyright: "", epigraph: "", cover_image_url: "MyString", background_image_url: "" }
     end
     
   test "should get show" do
@@ -143,11 +145,18 @@ class BooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should post create when logged in as admin" do
+  test "should redirect to new when post empty create" do
     log_in_as(@admin_user)      
     @book = Book.new
-    post :create, id: @book, book: { title: "", author: "" }
-    assert_response :success
+    post :create, id: @book, book: @book_form_data
+    assert_template "books/new"
+    assert_select "#error_explanation p", count: 4
+  end
+
+  test "should post create when logged in as admin" do
+    log_in_as(@admin_user)      
+    post :create, book: @valid_book_form_data
+    assert_redirected_to upload_book_path(Book.last)
   end
 
   test "should get edit when logged in as admin" do
@@ -156,10 +165,17 @@ class BooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should redirect to edit when post empty update" do
+    log_in_as(@admin_user)
+    post :update, id: @public_book, book: @book_form_data
+    assert_template "books/edit"
+    assert_select "#error_explanation p", count: 4
+  end
+
   test "should post update when logged in as admin" do
     log_in_as(@admin_user)
-    post :update, id: @public_book, book: { title: "", author: "" }
-    assert_response :success
+    post :update, id: @public_book, book: @valid_book_form_data
+    assert_redirected_to book_path(@public_book)
   end
 
   test "should get upload when logged in as admin" do

@@ -13,7 +13,7 @@ class BooksController < ApplicationController
         @book = Book.new(book_params)
         if @book.save
             flash[:success] = "#{@book.title} has been added."
-            redirect_to @book
+            redirect_to upload_book_path(@book)
         else
             render 'new'
         end

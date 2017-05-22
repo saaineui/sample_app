@@ -13,10 +13,11 @@ class SectionsController < ApplicationController
 		
 		@book.text_length = raw_text.to_s.length
 		@book.sections = []
+        failed_sections = []
 		
 		chapter_num = 0
 		
-		raw_text.xpath("//section").each do |section|
+		raw_text.xpath("//section").each_with_index do |section, index|
 			this_section = Section.new
 			this_section.order = @book.sections.count + 1
 			this_section.title = ""
@@ -30,24 +31,22 @@ class SectionsController < ApplicationController
 			this_section.text = section.to_s
 			this_section.indexable = !this_section.title.empty?
 			if this_section.save
-				puts "Section #{this_section.title} saved."
+                @book.sections << this_section
 			else
-				flash[:error] = "Your upload failed."
+                failed_sections << index
 			end
-			@book.sections << this_section
 			section.unlink
 		end
 		if @book.save
-			flash[:success] = "Your file was uploaded successfully."
+			flash[:success] = "Your file was uploaded."
+            flash[:error] = "Sections #{failed_sections.join(", ")} failed." if failed_sections.count > 0
 		else
+            flash[:error] = "Your upload failed."
 			render upload_book_path(@book)
 		end
     end
     
   private
-  def section_params
-      params.require(:section).permit()
-  end
   
   # Before filters
   
