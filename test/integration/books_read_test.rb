@@ -51,6 +51,10 @@ class BooksReadTest < ActionDispatch::IntegrationTest
             assert_not flash.empty?
             assert_equal num_bookmarks+1, Bookmark.all.count
         end
+        
+        get user_path(@read_user)
+        assert_select "tr th a", count: book.max_number_of_locations-1
+        assert_select "tr td a", count: book.max_number_of_locations-1
     end
     
 end
