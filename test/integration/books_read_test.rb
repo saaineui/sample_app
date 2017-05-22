@@ -3,7 +3,7 @@ require 'test_helper'
 class BooksReadTest < ActionDispatch::IntegrationTest
 
     def setup
-        @user = users(:other)
+        @read_user = users(:read)
 		@books = [books(:public), books(:hidden)]
     end
     
@@ -29,7 +29,7 @@ class BooksReadTest < ActionDispatch::IntegrationTest
     test "log in and read" do
         book = @books.last
         
-        post login_path, session: { email: @user.email, password: 'password' }
+        post login_path, session: { email: @read_user.email, password: 'password' }
         assert is_logged_in?
 
         get book_path(book)

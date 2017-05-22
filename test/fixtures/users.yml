@@ -1,10 +1,10 @@
-user:
-    name: User Example
+admin:
+    name: Admin User
     email: fixture@example.com
     password_digest: <%= User.digest('password') %>
     admin: true
 
-other:
-    name: Mister Other
+read:
+    name: Read-Only User
     email: dutchess@example.gov
     password_digest: <%= User.digest('password') %>

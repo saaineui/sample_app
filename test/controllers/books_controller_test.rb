@@ -4,7 +4,8 @@ class BooksControllerTest < ActionController::TestCase
 
     def setup
         @public_book = books(:public)
-        @read_user = users(:other)
+        @read_user = users(:read)
+        @admin_user = users(:admin)
     end
     
   test "should get show" do
@@ -104,6 +105,12 @@ class BooksControllerTest < ActionController::TestCase
     log_in_as(@read_user)
     get :upload, id: @public_book
     assert_redirected_to root_url
+  end
+
+  test "should get new when logged in as admin" do
+    log_in_as(@admin_user)
+    get :new
+    assert_response :success
   end
 
     
