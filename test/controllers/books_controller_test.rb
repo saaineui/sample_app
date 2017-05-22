@@ -165,7 +165,7 @@ class BooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should redirect to edit when post empty update" do
+  test "should redirect to edit with errors when post empty update" do
     log_in_as(@admin_user)
     post :update, id: @public_book, book: @book_form_data
     assert_template "books/edit"
@@ -175,7 +175,8 @@ class BooksControllerTest < ActionController::TestCase
   test "should post update when logged in as admin" do
     log_in_as(@admin_user)
     post :update, id: @public_book, book: @valid_book_form_data
-    assert_redirected_to book_path(@public_book)
+    assert_template "books/edit"
+    assert_select "#error_explanation p", count: 0
   end
 
   test "should get upload when logged in as admin" do

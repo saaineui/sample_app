@@ -36,9 +36,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
         patch book_path(@book), book: { title: "Foo Bar", author: "Ruby Rails", subtitle: "", logo_url: "http://stephsun.com/books/usc/constitution_logo.png", cover_image_url: "http://stephsun.com/books/usc/us_constitution.jpg", background_image_url: "http://stephsun.com/books/usc/flag.png", epigraph: "<p class=\"epi-quote\">Short Epigraph</p>", copyright: "<p class=\"tightcenter\">Short Copyright</p>" }
         @book.reload
         assert_equal @book.title, "Foo Bar"
-
-        follow_redirect!
-        assert_select "title", "Foo Bar | Ruby Rails"
+        assert_select ".alert.alert-success", 1
 
         assert_difference "Section.all.count", 27 do
             post upload_review_path, upload: { auto_assign_chapter_nums: 1, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }

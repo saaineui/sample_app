@@ -47,20 +47,19 @@ class BooksController < ApplicationController
         @book = Book.find(params[:id])
     end
 
-	def update
-            @book = Book.find(params[:id])
+    def update
+        @book = Book.find(params[:id])
         
-            if @book.update_attributes(book_params)
-                redirect_to @book
-                flash[:success] = "#{@book.title} has been updated."
-            else
-                render 'edit'
-            end
-	end
+        if @book.update_attributes(book_params)
+            flash[:success] = "#{@book.title} has been updated."
+        end
+        
+        render 'edit'
+    end
 
-	def upload
-            @book = Book.find(params[:id])
-	end
+    def upload
+        @book = Book.find(params[:id])
+    end
 
     def destroy
         @book = Book.find(params[:id])

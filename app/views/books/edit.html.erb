@@ -1,6 +1,7 @@
 <% provide(:title, "Edit #{@book.title}") %>
 
-<h2>I have no words.</h2>
+<h2>Edit</h2>
+<h3><%= @book.title %></h3>
 
 <%= form_for(@book) do |f| %>
 
@@ -47,14 +48,31 @@
 	<%= f.text_area :epigraph %>
 	</p>
 
+        <div class="example-markup">
+            <p>Example: </p>
+            <pre><%= "<blockquote>
+	<p class=\"epi-quote\">&#147;Quote here.&#148;</p>
+	<p class=\"epi-attribution\">Source</p>
+</blockquote>" %></pre>
+        </div>
+
 	<p>
 	<%= f.label :copyright %>
 	<%= f.text_area :copyright %>
 	</p>
 
+        <div class="example-markup">
+            <p>Example: </p>
+            <pre><%= "<div class=\"cc-license\">
+    <p>
+        This work is licensed under a license.
+    </p>
+</div>" %></pre>
+        </div>
+
 	<p>
 	<%= f.submit "Save", class: "btn" %>
 	</p>
-	<p><%= link_to "Cancel", books_path %></p>
+	<p><%= link_to "Cancel", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %></p>
 <% end %>
 
