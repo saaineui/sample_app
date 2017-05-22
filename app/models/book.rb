@@ -10,6 +10,7 @@ class Book < ActiveRecord::Base
     validates :title, :author, :logo_url, :cover_image_url, presence: true
     
     SKIPS = 4
+    CHARACTERS_PER_PAGE = 3500
     
     def location_in_range(location = 0)
         location = location.to_i >= 0 ? location.to_i : 0

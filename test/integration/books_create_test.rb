@@ -25,7 +25,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
         get upload_book_path(@book)
         assert_redirected_to root_path
         
-        post upload_review_path, upload: { assign_chapters: 0, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
+        post upload_review_path, upload: { auto_assign_chapter_nums: 0, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
         assert_redirected_to root_path
     end
 
@@ -44,7 +44,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
         assert_select "title", "Spineless | Upload The Constitution of the United States"
         assert_select "h3", "The Constitution of the United States"
 
-        post upload_review_path, upload: { assign_chapters: 0, book_id: new_book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
+        post upload_review_path, upload: { auto_assign_chapter_nums: 0, book_id: new_book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
         assert !flash.empty?
         assert_template "sections/new"
 

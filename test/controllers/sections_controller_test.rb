@@ -21,7 +21,7 @@ class SectionsControllerTest < ActionController::TestCase
 
   test "should post new when logged in as admin user" do
     log_in_as(@admin_user)
-    post :new, upload: { assign_chapters: 0, book_id: 1, ebook_file: "" }
+    post :new, upload: { auto_assign_chapter_nums: 0, book_id: 1, ebook_file: "" }
     assert_response :success
   end
     

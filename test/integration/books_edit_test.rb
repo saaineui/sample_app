@@ -41,7 +41,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
         assert_select "title", "Foo Bar | Ruby Rails"
 
         assert_difference "Section.all.count", 27 do
-            post upload_review_path, upload: { assign_chapters: 1, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
+            post upload_review_path, upload: { auto_assign_chapter_nums: 1, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
         end
         assert_template "sections/new"
         assert !flash.empty?

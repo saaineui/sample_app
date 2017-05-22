@@ -1,6 +1,4 @@
 <% provide(:title, "Review Table of Contents for #{@book.title}") %>
-<% total_characters = 0 %>
-<% chars_per_page = 3500 %>
 
 <table class="book-data-review">
 	<thead>
@@ -12,21 +10,19 @@
 		</tr>
 	</thead>
 	<tbody>
-  <% @book.sections.each do |section| %>
-		<%- characters = section.text.length %>
-		<%- total_characters += characters %>
+        <% @book.sections.each do |section| %>
 		<tr>
-			<td><%= section.chapter rescue nil %></td>
-			<td><%= section.title rescue nil %></td>
-			<td><%= number_with_delimiter(characters) %></td>
-			<td><%= characters / chars_per_page %></td>
+			<td><%= section.chapter %></td>
+			<td><%= section.title %></td>
+			<td><%= number_with_delimiter(section.text.length) %></td>
+			<td><%= section.text.length / Book::CHARACTERS_PER_PAGE %></td>
 		</tr>
-    <% end %>
+        <% end %>
 		<tr>
 			<td>Total</td>
 			<td></td>
-			<td><%= number_with_delimiter(total_characters) %></td>
-			<td><%= total_characters / chars_per_page %></td>
+			<td><%= number_with_delimiter(@book.text_length) %></td>
+			<td><%= @book.text_length / Book::CHARACTERS_PER_PAGE %></td>
 		</tr>
 	</tbody>
 </table>
