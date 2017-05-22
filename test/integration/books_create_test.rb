@@ -42,9 +42,12 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
         
         follow_redirect!
         assert_select "title", "Spineless | Upload The Constitution of the United States"
+        assert_select "h3", "The Constitution of the United States"
 
         post upload_review_path, upload: { assign_chapters: 0, book_id: new_book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
         assert !flash.empty?
+        assert_template "sections/new"
+
         assert_equal new_book.sections.count, 30
         
         [[1, "Various"], [5, "Section. 1."], [10, "Section. 6."], [30, "Article. VI."]].each do |location, subtitle|

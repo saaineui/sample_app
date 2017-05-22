@@ -12,7 +12,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
         log_in_as(@read_user)
         get edit_book_path(@book)
         assert_redirected_to root_path
-
+        
         original_title = @book.title
         patch book_path(@book), book: { title: "Foo Bar" }
         assert_redirected_to root_path
@@ -51,4 +51,14 @@ class BooksEditTest < ActionDispatch::IntegrationTest
             assert_select "title", "Foo Bar | "+subtitle
         end
     end
+
+    test "user book deletion" do
+        log_in_as(@admin_user)
+        
+        assert_difference "Book.count", -1 do
+            delete book_path(@book)
+        end
+        assert_redirected_to books_path
+    end
+
 end

@@ -1,6 +1,7 @@
 <% provide(:title, "Upload #{@book.title}") %>
 
-<h2>Feed the beast.</h2>
+<h2>Upload</h2>
+<h3><%= @book.title %></h3>
 
 <%= form_for(:upload, url: upload_review_path) do |f| %>
 
