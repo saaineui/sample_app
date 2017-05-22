@@ -16,7 +16,7 @@
                 <tr>
                     <th><%= link_to bookmark.name, open_book_path(bookmark.book, bookmark.location, scroll: bookmark.scroll) %></th>
                     <td><%= bookmark.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%B %e, %Y %-I:%M %p") %></td>
-                    <td><%= link_to "delete", bookmark, method: :delete %></td>
+                    <td><%= link_to "delete", bookmark, method: :delete, data: { confirm: "Are you sure you want to delete this bookmark?" } %></td>
                 </tr>
                 <%- end %>
             <%- end %>

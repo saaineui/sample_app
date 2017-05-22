@@ -2,6 +2,6 @@
     <div class="one_four"><%= link_to book.title, book %></div>
     <div class="one_four"><%= book.author %></div>
     <div class="one_four"><%= book.sections.chapters.count %> Chapters<br /> <%= number_with_delimiter(book.text_length) %> Characters</div>
-    <div class="one_four"><%= link_to "edit", edit_book_path(book) %> | <%= link_to "upload", upload_book_path(book) %> | <%= link_to "delete", book, method: :delete, data: { confirm: "You sure?" } %></div>
+    <div class="one_four"><%= link_to "edit", edit_book_path(book) %> | <%= link_to "upload", upload_book_path(book) %> | <%= link_to "delete", book, method: :delete, data: { confirm: "Are you sure you want to delete #{book.title} permanently?" } %></div>
 	<figure class="index-logos"><%= image_tag book.logo_url %></figure>
 </li>
