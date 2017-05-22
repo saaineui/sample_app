@@ -75,6 +75,24 @@ class BooksControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+  test "should get show when logged in as read-only user" do
+    log_in_as(@read_user)
+    get :show, id: @public_book
+    assert_response :success
+  end
+
+  test "should redirect index when logged in as read-only user" do
+    log_in_as(@read_user)
+    get :index
+    assert_redirected_to root_url
+  end
+
+  test "should redirect new when logged in as read-only user" do
+    log_in_as(@read_user)
+    get :new
+    assert_redirected_to root_url
+  end
+
   test "should redirect create when logged in as read-only user" do
     log_in_as(@read_user)
     post :create
@@ -93,7 +111,7 @@ class BooksControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should redirect destroy when logged in as a non-admin" do
+  test "should redirect destroy when logged in as a read-only user" do
     log_in_as(@read_user)
     assert_no_difference 'Book.count' do
         delete :destroy, id: @public_book
@@ -101,10 +119,22 @@ class BooksControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should redirect upload when logged in as a non-admin" do
+  test "should redirect upload when logged in as a read-only user" do
     log_in_as(@read_user)
     get :upload, id: @public_book
     assert_redirected_to root_url
+  end
+
+  test "should get show when logged in as admin" do
+    log_in_as(@admin_user)
+    get :show, id: @public_book
+    assert_response :success
+  end
+
+  test "should get index when logged in as admin" do
+    log_in_as(@admin_user)
+    get :index
+    assert_response :success
   end
 
   test "should get new when logged in as admin" do
