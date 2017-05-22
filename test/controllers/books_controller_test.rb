@@ -113,5 +113,36 @@ class BooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should post create when logged in as admin" do
+    log_in_as(@admin_user)      
+    @book = Book.new
+    post :create, id: @book, book: { title: "", author: "" }
+    assert_response :success
+  end
+
+  test "should get edit when logged in as admin" do
+    log_in_as(@admin_user)
+    get :edit, id: @public_book
+    assert_response :success
+  end
+
+  test "should post update when logged in as admin" do
+    log_in_as(@admin_user)
+    post :update, id: @public_book, book: { title: "", author: "" }
+    assert_response :success
+  end
+
+  test "should get upload when logged in as admin" do
+    log_in_as(@admin_user)
+    get :upload, id: @public_book
+    assert_response :success
+  end
+
+  test "destroy should redirect to books index and delete book and sections" do
+    log_in_as(@admin_user)
+    assert_difference 'Book.count', -1 do
+        delete :destroy, id: @public_book
+    end
+  end
     
 end
