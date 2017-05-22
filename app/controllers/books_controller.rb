@@ -11,6 +11,7 @@ class BooksController < ApplicationController
 
     def create
         @book = Book.new(book_params)
+        
         if @book.save
             flash[:success] = "#{@book.title} has been added."
             redirect_to upload_book_path(@book)
@@ -48,6 +49,7 @@ class BooksController < ApplicationController
 
 	def update
 		@book = Book.find(params[:id])
+        
 		if @book.update_attributes(book_params)
 			redirect_to @book
 			flash[:success] = "#{@book.title} has been updated."
@@ -61,20 +63,28 @@ class BooksController < ApplicationController
 	end
 
     def destroy
-	  @book = Book.find(params[:id])
-	  title = @book.title
-	  sections_count = @book.sections.count
-	  @book.sections.each do |section|
-		section.destroy
-	  end
-      @book.destroy
-      flash[:success] = "The book #{title} and #{sections_count} section(s) were deleted."
-      redirect_to books_url
+        @book = Book.find(params[:id])
+        title = @book.title
+        sections_count = 0
+        
+        @book.sections.each do |section|
+            sections_count += 1 if section.destroy
+        end
+        
+        if @book.destroy
+            flash[:success] = "The book #{title} and #{sections_count} section(s) were deleted."
+        else
+            flash[:success] = "#{sections_count} section(s) were deleted."
+            flash[:error] = "The book #{title} could not be deleted."            
+        end
+        
+        redirect_to books_url
     end
 
   private
+    
     def book_params
-      params.require(:book).permit(:title, :author, :subtitle, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
+        params.require(:book).permit(:title, :author, :subtitle, :logo_url, :copyright, :epigraph, :cover_image_url, :background_image_url, :text_length, section_attributes: [:id,:title])
     end
     
     def use_custom_page_subtitle?
@@ -85,6 +95,6 @@ class BooksController < ApplicationController
   
     # Confirms an admin user.
     def admin_user
-      redirect_to(root_url) unless logged_in? && current_user.admin?
+        redirect_to(root_url) unless logged_in? && current_user.admin?
     end
 end

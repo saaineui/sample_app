@@ -3,6 +3,7 @@ class BookmarksController < ApplicationController
 
   def new
       @bookmark = Bookmark.new(book_id: params[:book_id], user_id: current_user.id, location: params[:location].to_i, scroll: params[:scroll].to_i)
+      
       if @bookmark.save
           flash[:success] = "Your place has been saved."
           redirect_to open_book_path(@bookmark.book_id, @bookmark.location, scroll: @bookmark.scroll)
@@ -13,12 +14,15 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-	  if current_user.id == Bookmark.find(params[:id]).user_id 
-		Bookmark.find(params[:id]).destroy
+      @bookmark = Bookmark.find(params[:id])
+      
+	  if current_user == @bookmark.user 
+		@bookmark.destroy
 		flash[:success] = "Your bookmark was deleted."
 	  else
 		flash[:danger] = "That is not your bookmark."
 	  end
+      
       redirect_to user_url(current_user)
   end
   

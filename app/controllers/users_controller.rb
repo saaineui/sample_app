@@ -36,13 +36,20 @@ class UsersController < ApplicationController
           redirect_to @user
           flash[:success] = "Changes saved. You're all shiny and new."
       else
-        render 'edit'
+          render 'edit'
       end
   end
 
   def destroy
-      User.find(params[:id]).destroy
-      flash[:success] = "User deleted."
+      @user = User.find(params[:id])
+      user_name = @user.name
+      
+      if @user.destroy
+          flash[:success] = "User #{user_name} has been deleted."
+      else
+          flash[:error] = "User #{user_name} could not be deleted."
+      end
+      
       redirect_to users_url
   end
 
