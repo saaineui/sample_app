@@ -3,7 +3,7 @@ require 'test_helper'
 class SectionTest < ActiveSupport::TestCase
 
     def setup
-        @section = Section.new(title: "Functions", order: 3, chapter: 2, text: "Lorem ipsum", indexable: true)
+        @section = Section.new(title: "Functions", order: 3, chapter: 2, text: "Lorem ipsum", indexable: true, book_id: 1)
     end
     
     test "should be valid" do
@@ -12,6 +12,11 @@ class SectionTest < ActiveSupport::TestCase
 
     test "order should be present" do
         @section.order = nil
+        assert_not @section.valid?
+    end
+    
+    test "book_id should be present" do
+        @section.book_id = nil
         assert_not @section.valid?
     end
     
@@ -47,9 +52,7 @@ class SectionTest < ActiveSupport::TestCase
         @section_with_book = sections(:one)
         
         assert_equal @section_with_book.book_location, 4
-        @section_with_book.books.uniq.each do |book| # did wrong data structure here should be 1:many book:sections
-            assert_equal book.get_section_from_location(@section_with_book.book_location), @section_with_book
-        end
+        assert_equal @section_with_book.book.get_section_from_location(@section_with_book.book_location), @section_with_book
     end
     
 end

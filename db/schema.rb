@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160917224019) do
+ActiveRecord::Schema.define(version: 20170523073321) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "book_id"
@@ -55,7 +55,12 @@ ActiveRecord::Schema.define(version: 20160917224019) do
     t.datetime "updated_at",                 null: false
     t.boolean  "indexable",  default: false
     t.integer  "chapter"
+    t.integer  "book_id"
   end
+
+  add_index "sections", ["book_id"], name: "index_sections_on_book_id"
+  add_index "sections", ["chapter"], name: "index_sections_on_chapter"
+  add_index "sections", ["order"], name: "index_sections_on_order"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
