@@ -20,6 +20,7 @@ class UsersController < ApplicationController
           flash[:success] = "That was easy. Happy reading!"
           redirect_to @user
       else
+          @title = { subtitle: "Sign Up" }
           render 'new'
       end
   end
