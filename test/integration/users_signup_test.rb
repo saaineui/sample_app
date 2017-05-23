@@ -15,4 +15,17 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         assert is_logged_in?
     end
 
+    test "invalid signup information" do
+        get signup_path
+        assert_no_difference 'User.count' do
+            post_via_redirect users_path, user: { name:  "Example User",
+            email: "",
+            password:              "password",
+            password_confirmation: "passwo1rd"
+            }
+        end
+        assert_template 'users/new'
+        assert_not is_logged_in?
+    end
+
 end
