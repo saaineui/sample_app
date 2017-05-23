@@ -20,6 +20,8 @@ class SectionsController < ApplicationController
             if @book.save
                 @book.reload
                 flash[:success] = "Your file was uploaded."
+                
+                @title = { subtitle: "Review Upload for #{@book.title}" }
             else
                 upload_failure
             end

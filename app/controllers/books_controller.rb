@@ -3,10 +3,12 @@ class BooksController < ApplicationController
 
     def index
         @books = Book.all
+        @title = { subtitle: "Manage Books" }
     end
 
     def new
         @book = Book.new
+        @title = { subtitle: "New Book" }
     end
 
     def create
@@ -16,17 +18,13 @@ class BooksController < ApplicationController
             flash[:success] = "#{@book.title} has been added."
             redirect_to upload_book_path(@book)
         else
+            @title = { subtitle: "New Book" }
             render 'new'
         end
     end
 
     def show
         @book = Book.find(params[:id])
-
-        # Adjust graphics
-        @override_title_logo = true
-        @override_background = @book.background_image_url.present?
-        @background_image_url = @book.background_image_url
 
         # Get progress variables
         @location = @book.location_in_range(params[:location])
@@ -38,17 +36,19 @@ class BooksController < ApplicationController
         
         # Get section content 
         @section = @book.get_section_from_location(@location) if @book.is_main_text?(@location) 
-        
-        # Get page subtitle
-        @page_subtitle = use_custom_page_subtitle? ? @section.index_title : @book.author
+
+        # Use book metadata as title
+        @title = { title: @book.title, subtitle: use_custom_page_subtitle? ? @section.index_title : @book.author }
     end
 
     def edit
         @book = Book.find(params[:id])
+        @title = { subtitle: "Edit #{@book.title}" }
     end
 
     def update
         @book = Book.find(params[:id])
+        @title = { subtitle: "Edit #{@book.title}" }
         
         if @book.update_attributes(book_params)
             flash[:success] = "#{@book.title} has been updated."
@@ -59,6 +59,7 @@ class BooksController < ApplicationController
 
     def upload
         @book = Book.find(params[:id])
+        @title = { subtitle: "Upload #{@book.title}" }
     end
 
     def destroy

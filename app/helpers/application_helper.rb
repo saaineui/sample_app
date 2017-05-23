@@ -1,8 +1,9 @@
 module ApplicationHelper
   
-    def clean_title(override, page_title = '')
-        base_title = override && params[:id] && Book.exists?(params[:id]) ? Book.find(params[:id]).title : "Spineless"
-        base_title += " | " + page_title unless page_title.empty?
+    def clean_title
+        title = @title && @title.has_key?(:title) ? @title[:title] : "Spineless"
+        title += " | " + @title[:subtitle] if @title && @title[:subtitle].present?
+        title
     end
     
     def to_valid_dividend(num)

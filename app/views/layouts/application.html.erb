@@ -1,9 +1,7 @@
-<%- @override_title_logo ||= false %>
-<%- @override_background ||= false %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= clean_title(@override_title_logo, yield(:title)) %></title>
+    <title><%= clean_title %></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,700italic', media: 'all' %>
@@ -11,9 +9,9 @@
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
     
-    <%- if @override_background %>
+    <%- if @book && @book.background_image_url.present? %>
     <style>
-        body { background-image: url('<%= @background_image_url %>'); }
+        body { background-image: url('<%= @book.background_image_url %>'); }
     </style>
     <%- end %>
 </head>

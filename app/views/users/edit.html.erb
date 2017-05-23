@@ -1,5 +1,4 @@
-<% provide(:title, "Edit #{@user.name}") %>
-<h2>Change is good.</h2>
+<h2><%= @title[:subtitle] %></h2>
 <%= form_for(@user) do |f| %>
 <%= render 'shared/error_messages' %>
 

@@ -5,10 +5,12 @@ class UsersController < ApplicationController
   
   def index
       @users = User.all
+      @title = { subtitle: "All Readers" }
   end
 
   def new
       @user = User.new
+      @title = { subtitle: "Sign Up" }
   end
   
   def create
@@ -24,10 +26,12 @@ class UsersController < ApplicationController
   
   def show
       @user = User.find(params[:id])
+      @title = { subtitle: "About #{@user.name}" }
   end
 
   def edit
       @user = User.find(params[:id])
+      @title = { subtitle: "Edit #{@user.name}" }
   end
 
   def update
@@ -36,6 +40,7 @@ class UsersController < ApplicationController
           redirect_to @user
           flash[:success] = "Changes saved. You're all shiny and new."
       else
+          @title = { subtitle: "Edit #{@user.name}" }
           render 'edit'
       end
   end
