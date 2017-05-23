@@ -47,10 +47,14 @@
 	<%= f.text_area :epigraph %>
 	</p>
 
+<%= render partial: "epigraph_example" %>
+
 	<p>
 	<%= f.label :copyright %>
 	<%= f.text_area :copyright %>
 	</p>
+
+<%= render partial: "copyright_example" %>
 
 	<p>
 	<%= f.submit "Create Book", class: "btn" %>

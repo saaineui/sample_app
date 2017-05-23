@@ -48,27 +48,14 @@
 	<%= f.text_area :epigraph %>
 	</p>
 
-        <div class="example-markup">
-            <p>Example: </p>
-            <pre><%= "<blockquote>
-	<p class=\"epi-quote\">&#147;Quote here.&#148;</p>
-	<p class=\"epi-attribution\">Source</p>
-</blockquote>" %></pre>
-        </div>
+<%= render partial: "epigraph_example" %>
 
 	<p>
 	<%= f.label :copyright %>
 	<%= f.text_area :copyright %>
 	</p>
 
-        <div class="example-markup">
-            <p>Example: </p>
-            <pre><%= "<div class=\"cc-license\">
-    <p>
-        This work is licensed under a license.
-    </p>
-</div>" %></pre>
-        </div>
+<%= render partial: "copyright_example" %>
 
         <p>
             <%= f.submit "Save", class: "btn" %>
