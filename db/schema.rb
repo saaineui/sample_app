@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523073321) do
+ActiveRecord::Schema.define(version: 20170523082706) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "book_id"
@@ -38,14 +38,6 @@ ActiveRecord::Schema.define(version: 20170523073321) do
     t.integer  "text_length"
     t.string   "subtitle"
   end
-
-  create_table "books_sections", id: false, force: :cascade do |t|
-    t.integer "book_id",    null: false
-    t.integer "section_id", null: false
-  end
-
-  add_index "books_sections", ["book_id"], name: "index_books_sections_on_book_id"
-  add_index "books_sections", ["section_id"], name: "index_books_sections_on_section_id"
 
   create_table "sections", force: :cascade do |t|
     t.string   "title"
