@@ -66,7 +66,7 @@ class SectionsController < ApplicationController
         end
     
         def has_valid_form_data
-            params[:upload] && params[:upload][:book_id] && params[:upload][:ebook_file]
+            redirect_to(upload_book_path) unless params[:upload] && params[:upload][:book_id] && params[:upload][:ebook_file]
         end
 	
 end
