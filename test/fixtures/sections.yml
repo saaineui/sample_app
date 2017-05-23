@@ -1,5 +1,6 @@
 one:
     id: 1
+    book_id: 1
     title: MyString
     order: 1
     text: MyString
@@ -7,6 +8,7 @@ one:
 
 two:
     id: 2
+    book_id: 1
     title: MyString 2
     order: 2
     text: MyString 2
@@ -14,6 +16,7 @@ two:
     
 three:
     id: 3
+    book_id: 2
     title: MyString 3
     order: 1
     text: MyString 3
@@ -21,6 +24,7 @@ three:
 
 four:
     id: 4
+    book_id: 2
     title: MyString 4
     order: 2
     text: MyString 4
@@ -28,6 +32,7 @@ four:
 
 five:
     id: 5
+    book_id: 2
     title: MyString 5
     order: 3
     text: MyString 5
@@ -35,7 +40,9 @@ five:
 
 five:
     id: 6
+    book_id: 1
     title: MyString 6
     order: 3
     text: MyString 6
     indexable: false
+    

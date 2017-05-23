@@ -1,7 +1,7 @@
 class Section < ActiveRecord::Base
-    has_and_belongs_to_many :books
+    belongs_to :book
     
-    validates :order, presence: true
+    validates :order, :book, presence: true
 	
     scope :chapters, -> { where(indexable: true) }
 	
