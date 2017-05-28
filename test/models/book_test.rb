@@ -51,16 +51,16 @@ class BookTest < ActiveSupport::TestCase
         assert_equal @output.title, "MyString 2"
     end
     
-    test "has_completed_sections? method returns true only at 2nd section in main text" do
-        assert_not @book_with_sections.has_completed_sections?(2)
-        assert_not @book_with_sections.has_completed_sections?(4)
-        assert @book_with_sections.has_completed_sections?(5)
+    test "completed_sections? method returns true only at 2nd section in main text" do
+        assert_not @book_with_sections.completed_sections?(2)
+        assert_not @book_with_sections.completed_sections?(4)
+        assert @book_with_sections.completed_sections?(5)
     end
     
-    test "is_main_text? method returns true only in main text" do
-        assert_not @book_with_sections.is_main_text?(2)
-        assert @book_with_sections.is_main_text?(4)
-        assert @book_with_sections.is_main_text?(5)
+    test "main_text? method returns true only in main text" do
+        assert_not @book_with_sections.main_text?(2)
+        assert @book_with_sections.main_text?(4)
+        assert @book_with_sections.main_text?(5)
     end
     
     test "max_number_of_locations method returns number of valid locations" do

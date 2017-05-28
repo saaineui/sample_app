@@ -32,22 +32,22 @@ class Book < ActiveRecord::Base
     end
     
     def section_slice_length(location)
-        is_main_text?(location) ? get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length) : 0
+        main_text?(location) ? get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length) : 0
     end
     
     def completed_sections(location)
-        has_completed_sections?(location) ? sections.first(location-SKIPS) : []
+        completed_sections?(location) ? sections.first(location-SKIPS) : []
     end
     
     def max_number_of_locations
         sections.count + SKIPS
     end
     
-    def is_main_text?(location)
+    def main_text?(location)
         location >= SKIPS
     end
     
-    def has_completed_sections?(location)
+    def completed_sections?(location)
         location > SKIPS
     end
     

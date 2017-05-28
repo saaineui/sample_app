@@ -35,7 +35,7 @@ class BooksController < ApplicationController
         @progress_with_scroll = @book.progress_with_scroll(@location, @scroll)
         
         # Get section content 
-        @section = @book.get_section_from_location(@location) if @book.is_main_text?(@location) 
+        @section = @book.get_section_from_location(@location) if @book.main_text?(@location) 
 
         # Use book metadata as title
         @title = { title: @book.title, subtitle: use_custom_page_subtitle? ? @section.index_title : @book.author }
