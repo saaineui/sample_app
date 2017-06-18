@@ -84,6 +84,8 @@ class BooksController < ApplicationController
     def galley
         @book = Book.find(params[:id])
         @title = { subtitle: "#{@book.title} galley view" }
+        
+        render layout: "/layouts/galley"
     end
 
   private
