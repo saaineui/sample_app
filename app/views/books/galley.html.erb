@@ -1,1 +1,14 @@
-<p>Galley view.</p>
+<div class="inner-wrapper inner-left">
+    <div id="ebook">
+        <%- @book.sections.order(:order).each do |section| %>
+            <div class="page">
+                <div class="sidebar">
+                    1 &mdash; 1 &mdash; 1
+                </div>
+                <div class="rendered-text">
+                    <%= section.text.html_safe %>
+                </div>
+            </div>
+        <%- end %>
+    </div>
+</div>

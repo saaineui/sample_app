@@ -85,6 +85,9 @@ class BooksController < ApplicationController
         @book = Book.find(params[:id])
         @title = { subtitle: "#{@book.title} galley view" }
         
+        # Using similar JS to show, get heights of text and divide by page height to get num pages per chapter
+        # Map this info to a hash - each position gets section number & scroll count OR generates blank page
+        
         render layout: "/layouts/galley"
     end
 
