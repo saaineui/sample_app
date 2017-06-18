@@ -80,6 +80,11 @@ class BooksController < ApplicationController
         
         redirect_to books_url
     end
+    
+    def galley
+        @book = Book.find(params[:id])
+        @title = { subtitle: "#{@book.title} galley view" }
+    end
 
   private
     

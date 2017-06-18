@@ -13,9 +13,10 @@ Rails.application.routes.draw do
   resources :users
   resources :bookmarks, only: [:new, :destroy]
   resources :books do
-	member do
-		get 'upload'
-	end
+      member do
+          get 'upload'
+          get 'galley/:position', to: 'books#galley'
+      end
   end
 
   get 'books/:id/:location', to: 'books#show', as: :open_book 
