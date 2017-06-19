@@ -1,16 +1,30 @@
-$line-height: 0.24in;
-$page-height: 7.44in;
+$line-height: 0.215in;
+$page-height: 7.31in;
+$text-width: 5.8in;
+$sidebar-width: 0.6in;
+$page-width: $text-width+$sidebar-width;
 
 @import "books";
 
 body { margin: 0; padding: 0; }
 
-#wrapper { width: 13.5in; margin: 0 auto; padding: 0; }
+/* 
+ * Default Margins on Chrome are:
+ * Left: 0.39in
+ * Right: 0.38in
+ * Top: 0.39in
+ * Bottom: 0.38in
+ */
 
-.inner-wrapper { width: 6.75in; }
+#wrapper { width: $page-width*2; margin: 0 auto; padding: 0 0.01in 0 0; }
 
-.page { position: relative; width: 6.4in; height: $page-height; margin-left: 0.35in; overflow-y: hidden; page-break-after: always; border-bottom: 1px dashed #efefef; }
-.rendered-text { width: 5.8in; position: absolute; top: 0in; left: 0in; }
-.sidebar { position: absolute; transform-origin: $page-height 0in; right: 0.6in; height: 0.6in; width: $page-height; transform: rotate(-90deg); text-align: center; line-height: 0.6in; font-size: 10px; color: #ccc; }
+.spread { width: 100%; page-break-after: always; margin-top: ((8.5-$page-height)*0.5)-0.39; }
 
-#ebook p { font-size: $line-height*0.8; }
+.page { position: relative; width: $page-width; height: $page-height; overflow-y: hidden; }
+
+    .blank-page { position: relative; }
+    .rendered-text { width: $text-width; position: absolute; top: 0in; left: 0in; }
+    .sidebar { position: absolute; transform-origin: $page-height 0in; right: $sidebar-width; height: $sidebar-width; width: $page-height; transform: rotate(-90deg); text-align: center; line-height: $sidebar-width; font-size: 10px; color: #ccc; }
+
+        #ebook p { font-size: $line-height*0.8; }
+        #ebook img { max-width: 90%; }
