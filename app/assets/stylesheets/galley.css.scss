@@ -1,0 +1,16 @@
+$line-height: 0.25in;
+$page-height: 7.5in;
+
+@import "books";
+
+body { margin: 0; padding: 0; }
+
+#wrapper { width: 13.5in; margin: 0 auto; padding: 0; }
+
+.inner-wrapper { width: 6.75in; }
+
+.page { position: relative; width: 6.4in; height: $page-height; margin-left: 0.35in; overflow-y: hidden; page-break-after: always; border-bottom: 1px dashed #efefef; }
+.rendered-text { width: 5.8in; position: absolute; top: 0in; left: 0in; }
+.sidebar { position: absolute; transform-origin: $page-height 0in; right: 0.6in; height: 0.6in; width: $page-height; transform: rotate(-90deg); text-align: center; line-height: 0.6in; font-size: 10px; color: #ccc; }
+
+#ebook p { font-size: $line-height*0.8; }
