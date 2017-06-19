@@ -1,14 +1,33 @@
 <div id="ebook">
-    <%- @book.sections.order(:order).each do |section| %>
-        <div class="spread">
+            <!-- Title Page -->
             <div class="page">
-                <div class="sidebar">
-                    1 &mdash; 1 &mdash; 1
+                <%= render partial: "sidebar" %>
+                <div class="rendered-text">
+                    <h1><%= @book.title %></h1>
+                    <h2 class="author">by <%= @book.author %></h2>
+                    <p class="buffcenter"><%= @book.subtitle %></p>
                 </div>
+            </div>
+            <div class="page">
+                <%= render partial: "sidebar" %>
+            </div>
+            <!-- Epigraph -->
+            <div class="page">
+                <%= render partial: "sidebar" %>
+                <div class="rendered-text">
+                    <%= @book.epigraph.html_safe if @book.epigraph %>
+                </div>
+            </div>
+            <div class="page">
+                <%= render partial: "sidebar" %>
+            </div>
+    <!-- Get text from database in order -->
+    <%- @book.sections.order(:order).each do |section| %>
+            <div class="main-text page">
+                <%= render partial: "sidebar" %>
                 <div class="rendered-text">
                     <%= section.text.html_safe %>
                 </div>
             </div>
-        </div>
     <%- end %>
 </div>

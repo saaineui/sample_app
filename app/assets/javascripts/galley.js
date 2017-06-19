@@ -1,9 +1,29 @@
 $(document).ready(function() {
      
-        $( ".page" ).each(function( index ) {
+        $( ".main-text.page" ).each(function( index ) {
             var copy = $( this ).clone();
             $( this ).after( copy );
         });
+    
+        var page = $(".page").first();
+        var page_count = $(".page").length;
+        var processed = 0;
+    
+        while (processed < page_count) {
+            var spread = document.createElement('div');
+            $("#ebook").append(spread);
+            
+            left_page = page;
+            right_page = page.next();
+            page = page.next().next();
+            
+            $(spread).addClass("spread")
+                .append(left_page)
+                .append(right_page);
+            
+            processed += 2;
+        }
+        
 
 		setTimeout(function(){
 		
@@ -12,10 +32,10 @@ $(document).ready(function() {
 			
 			/* Resize book images */
 			$("#ebook figure, #ebook h2").each(function() {
-				box_height = parseInt( $(this).height() ); 
+				var box_height = parseInt( $(this).height() ); 
 				$(this).height( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
 			});
                     
-                }, 300); /* close delay */			
+                }, 500); /* close delay */			
 
 }());
