@@ -32,9 +32,6 @@ jQuery(document).ready(function(spineless) {
 			sticky_bar_height = parseInt( jQuery("#sticky-bar > nav").height() );
 			content_height = parseInt( jQuery("#ebook").height() );
 			
-			/* Get multiplier */
-			var multiplier = (jQuery("body").css("background-color") == "rgb(238, 238, 238)") ? 2 : 1
-			
 			/* Compute scroll interval (16 is wrapper padding, 16 is scroll-wrap top margin, 27 is next/back links) */
 			var box_height = jQuery(window).height() - sticky_bar_height - 16 - 16 - 30;
 			scroll_interval = box_height - (box_height % line_height);
@@ -57,10 +54,6 @@ jQuery(document).ready(function(spineless) {
 				anchor = Math.floor((content_height*spineless.scroll_as_decimal)/scroll_interval);
 				jQuery("#ebook").css("margin-top","-"+(scroll_interval*anchor)+"px");
 			}
-
-			window.addEventListener("resize", function() {
-				/* Reset when window resizes or screen orientation changes */
-			}); 
 
 			/* Scroll exactly one page up or down and then increment progress bar and bookmark link */
 			jQuery("#book-nav nav").click(function(){
