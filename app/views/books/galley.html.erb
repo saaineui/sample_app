@@ -1,3 +1,8 @@
+<%= form_tag(method: "get") do %>
+  <%= hidden_field_tag 'pages[]', [1,2,3], id: 'pages' %>
+  <%= submit_tag "Print Front", class: "btn" %>
+<% end %>
+
 <div id="ebook">
             <!-- Title Page -->
             <div class="page">
@@ -31,3 +36,4 @@
             </div>
     <%- end %>
 </div>
+<%= javascript_include_tag 'galley' if @position == "preview" %>

@@ -1,9 +1,10 @@
-$line-height: 0.215in;
-$page-height: 7.31in;
+$line-height: 21px;
+$page-height: 714px;
 $text-width: 5.8in;
 $sidebar-width: 0.6in;
 $page-width: $text-width+$sidebar-width;
 
+@import "global";
 @import "books";
 
 body { margin: 0; padding: 0; }
@@ -18,25 +19,25 @@ body { margin: 0; padding: 0; }
 
 #wrapper { width: $page-width*2; margin: 0 auto; padding: 0 0.01in 0 0; }
 
-.spread { width: 100%; page-break-after: always; margin-top: ((8.5-$page-height)*0.5)-0.39; }
+.spread { position: relative; width: 100%; page-break-after: always; margin-bottom: $line-height*2; }
 
 .page { position: relative; width: $page-width; height: $page-height; overflow-y: hidden; float: left; }
 
     .rendered-text { width: $text-width; position: absolute; top: 0in; }
-        .page:first-child .rendered-text { left: 0in; }
         .page:last-child .rendered-text { left: $sidebar-width; }
+        .page:first-child .rendered-text { left: 0in; }
 
     .sidebar { position: absolute; height: $sidebar-width; width: $page-height; text-align: center; line-height: $sidebar-width; font-size: 10px; color: #aaa; }
-        .page:first-child .sidebar { transform-origin: $page-height 0in; right: $sidebar-width; transform: rotate(-90deg); }
         .page:last-child .sidebar { transform-origin: 0in 0in; left: $sidebar-width; transform: rotate(90deg); }
+        .page:first-child .sidebar { transform-origin: $page-height 0in; right: $sidebar-width; transform: rotate(-90deg); }
 
         #ebook h1 { 
-            font-size: $line-height*1.4;
+            font-size: $line-height*1.25;
             line-height: $line-height*1.5;
             text-align: center;
             margin-top: $line-height*8;
             width: 100%; 
             float: none; 
         }
-        #ebook p { font-size: $line-height*0.8; }
+        #ebook p { font-size: $line-height*0.75; }
         #ebook img { max-width: 90%; }
