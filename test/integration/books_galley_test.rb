@@ -8,8 +8,8 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
     
     test "galley sections render" do
         get galley_book_path(@book, position: "front")
-        assert_select ".page", count: 7
-        assert_select ".sidebar", count: 7
+        assert_select ".page", count: 5
+        assert_select ".sidebar", count: 5
         
         @book.sections.each do |section|
             assert_select ".rendered-text", section.text

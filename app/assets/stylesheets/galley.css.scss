@@ -27,7 +27,7 @@ body { margin: 0; padding: 0; }
         .page:last-child .rendered-text { left: $sidebar-width; }
         .page:first-child .rendered-text { left: 0in; }
 
-    .sidebar { position: absolute; height: $sidebar-width; width: $page-height; text-align: center; line-height: $sidebar-width; font-size: 10px; color: #aaa; }
+    .sidebar { position: absolute; height: $sidebar-width; width: $page-height; text-align: center; line-height: $sidebar-width; font-size: 10px; }
         .page:last-child .sidebar { transform-origin: 0in 0in; left: $sidebar-width; transform: rotate(90deg); }
         .page:first-child .sidebar { transform-origin: $page-height 0in; right: $sidebar-width; transform: rotate(-90deg); }
 
@@ -41,3 +41,9 @@ body { margin: 0; padding: 0; }
         }
         #ebook p { font-size: $line-height*0.75; }
         #ebook img { max-width: 90%; }
+
+@media only print {
+    .spread { 
+        margin-bottom: 0px;
+    }
+}
