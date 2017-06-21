@@ -1,3 +1,8 @@
+<div class="screen-only centered">
+    <%= link_to "Preview All (read order)", galley_book_path(@book, :preview) %>
+    <%= link_to "Print Front (print order)", galley_book_path(@book, :front) %>
+    <%= link_to "Print Back (print order)", galley_book_path(@book, :back) %>
+</div>
 <div id="ebook">
             <!-- Title Page -->
             <div class="page">
@@ -12,12 +17,14 @@
             <div class="page">
                 <%= render partial: "sidebar" %>
                 <div class="rendered-text">
-                    <%= @book.epigraph.html_safe if @book.epigraph %>
+                    <div class="epigraph-wrap">
+                        <%= @book.epigraph.html_safe if @book.epigraph %>
+                    </div>
                 </div>
             </div>
     <!-- Get text from database in order -->
     <%- @book.sections.order(:order).each do |section| %>
-            <div class="main-text page">
+            <div class="page">
                 <%= render partial: "sidebar" %>
                 <div class="rendered-text">
                     <%= section.text.html_safe %>
@@ -25,4 +32,4 @@
             </div>
     <%- end %>
 </div>
-<%= javascript_include_tag 'galley' if @position == "preview" %>
+<%= javascript_include_tag 'galley' %>
