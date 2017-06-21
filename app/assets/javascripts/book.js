@@ -17,7 +17,7 @@ jQuery(document).ready(function(spineless) {
 	jQuery("#progress").css("width",spineless.progress_with_scroll+"%");
 	
 	if (document.getElementById('scroll-wrap') != null ) {
-		setTimeout(function(){
+		$(window).load(function() {
 		
 			/* Get line height */
 			var line_height = parseInt( jQuery("#ebook p").css("line-height") );
@@ -91,7 +91,7 @@ jQuery(document).ready(function(spineless) {
 				
 				
                             });
-                    }, 300); /* close delay */
+                    }); 
         } /* close if */
 		
 		
