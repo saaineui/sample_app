@@ -80,6 +80,17 @@ class BooksController < ApplicationController
         
         redirect_to books_url
     end
+    
+    def galley
+        @book = Book.find(params[:id])
+        @position = params[:position]
+        @title = { subtitle: "#{@book.title} - Review Galleys" }
+        
+        # Using similar JS to show, get heights of text and divide by page height to get num pages per chapter
+        # Map this info to a hash - each position gets section number & scroll count OR generates blank page
+        
+        render layout: "/layouts/galley"
+    end
 
   private
     

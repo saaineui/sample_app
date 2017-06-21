@@ -33,13 +33,6 @@ body {
 	font-weight: 400;
 }
 
-.clearfix:before, .clearfix:after {
-	content: " "; /* 1 */
-	display: table; /* 2 */
-}
-.clearfix:after {
-	clear: both;
-}
 
 ::-moz-selection {
     background: $dk-orange;

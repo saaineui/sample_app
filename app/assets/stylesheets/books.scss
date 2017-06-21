@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 #scroll-wrap {
 	margin-top: 16px;
 	overflow: hidden;
@@ -19,22 +20,22 @@
 		position: relative;
 	}
 	section { 
-		padding-top: 90px;
+		padding-top: $line-height*3;
 	}
 	img {
 		max-width: 100%;
 		height: auto;
 	}
 	figure {
-		margin: 30px 0;
+		margin: $line-height 0;
 		text-align: center;
 		max-width: 100%;
 	}
 	h2  {
 		margin: 0;
 		text-align: center;
-		font-size: 36px;
-		line-height: 45px;
+		font-size: $line-height*1.2;
+		line-height: $line-height*1.5;
 		font-weight: 300;
 		img {
 			max-width:60%;
@@ -43,15 +44,15 @@
 	h3  {
 		margin: 0;
 		text-align: center;
-		font-size: 28px;
-		line-height: 30px;
+		font-size: $line-height*0.925;
+		line-height: $line-height;
 		font-weight: normal;
 	}
         h3.author { font-weight: 300; }
 	p {
 		text-align: justify;
-		font-size: 17px;
-		line-height: 30px;
+		font-size: $line-height*0.567;
+		line-height: $line-height;
 		text-indent: 1.5em;
 		margin: 0;
 	}
@@ -73,51 +74,51 @@
 		text-indent: 0;
 	}
 	.last, .aftercenter {
-		margin: 0 0 30px 0;
+		margin: 0 0 $line-height 0;
 	}
 	.tightcenter, .buffcenter, .aftercenter {
 		text-align: center;
 		text-indent: 0;
 	}
 	.buffcenter {
-		margin: 30px 0;
+		margin: $line-height 0;
 	}
 
 	/* Chapter Heads and Drop Caps */
 	header.chapter-head {
-		margin-bottom: 30px;
+		margin-bottom: $line-height;
 	}
 	p.first-of-chapter:first-letter { float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; }
 
 	/* Text within the text overrides */
 	div.wrapper {
-		margin: 30px 2.5em;
+		margin: $line-height 2.5em;
 	}
 	div.padded-center {
-		margin: 30px;
+		margin: $line-height;
 		p { text-align: center; }
 	}
 	div.padded-left {
-		margin: 30px;
+		margin: $line-height;
 		p { text-align: left; text-indent: 0; }
 	}
 	div.magazine-column {
-		margin: 30px 3em;
+		margin: $line-height 3em;
 	}
 	div.text-wrapper {
-		margin: 30px auto;
+		margin: $line-height auto;
 		width: 30em;
 		max-width: 60%;
 		font-style: italic;
 		p { text-align: left; text-indent: 0; }
 	}
 	div.slide { 
-		padding: 30px;
+		padding: $line-height;
 		background: #fff;
-		height: 360px;
+		height: $line-height*12;
 		width: 540px;
 		max-width: 100%;
-		margin: -30px auto;
+		margin: -1*$line-height auto;
 		border: 1px solid #ccc;
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -136,14 +137,10 @@
 		text-indent: 0;
 	}
 	p.blog.with-break, p.pubs.with-break, p.email.with-break, p.with-break {
-		margin-bottom: 30px;
+		margin-bottom: $line-height;
 	}
 	
-	.dead-center {
-		/* tbd */
-	}
-	
-	hr { background-color: #ccc; height: 1px; border:none; margin-top: 14px; margin-bottom: 15px; }
+	hr { background-color: #ccc; height: 1px; border:none; margin-top: $line-height*0.5-1; margin-bottom: $line-height*0.5; }
 	
 } /* Close #ebook */
 

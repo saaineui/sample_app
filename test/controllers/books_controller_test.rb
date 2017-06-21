@@ -192,4 +192,9 @@ class BooksControllerTest < ActionController::TestCase
     end
   end
     
+    test "galley should render" do
+        get :galley, id: @public_book, position: "front-right"
+        assert_response :success
+    end
+    
 end
