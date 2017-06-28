@@ -10,6 +10,10 @@ gem 'jquery-rails', '4.0.3'
 gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
 
+group :development do
+    gem 'rubocop', '0.49.1', require: false
+end
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
