@@ -1,20 +1,21 @@
 include ApplicationHelper
 
+# class Object
 class Book < ActiveRecord::Base
     has_many :sections
     has_many :bookmarks
     has_many :users, through: :bookmarks
-	
-    scope :display, -> { where("author!=?","Stephanie Sun") }
-    
+
+    scope :display, -> { where('author!=?', 'Stephanie Sun') }
+
     validates :title, :author, :logo_url, :cover_image_url, presence: true
-    
+
     SKIPS = 4
     CHARACTERS_PER_PAGE = 3500
     
     def location_in_range(location = 0)
         location = location.to_i >= 0 ? location.to_i : 0
-        max_number_of_locations > location ? location : (max_number_of_locations-1)
+        max_number_of_locations > location ? location : (max_number_of_locations - 1)
     end
     
     def scroll_in_range(scroll = 0)
@@ -32,11 +33,15 @@ class Book < ActiveRecord::Base
     end
     
     def section_slice_length(location)
-        main_text?(location) ? get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length) : 0
+        if main_text?(location)
+            get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length)
+        else 
+            0
+        end
     end
     
     def completed_sections(location)
-        completed_sections?(location) ? sections.first(location-SKIPS) : []
+        completed_sections?(location) ? sections.first(location - SKIPS) : []
     end
     
     def max_number_of_locations

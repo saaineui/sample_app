@@ -1,16 +1,17 @@
+# class Object
 class Section < ActiveRecord::Base
     belongs_to :book
     
     validates :order, :book, presence: true
-	
+
     scope :chapters, -> { where(indexable: true) }
-	
+
     def index_title
-        index_prefix + title.gsub(/(\A\s?|\s?\Z)/,"")
+        index_prefix + title.gsub(/(\A\s?|\s?\Z)/, '')
     end
     
     def index_prefix
-        chapter ? chapter.to_s + ". " : ""		
+        chapter ? chapter.to_s + '. ' : ''		
     end
     
     def book_location
