@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-    before_action :admin_user, only: [:index, :new, :create, :edit, :update, :destroy, :upload]
+    before_action :admin_user, only: %i[index new create edit update destroy upload]
 
     def index
         @books = Book.all

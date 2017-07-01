@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
-    before_action :admin_user, only: [:new]
-    before_action :valid_form_data?, only: [:new]
+    before_action :admin_user, only: :new
+    before_action :valid_form_data?, only: :new
     
     def new
         if Book.exists?(params[:upload][:book_id])
