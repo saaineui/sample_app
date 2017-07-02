@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
     def new
-        @title = { subtitle: "Login" }
+        @title = { subtitle: 'Login' }
     end
     
     def create
@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
             log_in user
             redirect_back_or user
         else
-           flash.now[:danger] = 'Invalid email/password combination'
-           render 'new'
+            flash.now[:danger] = 'Invalid email/password combination'
+            render 'new'
         end
     end
     

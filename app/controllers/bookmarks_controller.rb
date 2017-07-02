@@ -31,20 +31,17 @@ class BookmarksController < ApplicationController
 
     # Confirms a logged-in user.
     def logged_in_user
-        unless logged_in?
-            store_location
-            flash[:danger] = 'Please log in.'
-            redirect_to login_url
-        end
+        return true if logged_in?
+        store_location
+        flash[:danger] = 'Please log in.'
+        redirect_to login_url
     end
     
     def generate_bookmark
-        if Book.exists?(params[:book_id])
-            book_id = params[:book_id]
-            location = params[:location].to_i
-            scroll = params[:scroll].to_i
-            @bookmark = Bookmark.new(book_id: book_id, user_id: current_user.id, location: location, scroll: scroll)
-        end
+        return false unless Book.exists?(params[:book_id])
+        book_id = params[:book_id]
+        location = params[:location].to_i
+        scroll = params[:scroll].to_i
+        @bookmark = Bookmark.new(book_id: book_id, user_id: current_user.id, location: location, scroll: scroll)
     end
-
 end

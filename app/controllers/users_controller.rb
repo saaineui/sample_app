@@ -5,22 +5,22 @@ class UsersController < ApplicationController
   
     def index
         @users = User.all
-        @title = { subtitle: "All Readers" }
+        @title = { subtitle: 'All Readers' }
     end
 
     def new
         @user = User.new
-        @title = { subtitle: "Sign Up" }
+        @title = { subtitle: 'Sign Up' }
     end
   
     def create
         @user = User.new(user_params)
         if @user.save
             log_in @user
-            flash[:success] = "That was easy. Happy reading!"
+            flash[:success] = 'That was easy. Happy reading!'
             redirect_to @user
         else
-            @title = { subtitle: "Sign Up" }
+            @title = { subtitle: 'Sign Up' }
             render 'new'
         end
     end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         if @user.update_attributes(user_params)
             redirect_to @user
-            flash[:success] = "Changes saved. You're all shiny and new."
+            flash[:success] = 'Changes to your profile have been saved.'
         else
             @title = { subtitle: "Edit #{@user.name}" }
             render 'edit'
@@ -59,32 +59,30 @@ class UsersController < ApplicationController
         redirect_to users_url
     end
 
-
     private
-        def user_params
-            params.require(:user).permit(:name, :email, :password, :password_confirmation)
-        end
+    
+    def user_params
+        params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
 
-        # Before filters
+    # Before filters
 
-        # Confirms a logged-in user.
-        def logged_in_user
-            unless logged_in?
-                store_location
-                flash[:danger] = "Please log in."
-                redirect_to login_url
-            end
-        end
+    # Confirms a logged-in user.
+    def logged_in_user
+        return true if logged_in?
+        store_location
+        flash[:danger] = 'Please log in.'
+        redirect_to login_url
+    end
 
-        # Confirms the correct user.
-        def correct_user
-            @user = User.find(params[:id])
-            redirect_to(root_url) unless current_user?(@user)
-        end
+    # Confirms the correct user.
+    def correct_user
+        @user = User.find(params[:id])
+        redirect_to(root_url) unless current_user?(@user)
+    end
 
-        # Confirms an admin user.
-        def admin_user
-            redirect_to(root_url) unless current_user.admin?
-        end
-
+    # Confirms an admin user.
+    def admin_user
+        redirect_to(root_url) unless current_user.admin?
+    end
 end
