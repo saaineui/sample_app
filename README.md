@@ -9,6 +9,6 @@
 <h2>Dependencies:</h2>
 
 <ul>
-    <li>Ruby 2.2.2</li>
-    <li>Rails 4.2.2</li>
+    <li>Ruby 2.4.0</li>
+    <li>Rails 4.2.9</li>
 </ul>
