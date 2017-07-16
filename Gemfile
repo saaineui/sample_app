@@ -2,12 +2,11 @@ ruby '2.4.0'
 
 gem 'rails',        '4.2.9'
 gem 'bcrypt',               '3.1.7'
-gem 'sass-rails',   '5.0.2'
+gem 'sass-rails'
 gem 'nokogiri'
 gem 'uglifier'
-gem 'coffee-rails', '4.1.0'
-gem 'jquery-rails', '4.0.3'
-gem 'jbuilder',     '2.2.3'
+gem 'jquery-rails'
+gem 'jbuilder'
 gem 'sdoc', group: :doc
 
 group :development do
