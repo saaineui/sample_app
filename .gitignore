@@ -21,3 +21,6 @@
 
 # Ignore compiled assets
 public/assets/*
+
+# Ignore vendor files
+vendor/*
