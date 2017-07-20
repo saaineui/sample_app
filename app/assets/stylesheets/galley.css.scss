@@ -41,7 +41,7 @@ body { margin: 0; padding: 0; }
         }
         #ebook h1, .epigraph-wrap { margin-top: $line-height*8; }
         .epigraph-wrap { position: relative; }
-        #ebook p { font-size: $line-height*0.75; }
+        #ebook p, #ebook li { font-size: $line-height*0.75; }
         #ebook img { max-width: 90%; }
 
 @media only print {
