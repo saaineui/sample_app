@@ -11,7 +11,6 @@ $(document).ready(function() {
     
     var view_type = $("body").hasClass("front") ? "F" : "P";
     if ($("body").hasClass("back")) { view_type = "B"; }
-    var is_filtered_view = view_type !== "P";
     var array_increment_size = pages_per_signature / 2;
     
     /* 
@@ -121,27 +120,16 @@ $(document).ready(function() {
             if (is_out_of_bounds($(this), page_height)) { move_to_next($(this), page_height); }
 	});
 
-        var pages = is_filtered_view ? Array(array_increment_size) : [];
+        var pages = [];
         
         $( ".page" ).each(function( index ) {
             // new section: create blank pages until slot is on right
             while (!get_page_meta(page_num).is_on_right) {
-                if (!is_filtered_view) {
-                    pages.push(make_page($( blank_page_div() ), page_num, 0));
-                } else if (include_page(view_type, get_page_meta(page_num).page_position)) {
-                    new_page = make_page($( blank_page_div() ), page_num, 0);
-                    pages = resize_array_and_add(pages, new_page, get_render_index(new_page));
-                }
+                pages.push(make_page($( blank_page_div() ), page_num, 0));
                 page_num += 1;
             }
-    
             
-            if (!is_filtered_view) {
-                pages.push(make_page($( this ), page_num, 0));
-            } else if (include_page(view_type, get_page_meta(page_num).page_position)) {
-                new_page = make_page($( this ), page_num, 0);
-                pages = resize_array_and_add(pages, new_page, get_render_index(new_page));
-            }
+            pages.push(make_page($( this ), page_num, 0));
             page_num += 1;
             
             var content_height = parseInt( $( this ).children(".rendered-text").height() );			
@@ -153,12 +141,7 @@ $(document).ready(function() {
                 // move page into position
                 page_copy.children(".rendered-text").css("margin-top","-"+(page_height*pages_before)+"px");
                 
-                if (!is_filtered_view) {
-                    pages.push(make_page(page_copy, page_num, pages_before));  
-                } else if (include_page(view_type, get_page_meta(page_num).page_position)) {
-                    new_page = make_page(page_copy, page_num, pages_before);
-                    pages = resize_array_and_add(pages, new_page, get_render_index(new_page));
-                }
+                pages.push(make_page(page_copy, page_num, pages_before));  
                 page_num += 1;
             }
             
