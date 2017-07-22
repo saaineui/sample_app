@@ -13,8 +13,8 @@ class ActiveSupport::TestCase
       !session[:user_id].nil?
   end
 
-# Logs in a test user.
-def log_in_as(user, options = {})
+  # Logs in a test user.
+  def log_in_as(user, options = {})
     password    = options[:password]    || 'password'
     remember_me = options[:remember_me] || '1'
     if integration_test?
@@ -24,13 +24,22 @@ def log_in_as(user, options = {})
         else
         session[:user_id] = user.id
     end
-end
+  end
+    
+  def create_pages_json
+    pages = [
+              {order: "title", page_num: 1, pages_before: 0, signature: 1, signature_order: 1, page_position: 1}, 
+              {order: "epigraph", page_num: 2, pages_before: 1, signature: 1, signature_order: 2, page_position: 4}
+      ]
+    pages += (0..5).map { |order| {order: order, page_num: order+3, pages_before: order+2, signature: 1, signature_order: order+3, page_position: 3}}
+    pages.to_json
+  end
 
-private
+  private
 
-# Returns true inside an integration test.
-def integration_test?
-    defined?(post_via_redirect)
-end
+    # Returns true inside an integration test.
+    def integration_test?
+      defined?(post_via_redirect)
+    end
 
 end

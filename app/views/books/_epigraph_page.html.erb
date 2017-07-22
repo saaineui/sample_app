@@ -1,6 +1,6 @@
             <!-- Epigraph -->
             <div class="page" data-order="epigraph">
-                <%= render partial: "sidebar" %>
+                <%= render partial: "sidebar", locals: { sidebar_text: get_sidebar_string(page) } %>
                 <div class="rendered-text">
                     <div class="epigraph-wrap">
                         <%= @book.epigraph.html_safe if @book.epigraph %>

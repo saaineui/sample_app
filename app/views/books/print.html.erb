@@ -12,12 +12,12 @@
         <%- end %>
         <% case page['order'] %>
             <% when 'title' %>
-                <%= render partial: 'title_page' %>
+                <%= render partial: 'title_page', locals: { page: page } %>
             <% when 'epigraph' %>
-                <%= render partial: 'epigraph_page' %>
+                <%= render partial: 'epigraph_page', locals: { page: page } %>
             <% else %>
             <div class="page">
-                <%= render partial: 'sidebar' %>
+                <%= render partial: 'sidebar', locals: { sidebar_text: get_sidebar_string(page) } %>
                 <div class="rendered-text">
                     <%= @book.sections.with_order(page['order']).first.text.html_safe if @book.sections.with_order(page['order']).count > 0 %>
                 </div>
