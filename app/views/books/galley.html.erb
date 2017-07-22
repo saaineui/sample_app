@@ -17,7 +17,7 @@
     <!-- Get text from database in order -->
     <%- @book.sections.order(:order).each do |section| %>
             <div class="page" data-order="<%= section.order %>">
-                <%= render partial: 'sidebar', locals: { sidebar_text: nil } %>
+ <%= render partial: 'sidebar', locals: { sidebar_text: nil } %>
                 <div class="rendered-text">
                     <%= section.text.html_safe %>
                 </div>

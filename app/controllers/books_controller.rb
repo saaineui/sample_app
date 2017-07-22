@@ -76,11 +76,10 @@ class BooksController < ApplicationController
   end
   
   def print
-    positions = { 'Front' => [0, 1], 'Back' => [2, 3] }
     @position = params[:position] || 'Front'
     @title = { subtitle: "#{@book.title} - Print #{@position}" }
-    @pages = JSON.parse(params[:pages]).select{ |page| positions[@position].include?(page['page_position']) } || []
-    @pages.sort_by! { |page| (page['signature'] * 8) + (page['signature_order'] * 2) + page['page_position'] }
+      
+    process_pages
     
     render layout: '/layouts/galley' # plain styling
   end
@@ -103,6 +102,12 @@ class BooksController < ApplicationController
     @progress_start = @book.progress_start(@location)
     @progress_with_scroll = @book.progress_with_scroll(@location, @scroll)    
   end
+  
+  def process_pages # sort page data passed by galley.js
+    positions = { 'Front' => (0..1), 'Back' => (2..3) }
+    @pages = JSON.parse(params[:pages]).select{ |page| positions[@position].include?(page['page_position']) } || []
+    @pages.sort_by! { |page| ((page['signature'] - 1) * 8) + ((page['signature_order'] - 1) * 2) + page['page_position'] }
+  end    
 
   # Before filters
   

@@ -17,7 +17,7 @@
                 <%= render partial: 'epigraph_page', locals: { page: page } %>
             <% else %>
             <div class="page">
-                <%= render partial: 'sidebar', locals: { sidebar_text: get_sidebar_string(page) } %>
+<%= render partial: 'sidebar', locals: { sidebar_text: get_sidebar_string(page) } %>
                 <div class="rendered-text">
                     <%= @book.sections.with_order(page['order']).first.text.html_safe if @book.sections.with_order(page['order']).count > 0 %>
                 </div>
