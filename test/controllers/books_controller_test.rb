@@ -2,13 +2,13 @@ require 'test_helper'
 
 class BooksControllerTest < ActionController::TestCase
 
-    def setup
-        @public_book = books(:public)
-        @read_user = users(:read)
-        @admin_user = users(:admin)
-        @book_form_data = { title: '', author: '', subtitle: '', logo_url: '', copyright: '', epigraph: '', cover_image_url: '', background_image_url: '' }
-        @valid_book_form_data = { title: 'MyString', author: 'MyString', subtitle: '', logo_url: 'MyString', copyright: '', epigraph: '', cover_image_url: 'MyString', background_image_url: '' }        
-    end
+  def setup
+    @public_book = books(:public)
+    @read_user = users(:read)
+    @admin_user = users(:admin)
+    @book_form_data = { title: '', author: '', subtitle: '', logo_url: '', copyright: '', epigraph: '', cover_image_url: '', background_image_url: '' }
+    @valid_book_form_data = { title: 'MyString', author: 'MyString', subtitle: '', logo_url: 'MyString', copyright: '', epigraph: '', cover_image_url: 'MyString', background_image_url: '' }    
+  end
     
   test 'should get show' do
     get :show, id: @public_book
@@ -192,19 +192,19 @@ class BooksControllerTest < ActionController::TestCase
     end
   end
     
-    test 'galley should render' do
-        get :galley, id: @public_book
-        assert_response :success
-    end
-    
-    test 'print front should render' do
-        post :print, id: @public_book, position: 'front', pages: create_pages_json
-        assert_response :success
-    end
-    
-    test 'print back should render' do
-        post :print, id: @public_book, position: 'back', pages: create_pages_json
-        assert_response :success
-    end
+  test 'galley should render' do
+    get :galley, id: @public_book
+    assert_response :success
+  end
+  
+  test 'print front should render' do
+    post :print, id: @public_book, position: 'Front', pages: create_pages_json
+    assert_response :success
+  end
+  
+  test 'print back should render' do
+    post :print, id: @public_book, position: 'Back', pages: create_pages_json
+    assert_response :success
+  end
     
 end

@@ -2,11 +2,11 @@ require 'test_helper'
 
 class SectionsControllerTest < ActionController::TestCase
 
-    def setup
-        @public_book = books(:public)
-        @read_user = users(:read)
-        @admin_user = users(:admin)
-    end
+  def setup
+    @public_book = books(:public)
+    @read_user = users(:read)
+    @admin_user = users(:admin)
+  end
     
   test 'should redirect new when not logged in' do
     post :new
