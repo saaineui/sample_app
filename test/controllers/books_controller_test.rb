@@ -8,6 +8,17 @@ class BooksControllerTest < ActionController::TestCase
         @admin_user = users(:admin)
         @book_form_data = { title: "", author: "", subtitle: "", logo_url: "", copyright: "", epigraph: "", cover_image_url: "", background_image_url: "" }
         @valid_book_form_data = { title: "MyString", author: "MyString", subtitle: "", logo_url: "MyString", copyright: "", epigraph: "", cover_image_url: "MyString", background_image_url: "" }
+        
+        @pages = [
+            {order: "title", page_num: 1, pages_before: 0, signature: 1, signature_order: 1}, 
+            {order: "epigraph", page_num: 2, pages_before: 1, signature: 1, signature_order: 2}, 
+            {order: 0, page_num: 3, pages_before: 2, signature: 1, signature_order: 3}, 
+            {order: 1, page_num: 4, pages_before: 3, signature: 1, signature_order: 4}, 
+            {order: 2, page_num: 5, pages_before: 4, signature: 1, signature_order: 5}, 
+            {order: 3, page_num: 6, pages_before: 5, signature: 1, signature_order: 6}, 
+            {order: 4, page_num: 7, pages_before: 6, signature: 1, signature_order: 7}, 
+            {order: 5, page_num: 8, pages_before: 7, signature: 1, signature_order: 8}
+            ].to_json
     end
     
   test "should get show" do
@@ -193,7 +204,17 @@ class BooksControllerTest < ActionController::TestCase
   end
     
     test "galley should render" do
-        get :galley, id: @public_book, position: "front-right"
+        get :galley, id: @public_book
+        assert_response :success
+    end
+    
+    test "print front should render" do
+        post :print, id: @public_book, position: "front", pages: @pages
+        assert_response :success
+    end
+    
+    test "print back should render" do
+        post :print, id: @public_book, position: "back", pages: @pages
         assert_response :success
     end
     

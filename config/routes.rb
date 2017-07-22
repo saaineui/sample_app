@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :books do
       member do
           get 'upload'
-          get 'galley/:position', to: 'books#galley', as: :galley
+          get 'galley', to: 'books#galley', as: :galley
+          post 'print', to: 'books#print', as: :print
       end
   end
 

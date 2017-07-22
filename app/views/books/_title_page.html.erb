@@ -1,0 +1,9 @@
+            <!-- Title Page -->
+            <div class="page" data-order="title">
+                <%= render partial: "sidebar" %>
+                <div class="rendered-text">
+                    <h1><%= @book.title %></h1>
+                    <h2 class="author">by <%= @book.author %></h2>
+                    <p class="buffcenter"><%= @book.subtitle %></p>
+                </div>
+            </div>

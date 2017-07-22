@@ -5,6 +5,7 @@ class Section < ActiveRecord::Base
     validates :order, :book, presence: true
 
     scope :chapters, -> { where(indexable: true) }
+    scope :with_order, ->(order) { where(order: order).limit(1) }
 
     def index_title
         index_prefix + title.gsub(/(\A\s?|\s?\Z)/, '')

@@ -1,0 +1,29 @@
+<div class="screen-only centered">
+    <h3><%= @book.title %> - Print <%= @position %></h3>
+    <p>
+        <%= link_to 'Back to Preview', galley_book_path(@book) %>
+    </p>
+</div>
+<div id="ebook">
+    <%- @pages.each_with_index do |page, index| %>
+        <%- if index.even? %>
+        <div class="spread">
+        <%- end %>
+        <% case page['order'] %>
+            <% when 'title' %>
+                <%= render partial: 'title_page' %>
+            <% when 'epigraph' %>
+                <%= render partial: 'epigraph_page' %>
+            <% else %>
+            <div class="page">
+                <%= render partial: 'sidebar' %>
+                <div class="rendered-text">
+                    <%= @book.sections.with_order(page['order']).first.text.html_safe if @book.sections.with_order(page['order']).count > 0 %>
+                </div>
+            </div>
+        <% end %>
+        <%- if index.odd? %>
+        </div>
+        <%- end %>
+    <%- end %>
+</div>

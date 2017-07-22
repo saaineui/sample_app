@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
     before_action :admin_user, only: %i[index new create edit update destroy upload]
-    before_action :find_book_or_redirect, only: %i[show edit update destroy galley upload]
+    before_action :find_book_or_redirect, only: %i[show edit update destroy galley print upload]
 
     def index
         @books = Book.all
@@ -67,13 +67,20 @@ class BooksController < ApplicationController
     end
     
     def galley
-        @position = params[:position]
-        @title = { subtitle: "#{@book.title} - Review Galleys" }
+        @title = { subtitle: "#{@book.title} - Galleys" }
         
         # Using similar JS to show, get heights of text and divide by page height to get num pages per chapter
         # Map this info to a hash - each position gets section number & scroll count OR generates blank page
         
         render layout: '/layouts/galley'
+    end
+    
+    def print
+        @position = params[:position] || 'Front'
+        @title = { subtitle: "#{@book.title} - Print #{@position}" }
+        @pages = JSON.parse(params[:pages]) || []
+        
+        render layout: '/layouts/galley' # plain styling
     end
     
     private

@@ -5,13 +5,7 @@ $(document).ready(function() {
     var pages_per_signature = PAGES_PER_PRINT_PAGE * print_pages_per_signature;
     var page_height = parseInt( $(".page").first().height() );
     var line_height = parseInt( $("#ebook p").css("line-height") );
-    var page_copy, new_page;
     var page_positions = ["FL","FR","BL","BR"];
-    var page_num = 1;
-    
-    var view_type = $("body").hasClass("front") ? "F" : "P";
-    if ($("body").hasClass("back")) { view_type = "B"; }
-    var array_increment_size = pages_per_signature / 2;
     
     /* 
      * page_position is order in which to render pages to print a page, front before back, left then right:
@@ -22,7 +16,7 @@ $(document).ready(function() {
     function make_page(page, page_num, pages_before) {
         var page_meta = get_page_meta(page_num);        
         var new_page = { 
-                page: page, page_num: page_num, pages_before: pages_before, 
+                page: page, order: page.attr("data-order"), page_num: page_num, pages_before: pages_before, 
                 signature: page_meta.signature, signature_order: page_meta.signature_order, 
                 page_position: page_meta.page_position 
             };
@@ -30,15 +24,26 @@ $(document).ready(function() {
         // print metadata in sidebar
         if (page) { new_page.page.children(".sidebar").text(get_sidebar_string(new_page)) };
         
+        // add to hidden input for printing
+        add_to_pages_form_array(page);
+        
         return new_page;
     }
     
     function blank_page_div() {
         var page = document.createElement('div');
         $(page).addClass("page")
+               .attr("data-order", "blank")
                .append('<div class="sidebar"></div>');
         
         return page;
+    }
+    
+    function add_to_pages_form_array(page) {
+        var pages = JSON.parse($("#pages").val());
+        delete page.page;
+        pages.push(page);
+        $("#pages").val(JSON.stringify(pages));
     }
     
     function get_page_meta(page_num) {
@@ -66,61 +71,24 @@ $(document).ready(function() {
         return page_position == 1 || page_position == 3;
     }
     
-    function is_out_of_bounds(el, box_height) {
-        var box_bottom = Math.ceil(parseInt( el.position().top ) / box_height) * box_height;
-        return position_bottom(el) > box_bottom;
-    }
-            
-    function move_to_next(el, box_height) {
-        var visible_height_of_el = el.height() - (position_bottom(el) % box_height);
-        el.css("margin-top", visible_height_of_el.toString() + "px");
-    }
-            
-    function position_bottom(el) {
-        return parseInt( el.position().top ) + parseInt( el.height() );
-    }
-    
-    // filtered view (front or back) helpers
-    
-    function include_page(view_type, page_position) {
-        return page_positions[page_position][0] == view_type;
-    }
-    
-    function resize_array_and_add(array, item, i) {
-        if (i >= array.length) {
-            array = array.concat(Array(array_increment_size));
-        }
-        
-        array[i] = item;
-        
-        return array;
-    }
-
-    function get_render_index(page) {
-        pages_per_side = PAGES_PER_PRINT_PAGE / 2;
-        side_agnostic_page_position = page.page_position % 2;
-        return (page.signature - 1)*array_increment_size + (page.signature_order - 1)*pages_per_side + side_agnostic_page_position;
-    }
-    
     
     
     // wait for book text and images to render before resizing/reordering
     $(window).load(function() {		
             
 	// resize book images down for better print resolution
-	$("#ebook img").each(function() {
-            var img_width = parseInt( $(this).width() ); 
-            $(this).width( (img_width*0.75).toString() + "px" ); 
-	});
+	$("#ebook img").each(GalleyImages.shrink_to_print_size);
     
         // line up image containers along grid and in bounds
-	$("#ebook figure, #ebook h2").each(function() {
-            var box_height = parseInt( $(this).height() ); 
-            $(this).height( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
-            if (is_out_of_bounds($(this), page_height)) { move_to_next($(this), page_height); }
-	});
-
+	$("#ebook figure, #ebook h2").each(function(){ 
+            GalleyImages.move_in_bounds.call(this, line_height, page_height); 
+        });
+        
+        var page_copy, new_page;
         var pages = [];
+        var page_num = 1;
+
+        $("#pages").val(JSON.stringify(pages));
         
         $( ".page" ).each(function( index ) {
             // new section: create blank pages until slot is on right
@@ -148,16 +116,15 @@ $(document).ready(function() {
             $( this ).remove();
         });
         
+        // Fill out any empty slots in final signature with blank pages
         var last_page_num = get_page_meta(page_num).signature*pages_per_signature;
         
-        // Fill out empty rows with blank pages
         for (pn = page_num; pn <= last_page_num; pn++) {
-            if (include_page(view_type, get_page_meta(pn).page_position)) {
                 new_page = make_page($( blank_page_div() ), pn, 0);
-                pages[get_render_index(new_page)] = new_page;
-            }
+                pages.push(new_page);
         }
-            
+        
+        // Add to DOM for human review
         for (i=0; i<pages.length; i+=2) {
             var spread = document.createElement('div');
             $("#ebook").append(spread);
@@ -170,6 +137,8 @@ $(document).ready(function() {
                 .append(left_page)
                 .append(right_page);
         }
+        
+        $("#print-submit").removeAttr("disabled");
                     
     }); 			
 

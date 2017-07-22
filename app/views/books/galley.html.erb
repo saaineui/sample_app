@@ -1,33 +1,22 @@
 <div class="screen-only centered">
-    <h3>Galleys - <%= @position.titleize %></h3>
-    <p>
-        <%= link_to "Preview All (read order)", galley_book_path(@book, :preview) unless @position == "preview" %>
-        <%= link_to "Print Front (print order)", galley_book_path(@book, :front) unless @position == "front" %>
-        <%= link_to "Print Back (print order)", galley_book_path(@book, :back) unless @position == "back" %>
-    </p>
+    <h3><%= @book.title %> - Galley Preview</h3>
+    <%= form_tag method: :post, action: :print do %>
+        <%= hidden_field_tag :pages %>
+        <p>
+            <%= label_tag :position, "Position:" %>
+            <%= select_tag :position, options_for_select([['Front', 'Front'], ['Back', 'Back']]) %>
+        </p>
+        <p>
+            <%= submit_tag :print, disabled: true, id: "print-submit"  %>
+        </p>
+    <% end %>
 </div>
 <div id="ebook">
-            <!-- Title Page -->
-            <div class="page">
-                <%= render partial: "sidebar" %>
-                <div class="rendered-text">
-                    <h1><%= @book.title %></h1>
-                    <h2 class="author">by <%= @book.author %></h2>
-                    <p class="buffcenter"><%= @book.subtitle %></p>
-                </div>
-            </div>
-            <!-- Epigraph -->
-            <div class="page">
-                <%= render partial: "sidebar" %>
-                <div class="rendered-text">
-                    <div class="epigraph-wrap">
-                        <%= @book.epigraph.html_safe if @book.epigraph %>
-                    </div>
-                </div>
-            </div>
+    <%= render partial: "title_page" %>
+    <%= render partial: "epigraph_page" %>
     <!-- Get text from database in order -->
     <%- @book.sections.order(:order).each do |section| %>
-            <div class="page">
+            <div class="page" data-order="<%= section.order %>">
                 <%= render partial: "sidebar" %>
                 <div class="rendered-text">
                     <%= section.text.html_safe %>
@@ -35,4 +24,4 @@
             </div>
     <%- end %>
 </div>
-<%= javascript_include_tag 'galley' if @position == "preview" %>
+<%= javascript_include_tag 'galley' %>

@@ -13,3 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require menu
+//= require galley_images
