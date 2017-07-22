@@ -25,7 +25,7 @@ $(document).ready(function() {
         if (page) { new_page.page.children(".sidebar").text(get_sidebar_string(new_page)) };
         
         // add to hidden input for printing
-        add_to_pages_form_array(page);
+        add_to_pages_form_array(new_page);
         
         return new_page;
     }
@@ -41,7 +41,6 @@ $(document).ready(function() {
     
     function add_to_pages_form_array(page) {
         var pages = JSON.parse($("#pages").val());
-        delete page.page;
         pages.push(page);
         $("#pages").val(JSON.stringify(pages));
     }
