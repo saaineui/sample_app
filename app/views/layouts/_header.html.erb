@@ -1,10 +1,10 @@
 <header id="sticky-bar">
     <nav class="clearfix">
         <h1>
-        <% if @book && params[:action] == "show" %>
+        <% if @book && params[:action] == 'show' %>
             <%= link_to(image_tag(@book.logo_url, alt: @book.title), book_path(@book)) %>
         <% else %>
-            <%= link_to(image_tag(asset_path("spineless_logo.png"), alt: "spineless"), root_path) %>
+            <%= link_to(image_tag(asset_path('spineless_logo.png'), alt: 'spineless'), root_path) %>
         <% end %>
         </h1>
         <div class="nav-wrapper">
@@ -13,26 +13,28 @@
                     <span>Main Menu</span>
                     <ul class="menu">
                         <% if logged_in? %>
-                            <li><%= link_to "Profile", current_user %></li>
-                            <li><%= link_to "Log out", logout_path, method: :delete %></li>
+                            <li><%= link_to 'Profile', current_user %></li>
+                            <li><%= link_to 'Log out', logout_path, method: :delete %></li>
                         <% else %>
-                            <li><%= link_to "Login", login_path %></li>
-                            <li><%= link_to "Sign up", signup_path %></li>
+                            <li><%= link_to 'Login', login_path %></li>
+                            <li><%= link_to 'Sign up', signup_path %></li>
                         <% end %>
-                        <li><%= link_to "Help", root_path + "#help" %></li>
-                        <% if @book && controller.action_name == "show" %>
-                            <li><%= link_to "Get Bookmark", request.original_url.html_safe, id: "bookmark" %></li>
+                        <li><%= link_to 'Help', root_path + '#help' %></li>
+                        <% if @book && controller.action_name == 'show' %>
+                            <li><%= link_to 'Get Bookmark', request.original_url.html_safe, id: 'bookmark' %></li>
                             <% if logged_in? %>
-                                <li><%= link_to "Save Bookmark", new_bookmark_path(book_id: @book.id, location: @location, scroll: @scroll), id: "new-bookmark" %></li>
+                                <li>
+                                    <%= link_to 'Save Bookmark', new_bookmark_path(book_id: @book.id, location: @location, scroll: @scroll), id: 'new-bookmark' %>
+                                </li>
                             <% end %>
                         <% end %>
                     </ul>
                 </li>
-                <% if @book && controller.action_name == "show" %>
+                <% if @book && controller.action_name == 'show' %>
                     <li class="toc">
                         <span>Table of Contents</span>
                         <ul class="menu">
-                            <li><%= link_to "Cover", open_book_path(@book, 0) %></li>
+                            <li><%= link_to 'Cover', open_book_path(@book, 0) %></li>
                                 <%- @book.sections.chapters.order(:order).each do |section| %>
                                     <li><%= link_to section.index_title, open_book_path(@book, section.book_location) %></li>
                                 <%- end %>

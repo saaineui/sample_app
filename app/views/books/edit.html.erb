@@ -46,21 +46,21 @@
 	<%= f.text_area :epigraph %>
 	</p>
 
-<%= render partial: "epigraph_example" %>
+<%= render partial: 'epigraph_example' %>
 
 	<p>
 	<%= f.label :copyright %>
 	<%= f.text_area :copyright %>
 	</p>
 
-<%= render partial: "copyright_example" %>
+<%= render partial: 'copyright_example' %>
 
         <p>
-            <%= f.submit "Save", class: "btn" %>
+            <%= f.submit 'Save', class: 'btn' %>
         </p>
 
         <p class="form-nav-links">
-            <%= link_to "Back to Manage Books", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
+            <%= link_to 'Back to Manage Books', books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
         </p>
 <% end %>
 

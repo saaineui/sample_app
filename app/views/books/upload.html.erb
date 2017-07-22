@@ -14,15 +14,15 @@
     </p>
 
     <p>
-        <%= f.label :auto_assign_chapter_nums, "Assign chapter numbers automatically?" %>
+        <%= f.label :auto_assign_chapter_nums, 'Assign chapter numbers automatically?' %>
         <%= f.check_box :auto_assign_chapter_nums %>
     </p>
 
     <p>
-        <%= f.submit "Upload", class: "btn" %>
+        <%= f.submit 'Upload', class: 'btn' %>
     </p>
 	
     <p class="form-nav-links">
-        <%= link_to "Back to Manage Books", books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
+        <%= link_to 'Back to Manage Books', books_path %> | <%= link_to "Go to #{@book.title}", book_path(@book) %>
     </p>
 <% end %>

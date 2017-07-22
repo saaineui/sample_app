@@ -2,7 +2,7 @@
 	<div id="ebook">
 		<%- case @location %>
 		<%- when 0 %>
-		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title, class: "book-cover" %></figure></p>
+		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title, class: 'book-cover' %></figure></p>
 		<%- when 1 %>
 		<h2><%= @book.title %></h2>
 		<h3 class="author">by <%= @book.author %></h3>
@@ -24,8 +24,8 @@
         Scroll Down
     </nav>
 </div>
-<%= link_to "Back", open_book_path(@book, @location - 1), id: "back-btn" if @location > 0 %>
-<%= link_to "Next", open_book_path(@book, @location + 1), id: "next-btn" if @location + 1 < @book.max_number_of_locations %>
+<%= link_to 'Back', open_book_path(@book, @location - 1), id: 'back-btn' if @location > 0 %>
+<%= link_to 'Next', open_book_path(@book, @location + 1), id: 'next-btn' if @location + 1 < @book.max_number_of_locations %>
     </div>
     <!-- Lightbox -->
     <div id="lightbox"><span id="close">x</span></div>
