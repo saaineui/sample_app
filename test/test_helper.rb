@@ -18,9 +18,12 @@ class ActiveSupport::TestCase
     password    = options[:password]    || 'password'
     remember_me = options[:remember_me] || '1'
     if integration_test?
-        post login_path, session: { email:       user.email,
-            password:    password,
-            remember_me: remember_me }
+        post login_path, 
+            session: { 
+                email:       user.email,
+                password:    password,
+                remember_me: remember_me 
+                }
         else
         session[:user_id] = user.id
     end
@@ -28,8 +31,8 @@ class ActiveSupport::TestCase
     
   def create_pages_json
     pages = [
-              {order: "title", page_num: 1, pages_before: 0, signature: 1, signature_order: 1, page_position: 1}, 
-              {order: "epigraph", page_num: 2, pages_before: 1, signature: 1, signature_order: 2, page_position: 4}
+              {order: 'title', page_num: 1, pages_before: 0, signature: 1, signature_order: 1, page_position: 1}, 
+              {order: 'epigraph', page_num: 2, pages_before: 1, signature: 1, signature_order: 2, page_position: 4}
       ]
     pages += (0..5).map { |order| {order: order, page_num: order+3, pages_before: order+2, signature: 1, signature_order: order+3, page_position: 3}}
     pages.to_json

@@ -8,20 +8,20 @@ class SectionsControllerTest < ActionController::TestCase
         @admin_user = users(:admin)
     end
     
-  test "should redirect new when not logged in" do
+  test 'should redirect new when not logged in' do
     post :new
     assert_redirected_to root_url
   end
 
-  test "should redirect new when logged in as read-only user" do
+  test 'should redirect new when logged in as read-only user' do
     log_in_as(@read_user)
     post :new
     assert_redirected_to root_url
   end
 
-  test "should post new when logged in as admin user" do
+  test 'should post new when logged in as admin user' do
     log_in_as(@admin_user)
-    post :new, upload: { auto_assign_chapter_nums: 0, book_id: 1, ebook_file: "" }
+    post :new, upload: { auto_assign_chapter_nums: 0, book_id: 1, ebook_file: '' }
     assert_response :success
   end
     

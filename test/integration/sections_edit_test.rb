@@ -7,7 +7,7 @@ class SectionsEditTest < ActionDispatch::IntegrationTest
 		@section = sections(:one)
     end
     
-    test "read-only user can not create sections" do
+    test 'read-only user can not create sections' do
         log_in_as(@read_user)
         post upload_review_path
         assert_redirected_to root_path
