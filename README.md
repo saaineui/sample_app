@@ -1,5 +1,7 @@
 <h1>Spineless</h1>
 
+<p><img src="https://travis-ci.org/saaineui/spineless.svg?branch=master" />
+
 <p>Read and upload books using any web browser.</p>
 
 <h2>Credits:</h2>
