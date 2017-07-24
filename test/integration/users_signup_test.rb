@@ -13,7 +13,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                         }
     end
     assert_template 'users/show'
-    assert is_logged_in?
+    assert logged_in?
   end
 
   test 'invalid signup information' do
@@ -28,6 +28,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                         }
     end
     assert_template 'users/new'
-    assert_not is_logged_in?
+    assert_not logged_in?
   end
 end

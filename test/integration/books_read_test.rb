@@ -31,7 +31,7 @@ class BooksReadTest < ActionDispatch::IntegrationTest
     book = @books.last
     
     post login_path, session: { email: @read_user.email, password: 'password' }
-    assert is_logged_in?
+    assert logged_in?
 
     get book_path(book)
     assert_template 'books/show'
