@@ -1,22 +1,23 @@
 namespace :admin do
-  desc "Upgrade user of :id to admin"
-  task :adminify, [:id] => :environment do |task, args|
-    return false unless User.exists?(args.id)
-    @user = User.find(args.id)
-    if @user.update(admin: true)
-        puts @user.name+" is now an admin."
+  desc 'Upgrade user #id to admin'
+  task :adminify, [:id] => :environment do |_, args|
+    if User.exists?(args.id)
+      @user = User.find(args.id)
+      alert = @user.update(admin: true) ? ' is now an admin.' : ' admin status could not be changed.'
+      puts @user.name + alert
     else
-        puts @user.name+" admin status could not be changed."
+      puts "User #{args.id} does not exist."
     end
   end
 
-  task :downgrade, [:id] => :environment do |task, args|
-    return false unless User.exists?(args.id)
-    @user = User.find(args.id)
-    if @user.update(admin: false)
-        puts @user.name+" is not an admin."
+  desc 'Remove admin privs from user #id'
+  task :downgrade, [:id] => :environment do |_, args|
+    if User.exists?(args.id)
+      @user = User.find(args.id)
+      alert = @user.update(admin: false) ? ' is not an admin.' : ' admin status could not be changed.'
+      puts @user.name + alert
     else
-        puts @user.name+" admin status could not be changed."
+      puts "User #{args.id} does not exist."
     end
   end
 end
