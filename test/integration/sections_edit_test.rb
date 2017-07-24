@@ -1,10 +1,9 @@
 require 'test_helper'
 
 class SectionsEditTest < ActionDispatch::IntegrationTest
-
   def setup
     @read_user = users(:read)
-		@section = sections(:one)
+    @section = sections(:one)
   end
   
   test 'read-only user can not create sections' do
@@ -12,5 +11,4 @@ class SectionsEditTest < ActionDispatch::IntegrationTest
     post upload_review_path
     assert_redirected_to root_path
   end
-
 end

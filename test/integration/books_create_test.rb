@@ -1,11 +1,10 @@
 require 'test_helper'
 
 class BooksCreateTest < ActionDispatch::IntegrationTest
-
   def setup
     @read_user = users(:read)
     @admin_user = users(:admin)
-	  @book = books(:public)
+    @book = books(:public)
     @book_form_data = { title: 'The Constitution of the United States', author: 'Various', subtitle: '', logo_url: 'http://stephsun.com/books/usc/constitution_logo.png', cover_image_url: 'http://stephsun.com/books/usc/us_constitution.jpg', background_image_url: 'http://stephsun.com/books/usc/flag.png', epigraph: '<p class="epi-quote">Note: The following text is a transcription of the Constitution as it was inscribed by Jacob Shallus on parchment (the document on display in the Rotunda at the National Archives Museum.) Items have since been amended or superseded. The authenticated text of the Constitution can be found on the website of the Government Printing Office.</p>', copyright: '<p class="tightcenter"><img src="http://www.stephsun.com/books/usc/flag.png" alt="U.S. flag" /></p>\n<p class="tightcenter">Public Domain</p>\n<p class="tightcenter"><a href="http://www.archives.gov/exhibits/charters/constitution_transcript.html">www.archives.gov</a></p>' }
   end
   
@@ -25,7 +24,11 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     get upload_book_path(@book)
     assert_redirected_to root_path
     
-    post upload_review_path, upload: { auto_assign_chapter_nums: 0, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
+    post upload_review_path, upload: { 
+      auto_assign_chapter_nums: 0, 
+      book_id: @book.id, 
+      ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+    }
     assert_redirected_to root_path
   end
 
@@ -44,7 +47,11 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Spineless | Upload The Constitution of the United States'
     assert_select 'h3', 'The Constitution of the United States'
 
-    post upload_review_path, upload: { auto_assign_chapter_nums: 0, book_id: new_book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
+    post upload_review_path, upload: { 
+      auto_assign_chapter_nums: 0, 
+      book_id: new_book.id, 
+      ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+    }
     assert !flash.empty?
     assert_template 'sections/new'
 
@@ -52,8 +59,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     
     [[1, 'Various'], [5, 'Section. 1.'], [10, 'Section. 6.'], [30, 'Article. VI.']].each do |location, subtitle|
       get book_path(new_book, location: location)
-      assert_select 'title', 'The Constitution of the United States | '+subtitle
+      assert_select 'title', 'The Constitution of the United States | ' + subtitle
     end
   end
-    
 end

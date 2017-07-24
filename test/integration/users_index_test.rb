@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsersIndexTest < ActionDispatch::IntegrationTest
-  
   def setup
     @admin_user = users(:admin)
     @read_user = users(:read)
@@ -25,5 +24,4 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       delete user_path(@admin_user)
     end
   end
-
 end

@@ -1,11 +1,10 @@
 require 'test_helper'
 
 class BooksEditTest < ActionDispatch::IntegrationTest
-
   def setup
     @read_user = users(:read)
     @admin_user = users(:admin)
-		@book = books(:public)
+    @book = books(:public)
   end
   
   test 'regular user can not edit books' do
@@ -31,31 +30,33 @@ class BooksEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'edit book metadata, upload new text' do
-    log_in_as(@admin_user)     
-    
+    log_in_as(@admin_user)
+
     patch book_path(@book), book: { 
-      title: 'Foo Bar', 
-      author: 'Ruby Rails', 
-      subtitle: '', 
+      title: 'Foo Bar', author: 'Ruby Rails', subtitle: '', 
       logo_url: 'http://stephsun.com/books/usc/constitution_logo.png', 
       cover_image_url: 'http://stephsun.com/books/usc/us_constitution.jpg', 
       background_image_url: 'http://stephsun.com/books/usc/flag.png', 
       epigraph: '<p class="epi-quote">Short Epigraph</p>', 
       copyright: '<p class="tightcenter">Short Copyright</p>' 
-      }
+    }
     @book.reload
     assert_equal @book.title, 'Foo Bar'
     assert_select '.alert.alert-success', 1
 
     assert_difference 'Section.all.count', 27 do
-      post upload_review_path, upload: { auto_assign_chapter_nums: 1, book_id: @book.id, ebook_file: fixture_file_upload('files/constitution.html','text/html') }
+      post upload_review_path, upload: { 
+        auto_assign_chapter_nums: 1, 
+        book_id: @book.id, 
+        ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+      }
     end
     assert_template 'sections/new'
-    assert !flash.empty?
     
-    [[1, 'Ruby Rails'], [5, '2. Section. 1.'], [10, '7. Section. 6.'], [30, '27. Article. VI.']].each do |location, subtitle|
+    sample_pages = [[1, 'Ruby Rails'], [5, '2. Section. 1.'], [10, '7. Section. 6.'], [30, '27. Article. VI.']]
+    sample_pages.each do |location, subtitle|
       get book_path(@book, location: location)
-      assert_select 'title', 'Foo Bar | '+subtitle
+      assert_select 'title', 'Foo Bar | ' + subtitle
     end
   end
 
@@ -67,5 +68,4 @@ class BooksEditTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to books_path
   end
-
 end
