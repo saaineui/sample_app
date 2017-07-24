@@ -2,6 +2,8 @@ class BooksController < ApplicationController
   before_action :admin_user, only: %i[index new create edit update destroy upload]
   before_action :find_book_or_redirect, only: %i[show edit update destroy galley print upload]
   
+  POSITIONS = { 'Front' => (0..1), 'Back' => (2..3) }.freeze
+    
   def index
     @books = Book.all
     @title = { subtitle: 'Manage Books' }
@@ -104,10 +106,17 @@ class BooksController < ApplicationController
   end
   
   def process_pages # sort page data passed by galley.js
-    positions = { 'Front' => (0..1), 'Back' => (2..3) }
-    @pages = JSON.parse(params[:pages]).select{ |page| positions[@position].include?(page['page_position']) } || []
-    @pages.sort_by! { |page| ((page['signature'] - 1) * 8) + ((page['signature_order'] - 1) * 2) + page['page_position'] }
-  end    
+    @pages = JSON.parse(params[:pages]).select { |page| position_matches?(page) } || []
+    @pages.sort_by! { |page| get_sort_order(page) }
+  end
+    
+  def position_matches?(page)
+    POSITIONS[@position].include?(page['page_position'])
+  end
+    
+  def get_sort_order(page)
+    ((page['signature'] - 1) * 8) + ((page['signature_order'] - 1) * 2) + page['page_position']
+  end
 
   # Before filters
   

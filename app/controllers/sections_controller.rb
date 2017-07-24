@@ -41,7 +41,7 @@ class SectionsController < ApplicationController
   end
   
   def get_title(data)
-    data.xpath('//header').first.inner_text.to_s.gsub(/\a/, '').gsub(/\s+/, ' ')
+    data.xpath('//header').first.inner_text.to_s.strip.gsub(/\s+/, ' ')
   end
   
   def save_book_or_redirect
