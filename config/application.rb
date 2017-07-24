@@ -29,4 +29,3 @@ module SampleApp
     
   end
 end
-

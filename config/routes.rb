@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'sessions/new'
 
   root 'static_pages#home'
@@ -11,17 +10,16 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
-  resources :bookmarks, only: [:new, :destroy]
+  resources :bookmarks, only: %i[new destroy]
   resources :books do
-      member do
-          get 'upload'
-          get 'galley', to: 'books#galley', as: :galley
-          post 'print', to: 'books#print', as: :print
-      end
+    member do
+      get 'upload'
+      get 'galley', to: 'books#galley', as: :galley
+      post 'print', to: 'books#print', as: :print
+    end
   end
 
   get 'books/:id/:location', to: 'books#show', as: :open_book 
 
   post	'upload_review'	=>	'sections#new'
-
 end
