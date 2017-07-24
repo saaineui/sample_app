@@ -1,10 +1,8 @@
 require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
-  
   def setup
-    @book = Book.new(title: 'Clean Code', author: 'Uncle Bob', logo_url: 'http://cleancode.com/logo.png', cover_image_url: 'http://cleancode.com/cover.png')
-    
+    @book = Book.new(title: 'Ex ex', author: 'Ex Ex', logo_url: 'http://ex.png', cover_image_url: 'http://ex.png')
     @book_with_sections = books(:public)
   end
   
@@ -33,11 +31,7 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test 'display scope should filter my books' do
-    assert_equal Book.display.count, 1
-    
-    Book.display.each do |book|
-      assert_not_equal book.author, 'Stephanie Sun'
-    end
+    Book.display.each { |book| assert_not_equal book.author, 'Stephanie Sun' }
   end
   
   test 'SKIPS constant returns integer' do
@@ -101,8 +95,8 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test 'progress_start method returns length of fully completed sections as percent of total' do
-    assert_equal @book_with_sections.progress_start(6), 1800/28
-    assert_equal @book_with_sections.progress_start(5), 800/28
+    assert_equal @book_with_sections.progress_start(6), 1800 / 28
+    assert_equal @book_with_sections.progress_start(5), 800 / 28
   end
   
   test 'progress_start method returns 0 for front matter and first main text location' do
@@ -111,8 +105,8 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test 'section_slice_length method returns section length as percent of total' do
-    assert_equal @book_with_sections.section_slice_length(4), (800/28)
-    assert_equal @book_with_sections.section_slice_length(5), (1000/28)
+    assert_equal @book_with_sections.section_slice_length(4), (800 / 28)
+    assert_equal @book_with_sections.section_slice_length(5), (1000 / 28)
   end
 
   test 'section_slice_length method returns 0 for front matter' do
@@ -120,13 +114,12 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test 'progress_with_scroll method returns expected value' do
-    assert_equal @book_with_sections.progress_with_scroll(4, 10), (10 * 8/28)
-    assert_equal @book_with_sections.progress_with_scroll(5, 50), (800/28 + (50 * 10/28).to_i)
-    assert_equal @book_with_sections.progress_with_scroll(6, 33), (1800/28 + (33 * 10/28).to_i)
+    assert_equal @book_with_sections.progress_with_scroll(4, 10), (10 * 8 / 28)
+    assert_equal @book_with_sections.progress_with_scroll(5, 50), (800 / 28 + (50 * 10 / 28).to_i)
+    assert_equal @book_with_sections.progress_with_scroll(6, 33), (1800 / 28 + (33 * 10 / 28).to_i)
   end
   
   test 'progress_with_scroll method returns 0 for front matter' do
     assert_equal @book_with_sections.progress_with_scroll(2, 10), 0
   end
-  
 end

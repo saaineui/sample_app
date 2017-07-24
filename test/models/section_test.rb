@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class SectionTest < ActiveSupport::TestCase
-
   def setup
-    @section = Section.new(title: 'Functions', order: 3, chapter: 2, text: 'Lorem ipsum', indexable: true, book_id: 1)
+    @section = Section.new(title: 'Ex', order: 3, chapter: 2, text: 'Lorem ipsum', indexable: true, book_id: 1)
   end
   
   test 'should be valid' do
@@ -39,20 +38,21 @@ class SectionTest < ActiveSupport::TestCase
   end
   
   test 'index_title method returns expressive title string' do
-    assert_equal @section.index_title, '2. Functions'
+    assert_equal @section.index_title, '2. Ex'
   end
   
   test 'index_title method returns expressive title string if chapter is nil' do
     @section.chapter = nil
     
-    assert_equal @section.index_title, 'Functions'
+    assert_equal @section.index_title, 'Ex'
   end
   
   test 'book_location method returns location pointing to section' do
     @section_with_book = sections(:one)
     
     assert_equal @section_with_book.book_location, 4
-    assert_equal @section_with_book.book.get_section_from_location(@section_with_book.book_location), @section_with_book
+    assert_equal @section_with_book.book.get_section_from_location(@section_with_book.book_location), 
+                 @section_with_book
   end
   
 end

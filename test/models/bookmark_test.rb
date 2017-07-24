@@ -53,5 +53,4 @@ class BookmarkTest < ActiveSupport::TestCase
     
     assert_equal @bookmark.name, 'Book #2 can not be found.'
   end
-
 end
