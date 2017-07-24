@@ -8,3 +8,4 @@ read:
     name: Read-Only User
     email: dutchess@example.gov
     password_digest: <%= User.digest('password') %>
+    admin: false
