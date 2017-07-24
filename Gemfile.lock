@@ -70,6 +70,12 @@ GEM
       guard (~> 2.0)
       minitest (>= 3.0)
     i18n (0.8.6)
+    jasmine (2.6.0)
+      jasmine-core (>= 2.6.0, < 3.0.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.6.4)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -111,6 +117,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.17.1)
+    phantomjs (2.1.1.0)
     powerpack (0.1.1)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -210,6 +217,7 @@ DEPENDENCIES
   bcrypt (= 3.1.7)
   byebug (= 3.4.0)
   guard-minitest
+  jasmine (~> 2.6)
   jbuilder
   jquery-rails
   mini_backtrace

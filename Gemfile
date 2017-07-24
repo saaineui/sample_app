@@ -18,6 +18,7 @@ group :development, :test do
   gem 'spring'
   gem 'sqlite3',        '1.3.9'
   gem 'web-console',    '2.0.0.beta3'
+  gem 'jasmine',        '~> 2.6'
 end
 
 group :test do
