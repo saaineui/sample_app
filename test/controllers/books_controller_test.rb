@@ -1,13 +1,18 @@
 require 'test_helper'
 
 class BooksControllerTest < ActionController::TestCase
-
   def setup
     @public_book = books(:public)
     @read_user = users(:read)
     @admin_user = users(:admin)
-    @book_form_data = { title: '', author: '', subtitle: '', logo_url: '', copyright: '', epigraph: '', cover_image_url: '', background_image_url: '' }
-    @valid_book_form_data = { title: 'MyString', author: 'MyString', subtitle: '', logo_url: 'MyString', copyright: '', epigraph: '', cover_image_url: 'MyString', background_image_url: '' }    
+    @book_form_data = { 
+      title: '', author: '', subtitle: '', logo_url: '', 
+      copyright: '', epigraph: '', cover_image_url: '', background_image_url: '' 
+    }
+    @valid_book_form_data = { 
+      title: 'MyString', author: 'MyString', subtitle: '', logo_url: 'MyString', 
+      copyright: '', epigraph: '', cover_image_url: 'MyString', background_image_url: '' 
+    }    
   end
     
   test 'should get show' do
@@ -67,7 +72,7 @@ class BooksControllerTest < ActionController::TestCase
 
   test 'should redirect destroy when not logged in' do
     assert_no_difference 'Book.count' do
-        delete :destroy, id: @public_book
+      delete :destroy, id: @public_book
     end
     assert_redirected_to root_url
   end
@@ -115,9 +120,7 @@ class BooksControllerTest < ActionController::TestCase
 
   test 'should redirect destroy when logged in as a read-only user' do
     log_in_as(@read_user)
-    assert_no_difference 'Book.count' do
-        delete :destroy, id: @public_book
-    end
+    assert_no_difference('Book.count') { delete :destroy, id: @public_book }
     assert_redirected_to root_url
   end
 
@@ -187,9 +190,7 @@ class BooksControllerTest < ActionController::TestCase
 
   test 'destroy should redirect to books index and delete book and sections' do
     log_in_as(@admin_user)
-    assert_difference 'Book.count', -1 do
-        delete :destroy, id: @public_book
-    end
+    assert_difference('Book.count', -1) { delete :destroy, id: @public_book }
   end
     
   test 'galley should render' do
@@ -206,5 +207,4 @@ class BooksControllerTest < ActionController::TestCase
     post :print, id: @public_book, position: 'Back', pages: create_pages_json
     assert_response :success
   end
-    
 end

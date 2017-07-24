@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class BookmarksControllerTest < ActionController::TestCase
-
   def setup
     @public_book = books(:public)
     @read_user = users(:read)

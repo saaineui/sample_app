@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SectionsControllerTest < ActionController::TestCase
-
   def setup
     @public_book = books(:public)
     @read_user = users(:read)
@@ -24,5 +23,4 @@ class SectionsControllerTest < ActionController::TestCase
     post :new, upload: { auto_assign_chapter_nums: 0, book_id: 1, ebook_file: '' }
     assert_response :success
   end
-    
 end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-
   def setup
     @admin_user = users(:admin)
     @read_user = users(:read)
@@ -75,6 +74,4 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_url
   end
-
-
 end
