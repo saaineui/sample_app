@@ -6,18 +6,18 @@
   */
         var GalleyImages = (function() {
 
-            function is_out_of_bounds(image, box_height) {
-                var box_bottom = Math.ceil(parseInt( $(image).position().top ) / box_height) * box_height;
-                return position_bottom(image) > box_bottom;
+            function is_out_of_bounds(image_container, box_height) {
+                var box_bottom = Math.ceil(parseInt( $(image_container).position().top ) / box_height) * box_height;
+                return position_bottom(image_container) > box_bottom;
             }
 
-            function move_to_next(image, box_height) {
-                var visible_height_of_el = $(image).height() - (position_bottom(image) % box_height);
-                $(image).css("margin-top", visible_height_of_el.toString() + "px");
+            function move_to_next(image_container, box_height) {
+                var visible_height_of_el = $(image_container).height() - (position_bottom(image_container) % box_height);
+                $(image_container).css("margin-top", visible_height_of_el.toString() + "px");
             }
 
-            function position_bottom(image) {
-                return parseInt( $(image).position().top ) + parseInt( $(image).height() );
+            function position_bottom(image_container) {
+                return parseInt( $(image_container).position().top ) + parseInt( $(image_container).height() );
             }
 
             return {

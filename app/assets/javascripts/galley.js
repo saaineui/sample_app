@@ -75,11 +75,11 @@ $(document).ready(function() {
     // wait for book text and images to render before resizing/reordering
     $(window).load(function() {		
             
-	// resize book images down for better print resolution
-	$("#ebook img").each(GalleyImages.shrink_to_print_size);
+	      // resize book images down for better print resolution
+	      $("#ebook img").each(GalleyImages.shrink_to_print_size);
     
         // line up image containers along grid and in bounds
-	$("#ebook figure, #ebook h2").each(function(){ 
+	      $("#ebook figure, #ebook h2").each(function(){ 
             GalleyImages.move_in_bounds.call(this, line_height, page_height); 
         });
         
