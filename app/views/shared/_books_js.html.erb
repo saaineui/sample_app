@@ -3,8 +3,8 @@
     var spineless = {
 
  	    progress_start: <%= @progress_start || '0' %>,
-	    slice_length: <%= @section_slice_length || '0' %>,
-	    scroll_as_decimal: <%= @scroll_as_decimal || '0.0' %>
+	    section_progress_points: <%= @section_progress_points || '0' %>,
+	    scroll_as_decimal: <%= percent_to_raw(@scroll) %>
 		
     };
 </script>

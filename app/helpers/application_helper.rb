@@ -11,7 +11,7 @@ module ApplicationHelper
   end
   
   def percent_to_raw(num)
-    num * 0.01
+    num.to_i * 0.01
   end
   
 end

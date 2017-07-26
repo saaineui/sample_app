@@ -23,7 +23,7 @@ class Book < ActiveRecord::Base
   end
   
   def progress_with_scroll(location, scroll)
-    progress_start(location) + (percent_to_raw(scroll) * section_slice_length(location)).to_i
+    progress_start(location) + (percent_to_raw(scroll) * section_progress_points(location)).to_i
   end
 
   def progress_start(location)
@@ -31,7 +31,7 @@ class Book < ActiveRecord::Base
     text_read_length * 100 / to_valid_dividend(text_length)
   end
   
-  def section_slice_length(location)
+  def section_progress_points(location)
     if main_text?(location)
       get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length)
     else 

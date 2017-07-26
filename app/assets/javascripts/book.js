@@ -18,6 +18,7 @@ $(document).ready(function(spineless) {
         var line_height = parseInt( $("#ebook p").css("line-height") );
         var sticky_bar_height = parseInt( $("#sticky-bar > nav").height() );
         var box_height = $(window).height() - sticky_bar_height - WRAPPER_PADDING - SCROLL_WRAP_MARGIN - NEXT_BACK_MARGIN;
+        spineless.scroll_interval = box_height - (box_height % line_height);
 
         // Resize bounding box 
         $('#scroll-wrap').height(spineless.scroll_interval + 'px');
@@ -27,7 +28,6 @@ $(document).ready(function(spineless) {
             GalleyImages.align_container.call(this, line_height); 
         });
 
-        spineless.scroll_interval = box_height - (box_height % line_height);
         spineless.content_height = parseInt( $("#ebook").height() );
         spineless.anchor = BookScroll.compute_anchor(spineless);
         spineless.max_clicks = BookScroll.compute_max_clicks(spineless);
@@ -37,13 +37,13 @@ $(document).ready(function(spineless) {
         }
 
         if (BookScroll.is_prescrolled_page(spineless)) {
-            BookScroll.scroll_page("-", spineless, false);
-        } else {
-            BookScroll.update_progress_bar(spineless); 
-        }
+            BookScroll.prescroll_page(spineless);
+        } 
+
+        BookScroll.update_progress_bar(spineless); 
 
         $("#book-nav nav").click(function(){
-            spineless = BookScroll.scroll_page(BookScroll.get_direction(this), spineless, true);
+            spineless = BookScroll.scroll_page(BookScroll.get_direction(this), spineless);
         });
     }); // close window load
         

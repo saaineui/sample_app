@@ -99,8 +99,7 @@ class BooksController < ApplicationController
   def generate_progress_vars
     @location = @book.location_in_range(params[:location])
     @scroll = @book.scroll_in_range(params[:scroll])
-    @scroll_as_decimal = percent_to_raw(@scroll)
-    @section_slice_length = @book.section_slice_length(@location)
+    @section_progress_points = @book.section_progress_points(@location)
     @progress_start = @book.progress_start(@location)
   end
   
