@@ -104,13 +104,13 @@ class BookTest < ActiveSupport::TestCase
     assert_equal @book_with_sections.progress_start(4), 0
   end
   
-  test 'section_slice_length method returns section length as percent of total' do
-    assert_equal @book_with_sections.section_slice_length(4), (800 / 28)
-    assert_equal @book_with_sections.section_slice_length(5), (1000 / 28)
+  test 'section_progress_points method returns section length as percent of total' do
+    assert_equal @book_with_sections.section_progress_points(4), (800 / 28)
+    assert_equal @book_with_sections.section_progress_points(5), (1000 / 28)
   end
 
-  test 'section_slice_length method returns 0 for front matter' do
-    assert_equal @book_with_sections.section_slice_length(2), 0
+  test 'section_progress_points method returns 0 for front matter' do
+    assert_equal @book_with_sections.section_progress_points(2), 0
   end
   
   test 'progress_with_scroll method returns expected value' do

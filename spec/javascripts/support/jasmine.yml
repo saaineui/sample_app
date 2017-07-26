@@ -25,7 +25,8 @@ src_files:
 #   - 'stylesheets/*.css'
 #
 stylesheets:
-  - assets/application.css
+# - assets/application.css
+  - assets/galley.css
 
 # helpers
 #
