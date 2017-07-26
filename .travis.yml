@@ -1,2 +1,4 @@
 language: ruby
 cache: bundler
+script:
+  - rake jasmine

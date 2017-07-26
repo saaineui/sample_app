@@ -7,7 +7,9 @@
         var BookScroll = (function() {
           
             function update_progress_bar(d) {
-                var progress_percent = Math.floor(d.anchor * d.slice_length / d.max_clicks) + d.progress_start + "%";
+                var progress_percent = d.max_clicks > 0 ? Math.floor(d.anchor * d.slice_length / d.max_clicks) : 0;
+                progress_percent += d.progress_start;
+                progress_percent += "%";
                 $("#progress").css("width", progress_percent);
                 $("#progress-percent").text(progress_percent);
             }
@@ -24,19 +26,24 @@
                 }
             }
           
-            function is_top_or_bottom(nav_btn, d) {
-                return is_top(nav_btn, d) || is_bottom(nav_btn, d);
+            function is_top_or_bottom(direction, d) {
+                return is_top(direction, d) || is_bottom(direction, d);
             }
 
-            function is_top(nav_btn, d) {
-                return $(nav_btn).hasClass("up") && d.anchor === 0;
+            function is_top(direction, d) {
+                return direction === "+" && d.anchor === 0;
             }
 
-            function is_bottom(nav_btn, d) {
-                return $(nav_btn).hasClass("down") && d.anchor === d.max_clicks;
+            function is_bottom(direction, d) {
+                return direction === "-" && d.anchor === d.max_clicks;
             }
 
             return {
+                // scroll direction
+                get_direction: function(nav_btn){
+                    return $(nav_btn).hasClass("up") ? "+" : "-";
+                },
+              
                 // update progress amount and bar width
                 update_progress_bar: function(d){
                     update_progress_bar(d);
@@ -48,19 +55,13 @@
                 },
               
                 // scroll one page up or down and update bookmark link
-                scroll_page: function(d){
-                    if (is_top_or_bottom(this, d)) {
+                scroll_page: function(direction, d){
+                    if (is_top_or_bottom(direction, d)) {
                         return d; // return early if at top or bottom of chapter
                     }
 
-                    var direction;
-
-                    // Get scroll direction and increment d.anchor 
-                    if ($(this).hasClass("up")) {
-                        direction = "+"; d.anchor--; 
-                    } else {
-                        direction = "-"; d.anchor++; 
-                    }
+                    // Yes, it's correct that direction/margin and anchor are going in opposite directions
+                    d.anchor += direction == "+" ? -1 : 1;
 
                     // Scroll Page 
                     $("#ebook").animate({ marginTop: direction + "=" + d.scroll_interval + "px" }, 700);

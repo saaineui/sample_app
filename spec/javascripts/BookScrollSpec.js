@@ -15,6 +15,10 @@ describe("BookScroll", function() {
 
     $('body').append('<div id="wrapper"></div>');
     
+    up_nav_btn = $('<nav/>', {
+        "class": 'up'
+    }).appendTo('#wrapper');
+    
     down_nav_btn = $('<nav/>', {
         "class": 'down'
     }).appendTo('#wrapper');
@@ -52,6 +56,11 @@ describe("BookScroll", function() {
     $('#wrapper').remove();
   });
   
+  it("#get_direction should determine scroll direction from nav element", function() {
+    expect(BookScroll.get_direction(down_nav_btn)).toEqual( "-" );
+    expect(BookScroll.get_direction(up_nav_btn)).toEqual( "+" );
+  });
+
   it("#update_progress_bar should update progress bar to match data object", function() {
     spineless.anchor++;
     var expected_progress_bar_width = progress_div.parent().width() / 4;
@@ -70,7 +79,7 @@ describe("BookScroll", function() {
   });
 
   it("#scroll_page should increment anchor and progress bar", function() {
-    spineless = BookScroll.scroll_page.call(down_nav_btn, spineless);
+    spineless = BookScroll.scroll_page(BookScroll.get_direction(down_nav_btn), spineless);
     expected_spineless.anchor++;
     var expected_progress_bar_width = progress_div.parent().width() / 4;
     
@@ -83,7 +92,7 @@ describe("BookScroll", function() {
 
   it("#scroll_page should max out at max_clicks", function() {
     for (i=0; i<10; i++) {
-      spineless = BookScroll.scroll_page.call(down_nav_btn, spineless);
+      spineless = BookScroll.scroll_page("-", spineless);
     }
     expected_spineless.anchor = 4;
     var expected_progress_bar_width = progress_div.parent().width();
@@ -93,4 +102,14 @@ describe("BookScroll", function() {
     expect(progress_percent_div.text()).toEqual( "100%" );
   });
 
+  it("#scroll_page should max out at 0", function() {
+    spineless.anchor = 2;
+    for (i=0; i<10; i++) {
+      spineless = BookScroll.scroll_page("+", spineless);
+    }
+    expected_spineless.anchor = 0;
+    expect(spineless).toEqual( expected_spineless );
+    expect(progress_div.width()).toBeLessThan( 1 );
+    expect(progress_percent_div.text()).toEqual( "0%" );
+  });
 });

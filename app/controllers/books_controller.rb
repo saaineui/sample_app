@@ -102,7 +102,6 @@ class BooksController < ApplicationController
     @scroll_as_decimal = percent_to_raw(@scroll)
     @section_slice_length = @book.section_slice_length(@location)
     @progress_start = @book.progress_start(@location)
-    @progress_with_scroll = @book.progress_with_scroll(@location, @scroll)    
   end
   
   def process_pages # sort page data passed by galley.js
