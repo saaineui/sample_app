@@ -43,7 +43,7 @@ $(document).ready(function(spineless) {
         BookScroll.update_progress_bar(spineless); 
 
         $("#book-nav nav").click(function(){
-            spineless = BookScroll.scroll_page(BookScroll.get_direction(this), spineless);
+            spineless = BookScroll.scroll_page(BookScroll.get_anchor_increment(this), spineless);
         });
     }); // close window load
         
