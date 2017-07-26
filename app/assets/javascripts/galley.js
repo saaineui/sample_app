@@ -80,7 +80,7 @@ $(document).ready(function() {
     
         // line up image containers along grid and in bounds
 	      $("#ebook figure, #ebook h2").each(function(){ 
-            GalleyImages.move_in_bounds.call(this, line_height, page_height); 
+            GalleyImages.align_containers.call(this, line_height, page_height); 
         });
         
         var page_copy, new_page;

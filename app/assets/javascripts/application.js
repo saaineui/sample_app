@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require menu
+//= require book_scroll
 //= require galley_images

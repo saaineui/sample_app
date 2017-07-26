@@ -20,6 +20,11 @@
                 return parseInt( $(image_container).position().top ) + parseInt( $(image_container).height() );
             }
 
+            function align_container(image_container, line_height) {
+                var container_height = parseInt( $(image_container).height() ); 
+                $(image_container).height( (container_height - (container_height % line_height) + line_height).toString() + "px" ); 
+            }
+
             return {
 
                 // resize book images down for better print resolution
@@ -27,11 +32,15 @@
                     var img_width = parseInt( $(this).width() ); 
                     $(this).width( (img_width*0.75).toString() + "px" ); 
                 },
+              
+                // grow image container height to align with line height grid
+                align_container: function(line_height) {
+                    align_container(this, line_height); 
+                },
 
                 // line up image containers along grid and in bounds
                 move_in_bounds: function(line_height, page_height) {
-                    var box_height = parseInt( $(this).height() ); 
-                    $(this).height( (box_height - (box_height % line_height) + line_height).toString() + "px" ); 
+                    align_container(this, line_height); 
                     
                     if (is_out_of_bounds(this, page_height)) { 
                         move_to_next(this, page_height); 
