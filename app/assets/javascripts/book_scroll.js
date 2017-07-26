@@ -7,11 +7,10 @@
         var BookScroll = (function() {
           
             function update_progress_bar(d) {
-                var progress_percent = d.max_clicks > 0 ? Math.floor(d.anchor * d.slice_length / d.max_clicks) : 0;
-                progress_percent += d.progress_start;
-                progress_percent += "%";
-                $("#progress").css("width", progress_percent);
-                $("#progress-percent").text(progress_percent);
+                var progress = d.max_clicks > 0 ? (d.anchor * d.slice_length / d.max_clicks) : 0;
+                progress += d.progress_start;
+                $("#progress").css("width", progress + "%");
+                $("#progress-percent").text( Math.floor(progress) + "%" );
             }
           
             function update_bookmark_links(d) {
@@ -39,6 +38,31 @@
             }
 
             return {
+                // compute anchor (zero index for which page we are on)
+                compute_anchor: function(d) {
+                    return Math.floor((d.content_height * d.scroll_as_decimal) / d.scroll_interval);
+                },
+                
+                // compute upper bound for scroll
+                compute_max_clicks: function(d){
+                    if (d.content_height % d.scroll_interval == 0) { // special handling for full height last page
+                        d.max_clicks = d.content_height / d.scroll_interval - 1;
+                    } else { 
+                        d.max_clicks = Math.floor(d.content_height / d.scroll_interval);
+                    }
+                    return d.max_clicks;
+                },
+              
+                // section has overflow
+                is_multipage: function(d) {
+                    return d.content_height > d.scroll_interval;
+                },
+                
+                // is a bookmarked link or other prescrolled page
+                is_prescrolled_page: function(d) {
+                    return d.scroll_interval <= d.content_height * d.scroll_as_decimal;
+                },
+
                 // scroll direction
                 get_direction: function(nav_btn){
                     return $(nav_btn).hasClass("up") ? "+" : "-";
@@ -55,7 +79,7 @@
                 },
               
                 // scroll one page up or down and update bookmark link
-                scroll_page: function(direction, d){
+                scroll_page: function(direction, d, animated){
                     if (is_top_or_bottom(direction, d)) {
                         return d; // return early if at top or bottom of chapter
                     }
@@ -63,8 +87,12 @@
                     // Yes, it's correct that direction/margin and anchor are going in opposite directions
                     d.anchor += direction == "+" ? -1 : 1;
 
-                    // Scroll Page 
-                    $("#ebook").animate({ marginTop: direction + "=" + d.scroll_interval + "px" }, 700);
+                    // scroll 
+                    if (animated) {
+                      $("#ebook").animate({ marginTop: direction + "=" + d.scroll_interval + "px" }, 700);
+                    } else {
+                      $("#ebook").css("margin-top", direction + (d.scroll_interval * d.anchor) + "px");
+                    }
 
                     update_progress_bar(d);
                     update_bookmark_links(d);

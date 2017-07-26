@@ -1,6 +1,5 @@
 $(document).ready(function(spineless) {
 
-    spineless.anchor = 0;
     WRAPPER_PADDING = 16;
     SCROLL_WRAP_MARGIN = 16;
     NEXT_BACK_MARGIN = 30;
@@ -20,8 +19,6 @@ $(document).ready(function(spineless) {
         var sticky_bar_height = parseInt( $("#sticky-bar > nav").height() );
         var box_height = $(window).height() - sticky_bar_height - WRAPPER_PADDING - SCROLL_WRAP_MARGIN - NEXT_BACK_MARGIN;
 
-        spineless.scroll_interval = box_height - (box_height % line_height);
-         
         // Resize bounding box 
         $('#scroll-wrap').height(spineless.scroll_interval + 'px');
 
@@ -30,29 +27,23 @@ $(document).ready(function(spineless) {
             GalleyImages.align_container.call(this, line_height); 
         });
 
-        var content_height = parseInt( $("#ebook").height() );
-        var is_multipage = content_height > spineless.scroll_interval;
-        var is_prescrolled_page = spineless.scroll_interval <= content_height * spineless.scroll_as_decimal;
-      
-        if (content_height % spineless.scroll_interval == 0) { // special handling for full height last page
-            spineless.max_clicks = content_height / spineless.scroll_interval - 1;
-        } else { 
-            spineless.max_clicks = Math.floor(content_height / spineless.scroll_interval);
-        }
+        spineless.scroll_interval = box_height - (box_height % line_height);
+        spineless.content_height = parseInt( $("#ebook").height() );
+        spineless.anchor = BookScroll.compute_anchor(spineless);
+        spineless.max_clicks = BookScroll.compute_max_clicks(spineless);
 
-        if (is_multipage) {
+        if (BookScroll.is_multipage(spineless)) {
             $("#book-nav").fadeTo("slow", 1); // Show buttons if multi-page section
         }
 
-        if (is_prescrolled_page) {
-            spineless.anchor = Math.floor((content_height * spineless.scroll_as_decimal) / spineless.scroll_interval);
-            $("#ebook").css("margin-top","-"+(spineless.scroll_interval * spineless.anchor)+"px");
+        if (BookScroll.is_prescrolled_page(spineless)) {
+            BookScroll.scroll_page("-", spineless, false);
+        } else {
+            BookScroll.update_progress_bar(spineless); 
         }
-      
-        BookScroll.update_progress_bar(spineless);
 
         $("#book-nav nav").click(function(){
-            spineless = BookScroll.scroll_page(BookScroll.get_direction(this), spineless);
+            spineless = BookScroll.scroll_page(BookScroll.get_direction(this), spineless, true);
         });
     }); // close window load
         
