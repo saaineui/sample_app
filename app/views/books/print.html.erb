@@ -7,7 +7,7 @@
 <div id="ebook">
     <%- @pages.each_with_index do |page, index| %>
         <%- if index.even? %>
-        <div class="spread">
+        <div class="spread clearfix">
         <%- end %>
         <% case page['order'] %>
             <% when 'title' %>
