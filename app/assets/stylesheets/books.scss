@@ -146,6 +146,10 @@
 	p.blog.with-break, p.pubs.with-break, p.email.with-break, p.with-break {
 		margin-bottom: $line-height;
 	}
+  pre {
+    line-height: $line-height;
+		font-size: $line-height*0.567;
+  }
 	
 	hr { background-color: #ccc; height: 1px; border:none; margin-top: $line-height*0.5-1; margin-bottom: $line-height*0.5; }
 	
