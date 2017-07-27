@@ -149,6 +149,7 @@
   pre {
     line-height: $line-height;
 		font-size: $line-height*0.567;
+    margin: $line-height*0.5 auto;
   }
 	
 	hr { background-color: #ccc; height: 1px; border:none; margin-top: $line-height*0.5-1; margin-bottom: $line-height*0.5; }
