@@ -5,7 +5,17 @@
     </p>
 </div>
 <style>
-  #ebook figure, #ebook h2, #ebook img { height: 42px; }
+<%- @single_images.each do |image| %>
+  #ebook img[src='<%= image['src'] %>'] { 
+    height: <%= image['height'] %>; margin-top: <%= image['margin_top'] %>; margin-bottom: <%= image['margin_bottom'] %>; 
+  }
+<%- end %>
+
+<%- @multiple_images.each do |image| %>
+  #ebook .order_<%= image['section_order'] %> <%= image['tagType'].downcase %>:nth-of-type(<%= image['n'] %>) img { 
+    height: <%= image['height'] %>; margin-top: <%= image['margin_top'] %>; margin-bottom: <%= image['margin_bottom'] %>; 
+  }
+<%- end %>
 </style>
 <div id="ebook">
     <%- @pages.each_with_index do |page, index| %>

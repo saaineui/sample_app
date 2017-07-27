@@ -12,16 +12,14 @@ $(document).ready(function() {
     $("#pages").val(JSON.stringify([]));
     $("#images").val(JSON.stringify([]));
     
-    function make_image(src, height, margin_top, margin_bottom, section_order, n, levels_in) {
+    function make_image(src, height, margin_top, margin_bottom, section_order, n, tagType) {
         var new_image = { 
             src: src, height: height, margin_top: margin_top, margin_bottom: margin_bottom, 
-            section_order: section_order, n: n, levels_in: levels_in
+            section_order: section_order, n: n, tagType: tagType
         };
         
         // add to hidden input for printing
         add_to_images_form_array(new_image);
-        
-        return new_image;
     }
   
     function add_to_images_form_array(image) {
@@ -103,11 +101,11 @@ $(document).ready(function() {
         var pages = [];
         
         $( ".page" ).each(function( index ) {
+            var section_order = $(this).attr('data-order');
             $(this).find("img").each(function( n ){
                 GalleyImages.shrink_to_print_size.call(this); // print resolution
-                var levels_in = $(this).parent().parent().hasClass('rendered-text') ? 2 : 3;
                 GalleyImages.align_image.call(this, line_height, page_height);
-                make_image($(this).attr('src'), $(this).css('height'), $(this).css("margin-top"), $(this).css("margin-bottom"), index, n, levels_in);
+                make_image($(this).attr('src'), $(this).css('height'), $(this).css("margin-top"), $(this).css("margin-bottom"), section_order, n, $(this).parent().prop('nodeName'));
             });
         
             // new section: create blank pages until slot is on right

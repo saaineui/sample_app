@@ -114,15 +114,32 @@ class BooksController < ApplicationController
     @pages.sort_by! { |page| get_sort_order(page) }
   end
   
-  def process_images # store image src counts to process multiple instances where exist
+  def process_images 
     if params[:images].nil?
-      @images = []
-      @image_src_counts = []
+      @single_images = []
+      @multiple_images = []
       return false
     end
-    @images = JSON.parse(params[:images]) 
-    @image_src_counts = @images.map{ |image| image['src'] }
-    @image_src_counts = @image_src_counts.uniq.select{ |src| @image_src_counts.count(src) > 1 }
+    
+    images = JSON.parse(params[:images]) 
+    image_srcs = images.map { |image| image['src'] }
+    partitioned_images = images.partition { |image| image_srcs.count(image['src']) == 1 } # separate out duplicated images
+    
+    @single_images = partitioned_images[0]
+    
+    @multiple_images = []
+    partitioned_images[1].each do |image|
+      image['n'] = sorted_images_of_type(images, image).index(image) + 1
+      @multiple_images << image
+    end
+  end
+  
+  def sorted_images_of_type(images, image)
+    images.select { |img| same_container_and_section?(img, image) }.sort_by { |img| img['n'].to_i }
+  end
+  
+  def same_container_and_section?(image1, image2)
+    image1['tagType'] == image2['tagType'] && image1['section_order'] == image2['section_order']
   end
     
   def position_matches?(page)
