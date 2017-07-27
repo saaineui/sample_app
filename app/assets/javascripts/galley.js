@@ -6,6 +6,29 @@ $(document).ready(function() {
     var page_height = parseInt( $(".page").first().height() );
     var line_height = parseInt( $("#ebook p").css("line-height") );
     var page_positions = ["FL","FR","BL","BR"];
+  
+    $('#page_height').val( page_height );
+    $('#line_height').val( line_height );
+    $("#pages").val(JSON.stringify([]));
+    $("#images").val(JSON.stringify([]));
+    
+    function make_image(src, height, margin_top, margin_bottom, section_order, n, levels_in) {
+        var new_image = { 
+            src: src, height: height, margin_top: margin_top, margin_bottom: margin_bottom, 
+            section_order: section_order, n: n, levels_in: levels_in
+        };
+        
+        // add to hidden input for printing
+        add_to_images_form_array(new_image);
+        
+        return new_image;
+    }
+  
+    function add_to_images_form_array(image) {
+        var images = JSON.parse($("#images").val());
+        images.push(image);
+        $("#images").val(JSON.stringify(images));
+    }
     
     /* 
      * page_position is order in which to render pages to print a page, front before back, left then right:
@@ -70,26 +93,21 @@ $(document).ready(function() {
         return page_position == 1 || page_position == 3;
     }
     
-    
-    
     // wait for book text and images to render before resizing/reordering
-    $(window).load(function() {		
-            
-	      // resize book images down for better print resolution
-	      $("#ebook img").each(GalleyImages.shrink_to_print_size);
-    
-        // line up image containers along grid and in bounds
-	      $("#ebook figure, #ebook h2").each(function(){ 
-            GalleyImages.align_container.call(this, line_height, page_height); 
-        });
-        
+    $(window).load(function() {
+      
         var page_copy, new_page;
-        var pages = [];
         var page_num = 1;
-
-        $("#pages").val(JSON.stringify(pages));
+        var pages = [];
         
         $( ".page" ).each(function( index ) {
+            $(this).find("img").each(function( n ){
+                var height = GalleyImages.shrink_to_print_size.call(this); // print resolution
+                var levels_in = $(this).parent().parent().hasClass('page') ? 2 : 3;
+                GalleyImages.align_image.call(this, line_height, page_height);
+                make_image($(this).attr('src'), height, $(this).css("margin-top"), $(this).css("margin-bottom"), index, n, levels_in);
+            });
+        
             // new section: create blank pages until slot is on right
             while (!get_page_meta(page_num).is_on_right) {
                 pages.push(make_page($( blank_page_div() ), page_num, 0));

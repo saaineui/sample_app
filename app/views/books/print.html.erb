@@ -4,6 +4,9 @@
         <%= link_to 'Back to Preview', galley_book_path(@book) %>
     </p>
 </div>
+<style>
+  #ebook figure, #ebook h2, #ebook img { height: 42px; }
+</style>
 <div id="ebook">
     <%- @pages.each_with_index do |page, index| %>
         <%- if index.even? %>
@@ -15,9 +18,9 @@
             <% when 'epigraph' %>
                 <%= render partial: 'epigraph_page', locals: { page: page } %>
             <% else %>
-            <div class="page">
+            <div class="page order_<%= page['order'] %>">
 <%= render partial: 'sidebar', locals: { sidebar_text: get_sidebar_string(page) } %>
-                <div class="rendered-text">
+                <div class="rendered-text" style="margin-top: <%= -1 * @page_height * page['pages_before'] %>px">
                     <%= @book.sections.with_order(page['order']).first.text.html_safe if @book.sections.with_order(page['order']).count > 0 %>
                 </div>
             </div>

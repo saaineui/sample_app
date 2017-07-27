@@ -79,6 +79,8 @@ class BooksController < ApplicationController
   
   def print
     @position = params[:position] || 'Front'
+    @page_height = params[:page_height].to_i
+    @images = params[:images] || []
     @title = { subtitle: "#{@book.title} - Print #{@position}" }
       
     process_pages

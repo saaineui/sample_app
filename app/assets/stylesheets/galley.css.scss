@@ -42,7 +42,7 @@ body { margin: 0; padding: 0; }
         #ebook h1, .epigraph-wrap { margin-top: $line-height*8; }
         .epigraph-wrap { position: relative; }
         #ebook p, #ebook li { font-size: $line-height*0.75; }
-        #ebook img { max-width: 90%; }
+        #ebook img { width: auto; }
 
 @media only print {
     .spread { 
@@ -51,5 +51,6 @@ body { margin: 0; padding: 0; }
 }
 
 /* Test Classes */
-.fake-textbox { width: 100%; height: 700px; }
-.fake-image { width: 100px; height: 100px; }
+.fake-textbox { width: 100%; height: 650px; }
+#ebook img.fake-image { width: 100px; height: 100px; }
+.fake-figure { width: 100%; height: 100px; }
