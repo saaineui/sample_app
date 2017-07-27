@@ -37,7 +37,7 @@ describe("GalleyImages", function() {
         GalleyImages.align_image.call(this, line_height, page_height); 
     });
     expect(book_image.css("margin-top")).toEqual( '43px' );
-    expect(book_image.css("margin-bottom")).toEqual( '16px' );
+    expect(book_image.css("margin-bottom")).toEqual( '5px' );
   });
 
   it("#align_container should align figure and h2 elements on grid", function() {

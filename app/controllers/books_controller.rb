@@ -80,10 +80,10 @@ class BooksController < ApplicationController
   def print
     @position = params[:position] || 'Front'
     @page_height = params[:page_height].to_i
-    @images = params[:images] || []
     @title = { subtitle: "#{@book.title} - Print #{@position}" }
       
     process_pages
+    process_images
     
     render layout: '/layouts/galley' # plain styling
   end
@@ -106,8 +106,23 @@ class BooksController < ApplicationController
   end
   
   def process_pages # sort page data passed by galley.js
-    @pages = JSON.parse(params[:pages]).select { |page| position_matches?(page) } || []
+    if params[:pages].nil?
+      @pages = []
+      return false
+    end
+    @pages = JSON.parse(params[:pages]).select { |page| position_matches?(page) } 
     @pages.sort_by! { |page| get_sort_order(page) }
+  end
+  
+  def process_images # store image src counts to process multiple instances where exist
+    if params[:images].nil?
+      @images = []
+      @image_src_counts = []
+      return false
+    end
+    @images = JSON.parse(params[:images]) 
+    @image_src_counts = @images.map{ |image| image['src'] }
+    @image_src_counts = @image_src_counts.uniq.select{ |src| @image_src_counts.count(src) > 1 }
   end
     
   def position_matches?(page)
@@ -115,7 +130,7 @@ class BooksController < ApplicationController
   end
     
   def get_sort_order(page)
-    ((page['signature'] - 1) * 8) + ((page['signature_order'] - 1) * 2) + page['page_position']
+    ((page['signature'] - 1) * 32) + ((page['signature_order'] - 1) * 4) + page['page_position']
   end
 
   # Before filters

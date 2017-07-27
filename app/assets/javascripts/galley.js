@@ -64,7 +64,9 @@ $(document).ready(function() {
     
     function add_to_pages_form_array(page) {
         var pages = JSON.parse($("#pages").val());
-        pages.push(page);
+        var page_without_page_el = Object.assign({}, page);
+        delete page_without_page_el.page;
+        pages.push(page_without_page_el);
         $("#pages").val(JSON.stringify(pages));
     }
     
@@ -102,10 +104,10 @@ $(document).ready(function() {
         
         $( ".page" ).each(function( index ) {
             $(this).find("img").each(function( n ){
-                var height = GalleyImages.shrink_to_print_size.call(this); // print resolution
-                var levels_in = $(this).parent().parent().hasClass('page') ? 2 : 3;
+                GalleyImages.shrink_to_print_size.call(this); // print resolution
+                var levels_in = $(this).parent().parent().hasClass('rendered-text') ? 2 : 3;
                 GalleyImages.align_image.call(this, line_height, page_height);
-                make_image($(this).attr('src'), height, $(this).css("margin-top"), $(this).css("margin-bottom"), index, n, levels_in);
+                make_image($(this).attr('src'), $(this).css('height'), $(this).css("margin-top"), $(this).css("margin-bottom"), index, n, levels_in);
             });
         
             // new section: create blank pages until slot is on right

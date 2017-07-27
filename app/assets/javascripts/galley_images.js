@@ -7,7 +7,7 @@
         var GalleyImages = (function() {
 
             function pad_image_bottom(image_el, line_height) {
-                var margin_bottom = $(image_el).height() % line_height;
+                var margin_bottom = line_height - ($(image_el).height() % line_height);
                 $(image_el).css("margin-bottom", margin_bottom.toString() + "px");
             }
 
@@ -35,7 +35,7 @@
 
                 // resize book images down for better print resolution
                 shrink_to_print_size: function() {
-                    return $(this).height( $(this).height() * 0.75 ).toString() + "px"; 
+                    $(this).height( Math.floor($(this).height() * 0.75) );
                 },
               
                 // line up images along grid and in bounds

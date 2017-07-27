@@ -40,9 +40,16 @@ body { margin: 0; padding: 0; }
             float: none; 
         }
         #ebook h1, .epigraph-wrap { margin-top: $line-height*8; }
+  #ebook figure:before, #ebook figure:after, #ebook h2:before, #ebook h2:after {
+	  content: " "; /* 1 */
+	  display: table; /* 2 */
+  }
+  #ebook figure:after, #ebook h2:after {
+	  clear: both;
+  }
         .epigraph-wrap { position: relative; }
         #ebook p, #ebook li { font-size: $line-height*0.75; }
-        #ebook img { width: auto; }
+        #ebook img { max-width: none; width: auto; display: block; margin: 0 auto; }
 
 @media only print {
     .spread { 

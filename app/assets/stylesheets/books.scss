@@ -31,13 +31,6 @@
 		text-align: center;
 		max-width: 100%;
 	}
-  figure:before, figure:after {
-	  content: " "; /* 1 */
-	  display: table; /* 2 */
-  }
-  figure:after {
-	  clear: both;
-  }
 	h2  {
 		margin: 0;
 		text-align: center;
