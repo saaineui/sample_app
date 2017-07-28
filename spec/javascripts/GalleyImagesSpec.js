@@ -36,7 +36,7 @@ describe("GalleyImages", function() {
 	  $("#ebook img").each(function(){ 
         GalleyImages.align_image.call(this, line_height, page_height); 
     });
-    expect(book_image.css("margin-top")).toEqual( '43px' );
+    expect(book_image.css("margin-top")).toEqual( '1px' );
     expect(book_image.css("margin-bottom")).toEqual( '5px' );
   });
 
