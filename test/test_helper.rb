@@ -30,6 +30,27 @@ module ActiveSupport
       pages = assign_sig_order_and_position(pages)
       pages.to_json
     end
+    
+    def create_images_json
+      [
+        {
+          'src': 'https://example.com/ch1.png', 'height': '54px', 'margin_top': '0px', 
+          'margin_bottom': '9px', 'section_order': '1', 'n': 0, 'tagType': 'H2'
+        },        
+        {
+          'src': 'https://example.com/image.png', 'height': '107px', 'margin_top': '0px', 
+          'margin_bottom': '19px', 'section_order': '2', 'n': 0, 'tagType': 'FIGURE'
+        },      
+        {
+          'src': 'https://example.com/image.png', 'height': '107px', 'margin_top': '0px', 
+          'margin_bottom': '19px', 'section_order': '8', 'n': 0, 'tagType': 'FIGURE'
+        },
+        {
+          'src': 'https://example.com/image.png', 'height': '107px', 'margin_top': '0px', 
+          'margin_bottom': '19px', 'section_order': '8', 'n': 1, 'tagType': 'FIGURE'
+        }      
+      ].to_json
+    end
 
     private
 

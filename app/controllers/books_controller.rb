@@ -122,15 +122,17 @@ class BooksController < ApplicationController
     end
     
     images = JSON.parse(params[:images]) 
+    sort_images(images)
+  end
+  
+  def sort_images(images)
     image_srcs = images.map { |image| image['src'] }
-    partitioned_images = images.partition { |image| image_srcs.count(image['src']) == 1 } # separate out duplicated images
     
+    # separate out duplicated images
+    partitioned_images = images.partition { |image| image_srcs.count(image['src']) == 1 } 
     @single_images = partitioned_images[0]
-    
-    @multiple_images = []
-    partitioned_images[1].each do |image|
-      image['n'] = sorted_images_of_type(images, image).index(image) + 1
-      @multiple_images << image
+    @multiple_images = partitioned_images[1].map do |image|
+      image.merge('n' => sorted_images_of_type(images, image).index(image) + 1)
     end
   end
   
