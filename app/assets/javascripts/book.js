@@ -18,7 +18,7 @@ $(document).ready(function(spineless) {
         var line_height = parseInt( $("#ebook p").css("line-height") );
         var sticky_bar_height = parseInt( $("#sticky-bar > nav").height() );
         var box_height = $(window).height() - sticky_bar_height - WRAPPER_PADDING - SCROLL_WRAP_MARGIN - NEXT_BACK_MARGIN;
-        spineless.scroll_interval = box_height - (box_height % line_height);
+        spineless.scroll_interval = box_height - (box_height % line_height); // 1
 
         // Resize bounding box 
         $('#scroll-wrap').height(spineless.scroll_interval + 'px');
@@ -28,9 +28,9 @@ $(document).ready(function(spineless) {
             GalleyImages.align_container.call(this, line_height); 
         });
 
-        spineless.content_height = parseInt( $("#ebook").height() );
-        spineless.anchor = BookScroll.compute_anchor(spineless);
-        spineless.max_clicks = BookScroll.compute_max_clicks(spineless);
+        spineless.content_height = parseInt( $("#ebook").height() ); // 2
+        spineless.max_clicks = BookScroll.compute_max_clicks(spineless); // 3
+        spineless.anchor = BookScroll.compute_anchor(spineless); // 4
 
         if (BookScroll.is_multipage(spineless)) {
             $("#book-nav").fadeTo("slow", 1); // Show buttons if multi-page section

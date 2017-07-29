@@ -5,7 +5,7 @@ describe("BookScroll", function() {
     spineless = {
       progress_start: 0,
       section_progress_points: 100, // book has one chapter, so section_progress_points is 100%
-      scroll_as_decimal: 0.0,
+      scroll: 0,
       anchor: 0,
       max_clicks: 4,
       content_height: 100,
@@ -60,17 +60,17 @@ describe("BookScroll", function() {
   it("#compute_anchor should output zero-indexed page number", function() {
     expect(BookScroll.compute_anchor(spineless)).toEqual( 0 );
     
-    spineless.scroll_as_decimal = 0.2;
+    spineless.scroll = 20;
     expect(BookScroll.compute_anchor(spineless)).toEqual( 1 );
 
     var math_fake = {
-      scroll_as_decimal: 0.05,
+      scroll: 5,
       content_height: 1850,
       scroll_interval: 100
     };
     expect(BookScroll.compute_anchor(math_fake)).toEqual( 1 );
 
-    math_fake.scroll_as_decimal = 0.86;
+    math_fake.scroll = 84;
     expect(BookScroll.compute_anchor(math_fake)).toEqual( 16 );
   });
 
@@ -79,13 +79,12 @@ describe("BookScroll", function() {
 
     var math_fake = {
       anchor: 1,
-      content_height: 1850,
-      scroll_interval: 100
+      max_clicks: 18
     };
     expect(BookScroll.compute_scroll(math_fake)).toEqual( 5 );
     
     math_fake.anchor = 16;
-    expect(BookScroll.compute_scroll(math_fake)).toEqual( 86 );
+    expect(BookScroll.compute_scroll(math_fake)).toEqual( 84 );
   });
   
   it("#compute_max_clicks should output upper bound for scroll", function() {

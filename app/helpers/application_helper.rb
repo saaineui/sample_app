@@ -10,8 +10,4 @@ module ApplicationHelper
     num.to_i == 0 ? 1 : num
   end
   
-  def percent_to_raw(num)
-    num.to_i * 0.01
-  end
-  
 end

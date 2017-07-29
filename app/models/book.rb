@@ -23,7 +23,7 @@ class Book < ActiveRecord::Base
   end
   
   def progress_with_scroll(location, scroll)
-    progress_start(location) + (percent_to_raw(scroll) * section_progress_points(location)).to_i
+    progress_start(location) + (scroll.to_i * 0.01 * section_progress_points(location)).to_i
   end
 
   def progress_start(location)
