@@ -150,7 +150,7 @@ describe("BookScroll", function() {
     var expected_progress_bar_width = progress_div.parent().width() * 0.8;
     
     expect(spineless).toEqual( expected_spineless );
-    expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 1 );
+    expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 2 );
     expect(progress_percent_div.text()).toEqual( "80%" );
   });
 
