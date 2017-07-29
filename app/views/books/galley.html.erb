@@ -3,8 +3,8 @@
     <%= form_tag method: :post, action: :print do %>
         <%= hidden_field_tag :images %>
         <%= hidden_field_tag :pages %>
-        <%= hidden_field_tag :line_height, 21 %>
-        <%= hidden_field_tag :page_height, 672 %>
+        <%= hidden_field_tag :line_height, 20 %>
+        <%= hidden_field_tag :page_height, 680 %>
         <p>
             <%= label_tag :position, 'Position:' %>
             <%= select_tag :position, options_for_select([['Front', 'Front'], ['Back', 'Back']]) %>

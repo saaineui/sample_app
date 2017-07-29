@@ -1,7 +1,7 @@
-$line-height: 21px;
-$page-height: 672px;
-$text-width: 5.65in;
-$sidebar-width: 0.6in;
+$line-height: 20px;
+$page-height: 680px;
+$text-width: 5.15in;
+$sidebar-width: 0.9in;
 $page-width: $text-width+$sidebar-width;
 
 @import "global";
@@ -10,11 +10,11 @@ $page-width: $text-width+$sidebar-width;
 body { margin: 0; padding: 0; }
 
 /* 
- * Default Margins on Chrome are:
- * Left: 0.39in
- * Right: 0.38in
- * Top: 0.39in
- * Bottom: 0.38in
+ * Margins on Firefox are:
+ * Left: ?in
+ * Right: ?in
+ * Top: ?in
+ * Bottom: ?in
  */
 
 #wrapper { width: $page-width*2; margin: 0 auto; padding: 0 0.01in 0 0; }
@@ -31,25 +31,25 @@ body { margin: 0; padding: 0; }
         .page:last-child .sidebar { transform-origin: 0in 0in; left: $sidebar-width; transform: rotate(90deg); }
         .page:first-child .sidebar { transform-origin: $page-height 0in; left: auto; right: $sidebar-width; transform: rotate(-90deg); }
 
-        #ebook { hyphens: auto; }
-        #ebook h1 { 
-            font-size: $line-height*1.25;
-            line-height: $line-height*1.5;
-            text-align: center;
-            width: 100%; 
-            float: none; 
-        }
-        #ebook h1, .epigraph-wrap { margin-top: $line-height*8; }
-  #ebook figure:before, #ebook figure:after, #ebook h2:before, #ebook h2:after {
+#ebook { hyphens: auto; }
+#ebook h1 { 
+    font-size: $line-height*1.25;
+    line-height: $line-height*1.5;
+    text-align: center;
+    width: 100%; 
+    float: none; 
+}
+#ebook h1, .epigraph-wrap { margin-top: $line-height*8; }
+#ebook figure:before, #ebook figure:after, #ebook h2:before, #ebook h2:after {
 	  content: " "; /* 1 */
 	  display: table; /* 2 */
-  }
-  #ebook figure:after, #ebook h2:after {
+}
+#ebook figure:after, #ebook h2:after {
 	  clear: both;
-  }
-        .epigraph-wrap { position: relative; }
-        #ebook p, #ebook li { font-size: $line-height*0.75; }
-        #ebook img { max-width: none; width: auto; display: block; margin: 0 auto; }
+}
+.epigraph-wrap { position: relative; }
+#ebook p, #ebook li { font-size: $line-height*0.75; }
+#ebook img { max-width: none; width: auto; display: block; margin: 0 auto; }
 
 @media only print {
     .spread { 
@@ -59,5 +59,5 @@ body { margin: 0; padding: 0; }
 
 /* Test Classes */
 .fake-textbox { width: 100%; height: 650px; }
-#ebook img.fake-image { width: 100px; height: 100px; }
-.fake-figure { width: 100%; height: 100px; }
+#ebook img.fake-image { width: 100px; height: 98px; }
+.fake-figure { width: 100%; height: 98px; }
