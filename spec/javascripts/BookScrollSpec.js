@@ -1,61 +1,35 @@
 describe("BookScroll", function() {
-  var spineless, expected_spineless, short_page;
+  var chapter, short_chapter;
 
   beforeEach(function() {
-    spineless = {
+    chapter = {
       progress_start: 0,
       section_progress_points: 100, // book has one chapter, so section_progress_points is 100%
       scroll: 0,
+      content_height: 100,
+      scroll_interval: 20,
       anchor: 0,
       max_clicks: 4,
-      content_height: 100,
-      scroll_interval: 20
     };
+    BookScroll.initialize_data(chapter);
     
-    expected_spineless = Object.assign({}, spineless);
-
-    short_page = {
+    short_chapter = {
       progress_start: 0,
-      section_progress_points: 0, // book has one chapter, so section_progress_points is 100%
+      section_progress_points: 0, 
       scroll: 0,
       content_height: 10,
       scroll_interval: 20
     }
 
-    BookScroll.initialize_data(spineless);
-    
+    // create mock dom
     $('body').append('<div id="wrapper"></div>');
-    
-    up_nav_btn = $('<nav/>', {
-        "class": 'up'
-    }).appendTo('#wrapper');
-    
-    down_nav_btn = $('<nav/>', {
-        "class": 'down'
-    }).appendTo('#wrapper');
-    
-    scroll_wrap_div = $('<div/>', {
-        "id": 'scroll-wrap',
-        "height": 210
-    }).appendTo('#wrapper');
-
-    ebook_div = $('<div/>', {
-        "id": 'ebook',
-        "height": 1050
-    }).appendTo('#scroll-wrap');
-
-    progress_div = $('<div/>', {
-        "id": 'progress',
-    }).appendTo('#wrapper');
-
-    progress_percent_div = $('<div/>', {
-        "id": 'progress-percent',
-    }).appendTo('#wrapper');
-
-    get_bookmark_a = $('<a/>', {
-        "id": 'bookmark',
-        "href": '/books/2/4',
-    }).appendTo('#wrapper');
+    up_nav_btn = $('<nav/>', { "class": 'up' }).appendTo('#wrapper');
+    down_nav_btn = $('<nav/>', { "class": 'down' }).appendTo('#wrapper');
+    scroll_wrap_div = $('<div/>', { "id": 'scroll-wrap', "height": 210 }).appendTo('#wrapper');
+    ebook_div = $('<div/>', { "id": 'ebook', "height": 1050 }).appendTo('#scroll-wrap');
+    progress_div = $('<div/>', { "id": 'progress' }).appendTo('#wrapper');
+    progress_percent_div = $('<div/>', { "id": 'progress-percent' }).appendTo('#wrapper');
+    get_bookmark_a = $('<a/>', { "id": 'bookmark', "href": '/books/2/4', }).appendTo('#wrapper');
 
     save_bookmark_a = $('<a/>', {
         "id": 'new-bookmark',
@@ -81,8 +55,8 @@ describe("BookScroll", function() {
     expect(BookScroll.get_line_height()).toEqual( 36 );
   });
   
-  it("#compute_anchor handles short page", function() {
-    BookScroll.initialize_data(short_page);
+  it("#compute_anchor handles short chapter", function() {
+    BookScroll.initialize_data(short_chapter);
     expect(BookScroll.compute_anchor()).toEqual( 0 );
   });
   
@@ -92,12 +66,7 @@ describe("BookScroll", function() {
     BookScroll.update('scroll', 20);
     expect(BookScroll.compute_anchor()).toEqual( 1 );
 
-    var math_fake = {
-      scroll: 5,
-      content_height: 1850,
-      scroll_interval: 100
-    };
-    BookScroll.initialize_data(math_fake);
+    BookScroll.initialize_data({ scroll: 5, content_height: 1850, scroll_interval: 100 });
     expect(BookScroll.compute_anchor()).toEqual( 1 );
 
     BookScroll.update('scroll', 84);
@@ -105,21 +74,13 @@ describe("BookScroll", function() {
   });
 
   it("#compute_scroll computes scroll amount from zero index page anchor", function() {
-    expect(BookScroll.compute_scroll()).toEqual( 0 );
-
-    var math_fake = {
-      anchor: 1,
-      max_clicks: 18
-    };
-    BookScroll.initialize_data(math_fake);
-    expect(BookScroll.compute_scroll()).toEqual( 5 );
-    
-    BookScroll.update('anchor', 16);
-    expect(BookScroll.compute_scroll()).toEqual( 84 );
+    expect(BookScroll.compute_scroll(BookScroll.data().anchor, BookScroll.data().max_clicks)).toEqual( 0 );
+    expect(BookScroll.compute_scroll(1, 18)).toEqual( 5 );
+    expect(BookScroll.compute_scroll(16, 18)).toEqual( 84 );
   });
   
-  it("#compute_max_clicks handles short page", function() {
-    BookScroll.initialize_data(short_page);
+  it("#compute_max_clicks handles short chapter", function() {
+    BookScroll.initialize_data(short_chapter);
     expect(BookScroll.compute_max_clicks()).toEqual( 0 );
   });
   
@@ -193,9 +154,7 @@ describe("BookScroll", function() {
   });
 
   it("#scroll_page should max out at max_clicks", function() {
-    for (i=0; i<10; i++) {
-      BookScroll.scroll_page(1);
-    }
+    for (i=0; i<10; i++) { BookScroll.scroll_page(1); }
     var expected_progress_bar_width = progress_div.parent().width() * 0.8;
     
     expect(BookScroll.data().anchor).toEqual( 4 );
@@ -205,9 +164,7 @@ describe("BookScroll", function() {
 
   it("#scroll_page should max out at 0", function() {
     BookScroll.update('anchor', 2);
-    for (i=0; i<10; i++) {
-      BookScroll.scroll_page(-1);
-    }
+    for (i=0; i<10; i++) { BookScroll.scroll_page(-1); }
     expect(BookScroll.data().anchor).toEqual( 0 );
     expect(progress_div.width()).toBeLessThan( 1 );
     expect(progress_percent_div.text()).toEqual( "0%" );
