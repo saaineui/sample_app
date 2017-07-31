@@ -6,6 +6,8 @@
   */
         var BookScroll = (function() {
           
+            var FALLBACK_LINE_HEIGHT = 30;
+          
             function update_progress_bar(d) {
                 var progress = compute_section_progress(d) + d.progress_start;
                 $("#progress").css("width", progress + "%");
@@ -33,6 +35,10 @@
             }
           
             function compute_anchor(d) {
+                if (is_short_page(d)) {
+                    return 0; // short pages have no scroll
+                }
+              
                 var estimated_anchor = Math.floor((d.content_height * d.scroll * 0.01) / d.scroll_interval);
                 var scroll_diff_one = compute_scroll(estimated_anchor, d.max_clicks) - d.scroll;
 
@@ -60,8 +66,23 @@
             function is_bottom(anchor_increment, d) {
                 return anchor_increment === 1 && d.anchor === d.max_clicks;
             }
+          
+            function is_short_page(d) {
+                return d.content_height < d.scroll_interval || d.content_height == 0 || d.scroll_interval == 0;
+            }
 
             return {
+                // get line height from paragraph or h2 tag; fallback on hard-coded value if none found
+                get_line_height: function() {
+                    if ($('#ebook h2').length > 0) {
+                        return parseInt( $('#ebook h2').css('line-height') ) / 2;
+                    }
+                    if ($('#ebook p').length > 0) {
+                        return parseInt( $('#ebook p').css('line-height') );
+                    }
+                    return FALLBACK_LINE_HEIGHT;
+                },
+              
                 // compute anchor (zero index for which page we are on) from scroll
                 compute_anchor: function(d) {
                     return compute_anchor(d);
@@ -74,6 +95,9 @@
                 
                 // compute upper bound for scroll
                 compute_max_clicks: function(d){
+                    if (is_short_page(d)) {
+                        return 0; // short pages have no scroll
+                    }
                     if (d.content_height % d.scroll_interval == 0) { // special handling for full height last page
                         return d.content_height / d.scroll_interval - 1;
                     } else { 

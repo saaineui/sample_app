@@ -1,5 +1,5 @@
 describe("BookScroll", function() {
-  var spineless, expected_spineless;
+  var spineless, expected_spineless, short_page;
 
   beforeEach(function() {
     spineless = {
@@ -13,6 +13,14 @@ describe("BookScroll", function() {
     };
     
     expected_spineless = Object.assign({}, spineless);
+
+    short_page = {
+      progress_start: 0,
+      section_progress_points: 0, // book has one chapter, so section_progress_points is 100%
+      scroll: 0,
+      content_height: 10,
+      scroll_interval: 20
+    }
 
     $('body').append('<div id="wrapper"></div>');
     
@@ -57,6 +65,24 @@ describe("BookScroll", function() {
     $('#wrapper').remove();
   });
   
+  it("#get_line_height retrieves hard-coded line height without css match", function() {
+    expect(BookScroll.get_line_height()).toEqual( 30 );
+  });
+  
+  it("#get_line_height retrieves line height from <h2> tag", function() {
+    $('<h2 style="line-height: 70px"></h2>').appendTo('#ebook');
+    expect(BookScroll.get_line_height()).toEqual( 35 );
+  });
+  
+  it("#get_line_height retrieves line height from <p> tag", function() {
+    $('<p style="line-height: 36px"></p>').appendTo('#ebook');
+    expect(BookScroll.get_line_height()).toEqual( 36 );
+  });
+  
+  it("#compute_anchor handles short page", function() {
+    expect(BookScroll.compute_anchor(short_page)).toEqual( 0 );
+  });
+  
   it("#compute_anchor should output zero-indexed page number", function() {
     expect(BookScroll.compute_anchor(spineless)).toEqual( 0 );
     
@@ -87,6 +113,10 @@ describe("BookScroll", function() {
     expect(BookScroll.compute_scroll(math_fake)).toEqual( 84 );
   });
   
+  it("#compute_max_clicks handles short page", function() {
+    expect(BookScroll.compute_max_clicks(short_page)).toEqual( 0 );
+  });
+  
   it("#compute_max_clicks should output upper bound for scroll", function() {
     expect(BookScroll.compute_max_clicks(spineless)).toEqual( 4 );
     
@@ -111,6 +141,13 @@ describe("BookScroll", function() {
   it("#get_anchor_increment should determine anchor_increment from nav element", function() {
     expect(BookScroll.get_anchor_increment(down_nav_btn)).toEqual( 1 );
     expect(BookScroll.get_anchor_increment(up_nav_btn)).toEqual( -1 );
+  });
+
+  it("#update_progress_bar handles small chapters", function() {
+    spineless.section_progress_points = 0;
+    BookScroll.update_progress_bar(spineless);
+    expect(progress_div.width()).toEqual( 0 );
+    expect(progress_percent_div.text()).toEqual( "0%" );
   });
 
   it("#update_progress_bar should update progress bar to match data object", function() {
