@@ -1,10 +1,10 @@
 ruby '2.4.0'
 
-gem 'bcrypt', '3.1.7'
+gem 'bcrypt', '3.1.11'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'nokogiri'
-gem 'rails', '4.2.9'
+gem 'rails', '5.1.2'
 gem 'sass-rails'
 gem 'sdoc', group: :doc
 gem 'uglifier'
@@ -14,21 +14,18 @@ group :development do
 end
 
 group :development, :test do
-  gem 'byebug',         '3.4.0'
   gem 'spring'
-  gem 'sqlite3',        '1.3.9'
-  gem 'web-console',    '2.0.0.beta3'
+  gem 'sqlite3'
+  gem 'listen'
   gem 'jasmine',        '~> 2.6'
 end
 
 group :test do
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
-  gem 'guard-minitest'
+  gem 'rails-controller-testing'
 end
 
 group :production do
-  gem 'pg',             '0.17.1'
-  gem 'puma',           '2.11.1'
-  gem 'rails_12factor', '0.0.2'
+  gem 'pg',             '0.21.0'
+  gem 'puma',           '3.9.1'
+  gem 'rails_12factor'
 end

@@ -14,7 +14,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
 
     assert_no_difference 'Book.count' do
-      post books_path, book: @book_form_data
+      post books_path, params: { book: @book_form_data }
     end
     assert_redirected_to root_path
   end
@@ -24,10 +24,12 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     get upload_book_path(@book)
     assert_redirected_to root_path
     
-    post upload_review_path, upload: { 
-      auto_assign_chapter_nums: 0, 
-      book_id: @book.id, 
-      ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+    post upload_review_path, params: { 
+      upload: { 
+        auto_assign_chapter_nums: 0, 
+        book_id: @book.id, 
+        ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+      } 
     }
     assert_redirected_to root_path
   end
@@ -36,7 +38,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     log_in_as(@admin_user)     
 
     assert_difference 'Book.count', 1 do
-      post books_path, book: @book_form_data
+      post books_path, params: { book: @book_form_data }
     end
     
     new_book = Book.last
@@ -47,10 +49,12 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Spineless | Upload The Constitution of the United States'
     assert_select 'h3', 'The Constitution of the United States'
 
-    post upload_review_path, upload: { 
-      auto_assign_chapter_nums: 0, 
-      book_id: new_book.id, 
-      ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+    post upload_review_path, params: { 
+      upload: { 
+        auto_assign_chapter_nums: 0, 
+        book_id: new_book.id, 
+        ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+      } 
     }
     assert !flash.empty?
     assert_template 'sections/new'

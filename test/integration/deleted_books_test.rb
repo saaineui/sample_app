@@ -7,7 +7,7 @@ class DeletedBooksTest < ActionDispatch::IntegrationTest
   end
 
   test 'handle deleted bookmarked books flexibly' do
-    post login_path, session: { email: @admin_user.email, password: 'password' }
+    post login_path, params: { session: { email: @admin_user.email, password: 'password' } }
     get new_bookmark_path(book_id: @book, location: 1, scroll: 50)
     delete book_path(@book)
     get user_path(@admin_user)

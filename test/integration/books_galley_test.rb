@@ -14,7 +14,7 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
   end
       
   test 'print front sections render' do
-    post print_book_path(@book), position: 'Front', pages: create_pages_json 
+    post print_book_path(@book), params: { position: 'Front', pages: create_pages_json }
     assert_select 'h1', 'The Model Views Controllers', count: 1
     assert_select '.epigraph-wrap p', 'For DHH', count: 1
     assert_select '.page', count: 16
@@ -24,7 +24,7 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
   end
       
   test 'print front sections render in print order' do
-    post print_book_path(@book), position: 'Front', pages: create_pages_json 
+    post print_book_path(@book), params: { position: 'Front', pages: create_pages_json }
     front_sidebars = %w[
       S1-So1-FL---32 S1-So1-FR---1 S1-So2-FL---30 S1-So2-FR---3 
       S1-So3-FL---28 S1-So3-FR---5 S1-So4-FL---26 S1-So4-FR---7 
@@ -38,7 +38,7 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
   end
       
   test 'print back sections render' do
-    post print_book_path(@book), position: 'Back', pages: create_pages_json 
+    post print_book_path(@book), params: { position: 'Back', pages: create_pages_json }
     assert_select '.page', count: 16
     assert_select '.sidebar', count: 16
     
@@ -46,7 +46,7 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
   end
       
   test 'print back sections render in print order' do
-    post print_book_path(@book), position: 'Back', pages: create_pages_json 
+    post print_book_path(@book), params: { position: 'Back', pages: create_pages_json }
     back_sidebars = %w[
       S1-So1-BL---2 S1-So1-BR---31 S1-So2-BL---4 S1-So2-BR---29
       S1-So3-BL---6 S1-So3-BR---27 S1-So4-BL---8 S1-So4-BR---25 
@@ -60,7 +60,7 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
   end
   
   test 'print images css renders' do
-    post print_book_path(@book), position: 'Front', images: create_images_json
+    post print_book_path(@book), params: { position: 'Front', images: create_images_json }
     assert_select 'style', '
   #ebook img[src=\'https://example.com/ch1.png\'] { 
     height: 54px; margin-top: 0px; margin-bottom: 9px; 

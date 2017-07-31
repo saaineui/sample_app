@@ -9,13 +9,14 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     log_in_as(@admin_user)
     get edit_user_path(@admin_user)
     assert_template 'users/edit'
-    patch user_path(@admin_user), 
-          user: { 
-            name:                  '',
-            email:                 'foo@invalid',
-            password:              'foo',
-            password_confirmation: 'bar' 
-          }
+    patch user_path(@admin_user), params: { 
+      user: { 
+        name:                  '',
+        email:                 'foo@invalid',
+        password:              'foo',
+        password_confirmation: 'bar' 
+      }
+    }
     assert_template 'users/edit'
   end
 
@@ -25,13 +26,14 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path(@admin_user)
     name  = 'Foo Bar'
     email = 'foo@bar.com'
-    patch user_path(@admin_user), 
-          user: { 
-            name:                  name,
-            email:                 email,
-            password:              '',
-            password_confirmation: ''
-          }
+    patch user_path(@admin_user), params: { 
+      user: { 
+        name:                  name,
+        email:                 email,
+        password:              '',
+        password_confirmation: ''
+      }
+    }
     assert_not flash.empty?
     assert_redirected_to @admin_user
     @admin_user.reload
@@ -44,14 +46,15 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     get edit_user_path(@admin_user)
     name  = 'Foo Bar'
     email = 'foo@bar.com'
-    patch user_path(@admin_user), 
-          user: { 
-            name:                  name,
-            email:                 email,
-            password:              '',
-            password_confirmation: '',
-            admin:                 false
-          }
+    patch user_path(@admin_user), params: { 
+      user: { 
+        name:                  name,
+        email:                 email,
+        password:              '',
+        password_confirmation: '',
+        admin:                 false
+      }
+    }
     assert_not flash.empty?
     assert_redirected_to @admin_user
     @admin_user.reload

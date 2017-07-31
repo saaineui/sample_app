@@ -4,13 +4,15 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test 'valid signup information' do
     get signup_path
     assert_difference 'User.count', 1 do
-      post_via_redirect users_path, 
-                        user: { 
-                          name:                  'Example User',
-                          email:                 'user@example.com',
-                          password:              'password',
-                          password_confirmation: 'password'
-                        }
+      post users_path, params: { 
+        user: { 
+          name:                  'Example User',
+          email:                 'user@example.com',
+          password:              'password',
+          password_confirmation: 'password'
+        }
+      }
+      follow_redirect!
     end
     assert_template 'users/show'
     assert logged_in?
@@ -19,13 +21,14 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test 'invalid signup information' do
     get signup_path
     assert_no_difference 'User.count' do
-      post_via_redirect users_path, 
-                        user: { 
-                          name:                  'Example User',
-                          email:                 '',
-                          password:              'password',
-                          password_confirmation: 'passwo1rd'
-                        }
+      post users_path, params: { 
+        user: { 
+          name:                  'Example User',
+          email:                 '',
+          password:              'password',
+          password_confirmation: 'passwo1rd'
+        }
+      }
     end
     assert_template 'users/new'
     assert_not logged_in?

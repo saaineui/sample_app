@@ -30,7 +30,7 @@ class BooksReadTest < ActionDispatch::IntegrationTest
   test 'log in and read' do
     book = @books.last
     
-    post login_path, session: { email: @read_user.email, password: 'password' }
+    post login_path, params: { session: { email: @read_user.email, password: 'password' } }
     assert logged_in?
 
     get book_path(book)
