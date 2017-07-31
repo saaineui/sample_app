@@ -22,6 +22,8 @@ describe("BookScroll", function() {
       scroll_interval: 20
     }
 
+    BookScroll.initialize_data(spineless);
+    
     $('body').append('<div id="wrapper"></div>');
     
     up_nav_btn = $('<nav/>', {
@@ -80,62 +82,75 @@ describe("BookScroll", function() {
   });
   
   it("#compute_anchor handles short page", function() {
-    expect(BookScroll.compute_anchor(short_page)).toEqual( 0 );
+    BookScroll.initialize_data(short_page);
+    expect(BookScroll.compute_anchor()).toEqual( 0 );
   });
   
   it("#compute_anchor should output zero-indexed page number", function() {
-    expect(BookScroll.compute_anchor(spineless)).toEqual( 0 );
+    expect(BookScroll.compute_anchor()).toEqual( 0 );
     
-    spineless.scroll = 20;
-    expect(BookScroll.compute_anchor(spineless)).toEqual( 1 );
+    BookScroll.update('scroll', 20);
+    expect(BookScroll.compute_anchor()).toEqual( 1 );
 
     var math_fake = {
       scroll: 5,
       content_height: 1850,
       scroll_interval: 100
     };
-    expect(BookScroll.compute_anchor(math_fake)).toEqual( 1 );
+    BookScroll.initialize_data(math_fake);
+    expect(BookScroll.compute_anchor()).toEqual( 1 );
 
-    math_fake.scroll = 84;
-    expect(BookScroll.compute_anchor(math_fake)).toEqual( 16 );
+    BookScroll.update('scroll', 84);
+    expect(BookScroll.compute_anchor()).toEqual( 16 );
   });
 
   it("#compute_scroll computes scroll amount from zero index page anchor", function() {
-    expect(BookScroll.compute_scroll(spineless)).toEqual( 0 );
+    expect(BookScroll.compute_scroll()).toEqual( 0 );
 
     var math_fake = {
       anchor: 1,
       max_clicks: 18
     };
-    expect(BookScroll.compute_scroll(math_fake)).toEqual( 5 );
+    BookScroll.initialize_data(math_fake);
+    expect(BookScroll.compute_scroll()).toEqual( 5 );
     
-    math_fake.anchor = 16;
-    expect(BookScroll.compute_scroll(math_fake)).toEqual( 84 );
+    BookScroll.update('anchor', 16);
+    expect(BookScroll.compute_scroll()).toEqual( 84 );
   });
   
   it("#compute_max_clicks handles short page", function() {
-    expect(BookScroll.compute_max_clicks(short_page)).toEqual( 0 );
+    BookScroll.initialize_data(short_page);
+    expect(BookScroll.compute_max_clicks()).toEqual( 0 );
   });
   
   it("#compute_max_clicks should output upper bound for scroll", function() {
-    expect(BookScroll.compute_max_clicks(spineless)).toEqual( 4 );
+    expect(BookScroll.compute_max_clicks()).toEqual( 4 );
     
-    spineless.scroll_interval = 19
-    expect(BookScroll.compute_max_clicks(spineless)).toEqual( 5 );
+    BookScroll.update('scroll_interval', 19);
+    expect(BookScroll.compute_max_clicks()).toEqual( 5 );
+  });
+  
+  it ("#update_anchor_and_max_clicks should update props with computed vals", function() {
+    BookScroll.update('scroll', 20);
+    BookScroll.update('content_height', 513);
+    BookScroll.update('scroll_interval', 100);
+    BookScroll.update_anchor_and_max_clicks();
+    expect(BookScroll.data().anchor).toBe( 1 );
+    expect(BookScroll.data().max_clicks).toBe( 5 );
   });
 
   it("#is_multipage should return true if text is taller than box", function() {
-    expect(BookScroll.is_multipage(spineless)).toBe( true );
+    expect(BookScroll.is_multipage()).toBe( true );
     
-    spineless.scroll_interval = 200
-    expect(BookScroll.is_multipage(spineless)).toBe( false );
+    BookScroll.update('scroll_interval', 200);
+    expect(BookScroll.is_multipage()).toBe( false );
   });
 
   it("#is_prescrolled_page should return true if anchor is greater than zero", function() {
-    expect(BookScroll.is_prescrolled_page(spineless)).toBe( false );
+    expect(BookScroll.is_prescrolled_page()).toBe( false );
     
-    spineless.anchor = 1
-    expect(BookScroll.is_prescrolled_page(spineless)).toBe( true );
+    BookScroll.update('anchor', 1);
+    expect(BookScroll.is_prescrolled_page()).toBe( true );
   });
 
   it("#get_anchor_increment should determine anchor_increment from nav element", function() {
@@ -144,35 +159,33 @@ describe("BookScroll", function() {
   });
 
   it("#update_progress_bar handles small chapters", function() {
-    spineless.section_progress_points = 0;
-    BookScroll.update_progress_bar(spineless);
+    BookScroll.update('section_progress_points', 0);
+    BookScroll.update_progress_bar();
     expect(progress_div.width()).toEqual( 0 );
     expect(progress_percent_div.text()).toEqual( "0%" );
   });
 
   it("#update_progress_bar should update progress bar to match data object", function() {
-    spineless.anchor++;
+    BookScroll.update('anchor', 1);
     var expected_progress_bar_width = progress_div.parent().width() / 5;
     
-    BookScroll.update_progress_bar(spineless);
+    BookScroll.update_progress_bar();
     expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 1 );
     expect(progress_percent_div.text()).toEqual( "20%" );
   });
 
   it("#update_bookmark_links should update bookmark links to match data object", function() {
-    spineless.anchor++;
-    
-    BookScroll.update_bookmark_links(spineless);
+    BookScroll.update('anchor', 1);
+    BookScroll.update_bookmark_links();
     expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=20' );
     expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=20' );
   });
 
   it("#scroll_page should increment anchor and progress bar", function() {
-    spineless = BookScroll.scroll_page(BookScroll.get_anchor_increment(down_nav_btn), spineless);
-    expected_spineless.anchor++;
+    BookScroll.scroll_page(BookScroll.get_anchor_increment(down_nav_btn));
     var expected_progress_bar_width = progress_div.parent().width() / 5;
     
-    expect(spineless).toEqual( expected_spineless );
+    expect(BookScroll.data().anchor).toEqual( 1 );
     expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 1 );
     expect(progress_percent_div.text()).toEqual( "20%" );
     expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=20' );
@@ -181,30 +194,28 @@ describe("BookScroll", function() {
 
   it("#scroll_page should max out at max_clicks", function() {
     for (i=0; i<10; i++) {
-      spineless = BookScroll.scroll_page(1, spineless);
+      BookScroll.scroll_page(1);
     }
-    expected_spineless.anchor = 4;
     var expected_progress_bar_width = progress_div.parent().width() * 0.8;
     
-    expect(spineless).toEqual( expected_spineless );
+    expect(BookScroll.data().anchor).toEqual( 4 );
     expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 2 );
     expect(progress_percent_div.text()).toEqual( "80%" );
   });
 
   it("#scroll_page should max out at 0", function() {
-    spineless.anchor = 2;
+    BookScroll.update('anchor', 2);
     for (i=0; i<10; i++) {
-      spineless = BookScroll.scroll_page(-1, spineless);
+      BookScroll.scroll_page(-1);
     }
-    expected_spineless.anchor = 0;
-    expect(spineless).toEqual( expected_spineless );
+    expect(BookScroll.data().anchor).toEqual( 0 );
     expect(progress_div.width()).toBeLessThan( 1 );
     expect(progress_percent_div.text()).toEqual( "0%" );
   });
 
   it("#prescroll_page should adjust ebook margin", function() {
-    spineless.anchor = 1;
-    BookScroll.prescroll_page(spineless);
+    BookScroll.update('anchor', 1);
+    BookScroll.prescroll_page();
     expect(ebook_div.css("margin-top")).toEqual( "-20px" );
   });
 });
