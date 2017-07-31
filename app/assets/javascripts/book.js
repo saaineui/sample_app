@@ -13,7 +13,7 @@ $(document).ready(function(spineless) {
     });
 
     $(window).load(function() {
-        initialize_height_props(); // 1
+        BookScroll.initialize_height_props(); // 1
       
         // Resize bounding box 
         $('#scroll-wrap').height(BookScroll.data().scroll_interval + 'px'); // 2

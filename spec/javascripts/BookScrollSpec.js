@@ -41,8 +41,24 @@ describe("BookScroll", function() {
     $('#wrapper').remove();
   });
   
-  it("#get_line_height retrieves hard-coded line height without css match", function() {
-    expect(BookScroll.get_line_height()).toEqual( 30 );
+  it("#initialize_data copies passed object data to private data object", function() {
+    expect(BookScroll.data()).toEqual( chapter );
+  });
+  
+  it("#initialize_height_props sets line_height and scroll_interval", function() {
+    $('<div/>', { "id": 'sticky-bar' }).appendTo('#wrapper');
+    $('<nav/>', { "height": 10 }).appendTo('#sticky-bar');
+    BookScroll.initialize_height_props();
+    expect(BookScroll.data().scroll_interval).toBeGreaterThan( 0 );
+    expect(BookScroll.data().line_height).toEqual( 30 );
+  });
+  
+  it("#update updates data object prop to specified value", function() {
+    BookScroll.update('max_clicks', 10)
+    expect(BookScroll.data().max_clicks).toEqual( 10 );
+
+    BookScroll.update('arbitrary', true)
+    expect(BookScroll.data().arbitrary).toBe( true );
   });
   
   it("#get_line_height retrieves line height from <h2> tag", function() {
@@ -60,7 +76,7 @@ describe("BookScroll", function() {
     expect(BookScroll.compute_anchor()).toEqual( 0 );
   });
   
-  it("#compute_anchor should output zero-indexed page number", function() {
+  it("#compute_anchor outputs zero-indexed page number", function() {
     expect(BookScroll.compute_anchor()).toEqual( 0 );
     
     BookScroll.update('scroll', 20);
@@ -84,14 +100,14 @@ describe("BookScroll", function() {
     expect(BookScroll.compute_max_clicks()).toEqual( 0 );
   });
   
-  it("#compute_max_clicks should output upper bound for scroll", function() {
+  it("#compute_max_clicks tells us number of clicks to traverse section", function() {
     expect(BookScroll.compute_max_clicks()).toEqual( 4 );
     
     BookScroll.update('scroll_interval', 19);
     expect(BookScroll.compute_max_clicks()).toEqual( 5 );
   });
   
-  it ("#update_anchor_and_max_clicks should update props with computed vals", function() {
+  it ("#update_anchor_and_max_clicks updates props with computed vals", function() {
     BookScroll.update('scroll', 20);
     BookScroll.update('content_height', 513);
     BookScroll.update('scroll_interval', 100);
@@ -100,21 +116,21 @@ describe("BookScroll", function() {
     expect(BookScroll.data().max_clicks).toBe( 5 );
   });
 
-  it("#is_multipage should return true if text is taller than box", function() {
+  it("#is_multipage tells us if text is taller than box", function() {
     expect(BookScroll.is_multipage()).toBe( true );
     
     BookScroll.update('scroll_interval', 200);
     expect(BookScroll.is_multipage()).toBe( false );
   });
 
-  it("#is_prescrolled_page should return true if anchor is greater than zero", function() {
+  it("#is_prescrolled_page tells us if anchor is greater than zero", function() {
     expect(BookScroll.is_prescrolled_page()).toBe( false );
     
     BookScroll.update('anchor', 1);
     expect(BookScroll.is_prescrolled_page()).toBe( true );
   });
 
-  it("#get_anchor_increment should determine anchor_increment from nav element", function() {
+  it("#get_anchor_increment gets anchor_increment value from nav element", function() {
     expect(BookScroll.get_anchor_increment(down_nav_btn)).toEqual( 1 );
     expect(BookScroll.get_anchor_increment(up_nav_btn)).toEqual( -1 );
   });
@@ -126,7 +142,7 @@ describe("BookScroll", function() {
     expect(progress_percent_div.text()).toEqual( "0%" );
   });
 
-  it("#update_progress_bar should update progress bar to match data object", function() {
+  it("#update_progress_bar updates progress bar to match data object", function() {
     BookScroll.update('anchor', 1);
     var expected_progress_bar_width = progress_div.parent().width() / 5;
     
@@ -135,14 +151,14 @@ describe("BookScroll", function() {
     expect(progress_percent_div.text()).toEqual( "20%" );
   });
 
-  it("#update_bookmark_links should update bookmark links to match data object", function() {
+  it("#update_bookmark_links updates bookmark links to match data object", function() {
     BookScroll.update('anchor', 1);
     BookScroll.update_bookmark_links();
     expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=20' );
     expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=20' );
   });
 
-  it("#scroll_page should increment anchor and progress bar", function() {
+  it("#scroll_page increments anchor and progress bar", function() {
     BookScroll.scroll_page(BookScroll.get_anchor_increment(down_nav_btn));
     var expected_progress_bar_width = progress_div.parent().width() / 5;
     
@@ -153,7 +169,7 @@ describe("BookScroll", function() {
     expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=20' );
   });
 
-  it("#scroll_page should max out at max_clicks", function() {
+  it("#scroll_page maxes out at max_clicks", function() {
     for (i=0; i<10; i++) { BookScroll.scroll_page(1); }
     var expected_progress_bar_width = progress_div.parent().width() * 0.8;
     
@@ -162,7 +178,7 @@ describe("BookScroll", function() {
     expect(progress_percent_div.text()).toEqual( "80%" );
   });
 
-  it("#scroll_page should max out at 0", function() {
+  it("#scroll_page maxes out at 0", function() {
     BookScroll.update('anchor', 2);
     for (i=0; i<10; i++) { BookScroll.scroll_page(-1); }
     expect(BookScroll.data().anchor).toEqual( 0 );
@@ -170,7 +186,7 @@ describe("BookScroll", function() {
     expect(progress_percent_div.text()).toEqual( "0%" );
   });
 
-  it("#prescroll_page should adjust ebook margin", function() {
+  it("#prescroll_page adjusts ebook margin", function() {
     BookScroll.update('anchor', 1);
     BookScroll.prescroll_page();
     expect(ebook_div.css("margin-top")).toEqual( "-20px" );

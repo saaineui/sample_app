@@ -25,12 +25,12 @@ describe("GalleyImages", function() {
     $('#wrapper').remove();
   });
   
-  it("#shrink_to_print_size should resize image to 75%", function() {
+  it("#shrink_to_print_size resizes image to 75%", function() {
     $('#ebook img').each(GalleyImages.shrink_to_print_size);
     expect(book_image.height()).toEqual( 73 );
   });
 
-  it("#align_image should pad image bottom and move cutoff image to next page", function() {
+  it("#align_image pads image bottoms and moves cutoff images to next page", function() {
     page_height = $('.page').first().height();
     
 	  $("#ebook img").each(function(){ 
@@ -40,7 +40,7 @@ describe("GalleyImages", function() {
     expect(book_image.css("margin-bottom")).toEqual( '2px' );
   });
 
-  it("#align_container should align figure and h2 elements on grid", function() {
+  it("#align_container aligns <figure> and <h2> elements on grid", function() {
 	  $("#ebook figure, #ebook h2").each(function(){ 
         GalleyImages.align_container.call(this, line_height); 
     });

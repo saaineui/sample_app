@@ -1,7 +1,7 @@
 <header id="sticky-bar">
     <nav class="clearfix">
         <h1>
-        <% if @book && params[:action] == 'show' %>
+        <% if @book && params[:action].eql?('show') %>
             <%= link_to(image_tag(@book.logo_url, alt: @book.title), book_path(@book)) %>
         <% else %>
             <%= link_to(image_tag(asset_path('spineless_logo.png'), alt: 'spineless'), root_path) %>
@@ -30,7 +30,7 @@
                         <% end %>
                     </ul>
                 </li>
-                <% if @book && controller.action_name == 'show' %>
+                <% if @book && params[:action].eql?('show') %>
                     <li class="toc">
                         <span>Table of Contents</span>
                         <ul class="menu">

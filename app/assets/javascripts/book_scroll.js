@@ -79,15 +79,13 @@
                 if (!is_multipage()) { return 0; } // short pages have no scroll
               
                 var estimated_anchor = Math.floor((data.content_height * data.scroll * 0.01) / data.scroll_interval);
-                var scroll_diff_one = compute_scroll(estimated_anchor, data.max_clicks) - data.scroll;
+                var scroll_diff = compute_scroll(estimated_anchor, data.max_clicks) - data.scroll;
 
-                if (scroll_diff_one === 0) { 
-                    return estimated_anchor; // exact match found first
-                } 
+                if (scroll_diff === 0) { return estimated_anchor; } // exact match found
                 
-                var scroll_diff_two = compute_scroll(estimated_anchor + 1, data.max_clicks) - data.scroll;
+                var scroll_diff_next_anchor = compute_scroll(estimated_anchor + 1, data.max_clicks) - data.scroll;
               
-                if (Math.abs(scroll_diff_one) < Math.abs(scroll_diff_two)) {
+                if (Math.abs(scroll_diff) < Math.abs(scroll_diff_next_anchor)) {
                     return estimated_anchor;
                 } else {
                     return estimated_anchor + 1;
