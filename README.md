@@ -12,5 +12,5 @@
 
 <ul>
     <li>Ruby 2.4.0</li>
-    <li>Rails 4.2.9</li>
+    <li>Rails 5.1.2</li>
 </ul>
