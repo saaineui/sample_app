@@ -33,6 +33,9 @@ body { margin: 0; padding: 0; }
         .page:first-child .sidebar { transform-origin: $page-height 0in; left: auto; right: $sidebar-width; transform: rotate(-90deg); }
 
 #ebook { hyphens: auto; }
+#ebook section { 
+		padding-top: $line-height*17;
+}
 #ebook h1 { 
     font-size: $line-height*1.25;
     line-height: $line-height*1.5;

@@ -63,17 +63,17 @@ class BooksGalleyTest < ActionDispatch::IntegrationTest
     post print_book_path(@book), params: { position: 'Front', images: create_images_json }
     assert_select 'style', '
   #ebook img[src=\'https://example.com/ch1.png\'] { 
-    height: 54px; margin-top: 0px; margin-bottom: 9px; 
+    height: 54px; margin-top: 0px; margin-bottom: 9px
   }
 
   #ebook .order_2 figure:nth-of-type(1) img { 
-    height: 107px; margin-top: 0px; margin-bottom: 19px; 
+    height: 107px; margin-top: 0px; margin-bottom: 19px
   }
   #ebook .order_8 figure:nth-of-type(1) img { 
-    height: 107px; margin-top: 0px; margin-bottom: 19px; 
+    height: 107px; margin-top: 0px; margin-bottom: 19px
   }
   #ebook .order_8 figure:nth-of-type(2) img { 
-    height: 107px; margin-top: 0px; margin-bottom: 19px; 
+    height: 107px; margin-top: 0px; margin-bottom: 19px
   }
 '
   end

@@ -15,16 +15,16 @@
     <% end %>
 </div>
 <div id="ebook">
-    <%= render partial: 'title_page', locals: { page: nil } %>
-    <%= render partial: 'epigraph_page', locals: { page: nil } %>
+<%= render partial: 'title_page', locals: { sidebar_text: sidebar_text(nil) } %>
+<%= render partial: 'epigraph_page', locals: { sidebar_text: sidebar_text(nil) } %>
     <!-- Get text from database in order -->
     <%- @book.sections.order(:order).each do |section| %>
-            <div class="page" data-order="<%= section.order %>">
- <%= render partial: 'sidebar', locals: { sidebar_text: nil } %>
-                <div class="rendered-text">
-                    <%= section.text.html_safe %>
-                </div>
+        <div class="page" data-order="<%= section.order %>">
+<%= render partial: 'sidebar', locals: { sidebar_text: sidebar_text(nil) } %>
+            <div class="rendered-text">
+                <%= section.text.html_safe %>
             </div>
+        </div>
     <%- end %>
 </div>
 <%= javascript_include_tag 'galley' %>

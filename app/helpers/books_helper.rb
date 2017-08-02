@@ -23,4 +23,11 @@ module BooksHelper
       '[sidebar]'
     end
   end
+
+  def rendered_text_div_tag(page) 
+    return nil if @book.sections.with_order(page['order']).count == 0
+    section_text = @book.sections.with_order(page['order']).first.text.html_safe
+    div_style = 'margin-top:' + (-1 * @page_height * page['pages_before']).to_s + 'px'
+    content_tag(:div, section_text, class: 'rendered-text', style: div_style)
+  end
 end

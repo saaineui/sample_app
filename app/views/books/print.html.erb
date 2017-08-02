@@ -1,42 +1,37 @@
+<style>
+<% @single_images.each do |image| %>
+  #ebook img[src='<%= image['src'] %>'] { 
+    <%= render_css(['height', 'margin_top', 'margin_bottom'], image) %>
+  }
+<% end %>
+
+<% @multiple_images.each do |image| %>
+  #ebook .order_<%= image['section_order'] %> <%= image['tagType'].downcase %>:nth-of-type(<%= image['n'] %>) img { 
+    <%= render_css(['height', 'margin_top', 'margin_bottom'], image) %>
+  }
+<% end %>
+</style>
+
 <div class="screen-only centered">
     <h3><%= @book.title %> - Print <%= @position %></h3>
-    <p>
-        <%= link_to 'Back to Preview', galley_book_path(@book) %>
-    </p>
+    <p><%= link_to 'Back to Preview', galley_book_path(@book) %></p>
 </div>
-<style>
-<%- @single_images.each do |image| %>
-  #ebook img[src='<%= image['src'] %>'] { 
-    height: <%= image['height'] %>; margin-top: <%= image['margin_top'] %>; margin-bottom: <%= image['margin_bottom'] %>; 
-  }
-<%- end %>
-
-<%- @multiple_images.each do |image| %>
-  #ebook .order_<%= image['section_order'] %> <%= image['tagType'].downcase %>:nth-of-type(<%= image['n'] %>) img { 
-    height: <%= image['height'] %>; margin-top: <%= image['margin_top'] %>; margin-bottom: <%= image['margin_bottom'] %>; 
-  }
-<%- end %>
-</style>
 <div id="ebook">
     <%- @pages.each_with_index do |page, index| %>
-        <%- if index.even? %>
-        <div class="spread clearfix">
-        <%- end %>
+        <%= %(<div class="spread clearfix">).html_safe if index.even? %>
         <% case page['order'] %>
             <% when 'title' %>
-                <%= render partial: 'title_page', locals: { page: page } %>
+<%= render partial: 'title_page', locals: { sidebar_text: sidebar_text(page) } %>
             <% when 'epigraph' %>
-                <%= render partial: 'epigraph_page', locals: { page: page } %>
+<%= render partial: 'epigraph_page', locals: { sidebar_text: sidebar_text(page) } %>
+            <% when 'blank' %>
+<%= render partial: 'blank_page', locals: { sidebar_text: sidebar_text(page) } %>
             <% else %>
             <div class="page order_<%= page['order'] %>">
 <%= render partial: 'sidebar', locals: { sidebar_text: sidebar_text(page) } %>
-                <div class="rendered-text" style="margin-top: <%= -1 * @page_height * page['pages_before'] %>px">
-                    <%= @book.sections.with_order(page['order']).first.text.html_safe if @book.sections.with_order(page['order']).count > 0 %>
-                </div>
+              <%= rendered_text_div_tag(page) %>
             </div>
         <% end %>
-        <%- if index.odd? %>
-        </div>
-        <%- end %>
+        <%= %(</div>).html_safe if index.odd? %>
     <%- end %>
 </div>

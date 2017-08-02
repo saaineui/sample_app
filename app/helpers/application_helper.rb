@@ -9,6 +9,10 @@ module ApplicationHelper
     [controller.controller_name, controller.action_name].join(' ')
   end
   
+  def render_css(props, data)
+    props.map { |prop| [prop.sub('_', '-'), data[prop]].join(': ') }.join('; ')
+  end
+  
   def books_show?
     controller.controller_name.eql?('books') && controller.action_name.eql?('show')
   end
