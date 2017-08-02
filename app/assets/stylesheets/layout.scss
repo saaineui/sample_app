@@ -1,7 +1,3 @@
-// Place all the styles related to the StaticPages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 /* Meta Stuff */
 
 @mixin box_sizing {
@@ -32,7 +28,6 @@ body {
 	background-repeat: repeat;
 	font-weight: 400;
 }
-
 
 ::-moz-selection {
     background: $dk-orange;
@@ -83,7 +78,7 @@ header#sticky-bar > nav {
 		float: right;
 		margin: 0.5em;
 		padding-bottom: 3px;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid transparent;
 		span {
 			display: block;
 			width: 1px;
@@ -117,8 +112,10 @@ figure.help-icon {
 	padding: 16px 3em 3em 3em;
 	@include box_sizing;
 	position: relative;
-	background: #eee;
+	background: #fff;
 }
+    body.books.show #wrapper { background: #eee; }
+
 
 ul {
 	position: relative;
@@ -152,17 +149,25 @@ a.btn, input.btn {
 }
 
 #profile {
-
-    @include box_sizing;
-    max-width: 600px; width: 100%;
-    margin: 0 auto;
-    float: none;
+  @include box_sizing;
+  max-width: 740px; 
+  width: 100%;
+  margin: 0 auto;
+  float: none;
 	
-    h3, p { 
+  h3, p { 
 		text-align: left; 
 		margin-bottom: 1em; 
 	}
+  
+  th { width: 20%; }
+  td { width: 80%; }
+  li { line-height: 1.5; padding: 0.2em 0em; }
+  li span { width: 100%; display: block; }
+  li span:last-child a { width: 50%; display: block; text-align: right; float: right; }
 }
+.bookmark-icon { width: 15px; height: 15px; fill: $dk-orange; }
+a:hover .bookmark-icon { fill: #000; }
 
 /* Homepage */
 p.covers { text-align: center; }
@@ -184,7 +189,7 @@ div.example-markup {
 }
 
 /* Table Helpers */
-table { border: 1px solid #000; text-align: left; min-width: 100%; }
+table { border: 1px solid #ccc; text-align: left; min-width: 100%; }
 th, td { width: 50%; padding: 1em; vertical-align: top; }
 th:first-child, td:first-child { font-weight: 700; }
 
@@ -199,13 +204,15 @@ table.book-data-review {
 .one_two, .one_four { position: relative; text-align: left; float: left; margin: 1%; }
 .one_two { width: 48%; }
 .one_four { width: 23%; }
+  body.users.index .one_four:last-child { text-align: right; }
 
 /* Index Styles */
-ul.users { @include box_sizing; position: relative; padding: 1em; border: 1px solid #000; }
-ul.users li { @include box_sizing; position: relative; width: 100%; border-bottom: 1px solid #000; padding: 1em; margin: 0; }
+ul.app_index { @include box_sizing; position: relative; padding: 0em 1em; border: 1px solid #ccc; }
+ul.app_index li { @include box_sizing; position: relative; width: 100%; border-bottom: 1px solid #ccc; padding: 1em; margin: 0; }
+ul.app_index li:last-child { border-bottom: none; }
 
-figure.index-logos { text-align: center; }
-figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
+figure.index-logos { text-align: center; margin: 1em 0 0 0; width: 100%; clear: both; }
+figure.index-logos img { max-width: 100%; height: auto; }
 
 /* Navigation */
 #book-nav {
@@ -219,7 +226,7 @@ figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
 	nav { float: left; display: block; width: 48px; height: 47px; font-size: 0.001px; text-indent: -9999px; overflow: hidden; background-image: asset-url('up-down.png'); background-size: 100% auto; background-repeat: no-repeat; cursor: pointer; }
 	nav:hover { opacity: 0.5; }
 	nav.up { background-position: center top; margin-bottom: 10px; }
-    nav.down { background-position: center bottom; }
+  nav.down { background-position: center bottom; }
 }
 #next-btn, #back-btn { position: fixed; bottom: 0px; text-decoration: underline; width: 60px; padding: 4px; height: 19px; }
 #next-btn { right: 0px; }
@@ -234,20 +241,27 @@ figure.index-logos img { margin: 1em 0; max-width: 100%; height: auto; }
 /* Small Desktop */
 @media only screen and (max-width: 730px) {
 	div#progress-bar { display: none; }
-    .one_four { width: 48%; }
-    .one_four:nth-child(2n-1) { clear: both; }
+  .one_four { width: 48%; }
+  .one_four:nth-child(3) { clear: both; }
+  body.users.index .one_four:last-child { width: 98%; }
+}
+
+@media only screen and (max-width: 570px) {
+  .one_two, .one_four { width: 98%; text-align: center; }
+  li span:last-child a { width: 100%; float: none; }
 }
 
 /* Mobile */
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
-
 	body { background-image: none !important; background-color: #eee; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
-    #book-nav { left: 1em; right: auto; }
-
+  #book-nav { left: 1em; right: auto; filter: grayscale(100%); }
+  #book-nav nav { opacity: 0.6; }
+  #book-nav nav:hover { opacity: 0.3; }
 }
 
-@media only screen and (max-width: 480px) and (orientation: portrait), only screen and (max-device-width: 480px) and (orientation: portrait), only screen and (max-device-width: 640px) and (orientation: portrait) {
-
+@media only screen and (max-width: 480px) and (orientation: portrait), 
+  only screen and (max-device-width: 480px) and (orientation: portrait), 
+  only screen and (max-device-width: 640px) and (orientation: portrait) {
 }

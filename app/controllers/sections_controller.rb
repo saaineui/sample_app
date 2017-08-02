@@ -5,25 +5,25 @@ class SectionsController < ApplicationController
   
   def new
     @book.sections.each(&:delete) # Delete old sections, if any
-    process_file
+    process_file(params[:upload][:auto_assign_chapter_nums].to_i.eql?(1))
     save_book_or_redirect
   end
   
   private
   
-  def process_file
+  def process_file(auto_assign)
     raw_text = Nokogiri::HTML(params[:upload][:ebook_file])
     @book.text_length = raw_text.to_s.length
-    chapters = { auto_assign: params[:upload][:auto_assign_chapter_nums].to_i.eql?(1), num_assigned: 0 }
+    chapters = { auto_assign: auto_assign, num_assigned: 0 }
 
     raw_text.xpath('//section').each_with_index do |section, index|
-      chapters = add_a_section(section, index, chapters)      
+      chapters = add_a_section(section, index + 1, chapters) # convert 0 index to 1 index     
       section.unlink
     end
   end
 
-  def add_a_section(section, index, chapters)
-    new_section = Section.new(order: index + 1, title: '', text: section.to_s, book: @book)
+  def add_a_section(section, order, chapters)
+    new_section = Section.new(order: order, title: '', text: section.to_s, book: @book)
 
     if new_chapter?(section)
       new_section.title = get_title(section)

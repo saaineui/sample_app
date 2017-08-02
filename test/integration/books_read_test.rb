@@ -54,7 +54,6 @@ class BooksReadTest < ActionDispatch::IntegrationTest
     end
     
     get user_path(@read_user)
-    assert_select 'tr th a', count: book.max_number_of_locations - 1
-    assert_select 'tr td a', count: book.max_number_of_locations - 1
+    assert_select 'ul.bookmarks li', count: book.max_number_of_locations - 1
   end
 end
