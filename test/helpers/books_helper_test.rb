@@ -39,6 +39,9 @@ class BooksHelperTest < ActionView::TestCase
       'order' => 3, 'page_num' => 4, 'pages_before' => 1, 
       'signature' => 1, 'signature_order' => 2, 'page_position' => 2 
     }
-    assert_dom_equal %(<div class="rendered-text" style="margin-top:-100px">MyString 6</div>), rendered_text_div_tag(page)
+    assert_dom_equal(
+      %(<div class="rendered-text" style="margin-top:-100px">MyString 6</div>), 
+      rendered_text_div_tag(page)
+    )
   end
 end

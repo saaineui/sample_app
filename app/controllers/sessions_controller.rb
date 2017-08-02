@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, only: %i[new create]
+  skip_before_action :require_admin
+  
   def new
     @title = { subtitle: 'Login' }
   end
@@ -16,6 +19,6 @@ class SessionsController < ApplicationController
   
   def destroy
     log_out
-    redirect_to root_url
+    redirect_back fallback_location: root_url
   end
 end

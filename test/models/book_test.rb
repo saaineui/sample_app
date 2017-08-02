@@ -38,11 +38,18 @@ class BookTest < ActiveSupport::TestCase
     assert_equal Book::SKIPS.to_i, Book::SKIPS
   end
   
-  test 'get_section_from_location method returns section' do
-    @output = @book_with_sections.get_section_from_location(5)
+  test 'get_section_from_order method returns section' do
+    output = @book_with_sections.get_section_from_order(2)
     
-    assert_equal @output.class.name, 'Section'
-    assert_equal @output.title, 'MyString 2'
+    assert_equal output.class.name, 'Section'
+    assert_equal output.title, 'MyString 2'
+  end
+  
+  test 'get_section_from_location method returns section' do
+    output = @book_with_sections.get_section_from_location(5)
+    
+    assert_equal output.class.name, 'Section'
+    assert_equal output.title, 'MyString 2'
   end
   
   test 'completed_sections? method returns true only at 2nd section in main text' do
@@ -68,12 +75,12 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test 'completed_sections method returns array of completed main text sections' do
-    @output = @book_with_sections.completed_sections(6)
+    output = @book_with_sections.completed_sections(6)
     
-    assert_equal @output.class, Array
-    assert_equal @output.count, 2
-    assert_equal @output.first.class.name, 'Section'
-    assert_equal @output.first.title, 'MyString'
+    assert_equal output.class, Array
+    assert_equal output.count, 2
+    assert_equal output.first.class.name, 'Section'
+    assert_equal output.first.title, 'MyString'
   end
   
   test 'location_in_range method returns integer' do

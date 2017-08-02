@@ -1,7 +1,6 @@
 class SectionsController < ApplicationController
-  before_action :admin_user, only: :new
-  before_action :redirect_if_missing_data, only: :new
-  before_action :find_book_or_redirect, only: :new
+  before_action :redirect_if_missing_data
+  before_action :find_book_or_redirect
   
   def new
     @book.sections.each(&:delete) # Delete old sections, if any
@@ -54,27 +53,21 @@ class SectionsController < ApplicationController
     end
   end
   
-  # Before filters
-  
-  # Confirms an admin user.
-  def admin_user
-    redirect_to(root_url) unless logged_in? && current_user.admin?
-  end
-  
-  def redirect_if_missing_data
-    redirect_to(upload_book_path) unless valid_form_data?
-  end
-  
   def valid_form_data?
     params[:upload] && params[:upload][:book_id] && params[:upload][:ebook_file]
   end
 
+  # Before filters
+  def redirect_if_missing_data
+    redirect_to(upload_book_path) unless valid_form_data?
+  end
+  
   def find_book_or_redirect
     if Book.exists?(params[:upload][:book_id])
       @book = Book.find(params[:upload][:book_id])
     else
       flash[:error] = 'That book does not exist.'
-      redirect_to user_path(current_user)
+      redirect_back fallback_location: books_url
     end
   end  
 end

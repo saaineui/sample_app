@@ -20,7 +20,7 @@ class ApplicationHelperTest < ActionView::TestCase
   
   test '#render_css returns css declarations for props and data passed' do
     data = { 'color' => '#05f', 'padding_top' => '1em', 'non-css-prop' => 25 }
-    assert_dom_equal %(padding-top: 1em; color: #05f), render_css(['padding_top', 'color'], data)
+    assert_dom_equal %(padding-top: 1em; color: #05f), render_css(%w[padding_top color], data)
   end
   
   test '#to_valid_dividend should return number if not zero' do

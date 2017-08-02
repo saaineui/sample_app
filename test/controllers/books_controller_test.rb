@@ -5,13 +5,11 @@ class BooksControllerTest < ActionController::TestCase
     @public_book = books(:public)
     @read_user = users(:read)
     @admin_user = users(:admin)
-    @book_form_data = { 
-      title: '', author: '', subtitle: '', logo_url: '', 
-      copyright: '', epigraph: '', cover_image_url: '', background_image_url: '' 
-    }
-    @valid_book_form_data = { 
-      title: 'MyString', author: 'MyString', subtitle: '', logo_url: 'MyString', 
-      copyright: '', epigraph: '', cover_image_url: 'MyString', background_image_url: '' 
+    @form_data = {
+      invalid: { title: '', author: '', subtitle: '', logo_url: '', copyright: '', 
+                 epigraph: '', cover_image_url: '', background_image_url: '' },
+      valid:   { title: 'MyString', author: 'MyString', subtitle: '', logo_url: 'MyString', 
+                 copyright: '', epigraph: '', cover_image_url: 'MyString', background_image_url: '' }
     }    
   end
     
@@ -47,39 +45,39 @@ class BooksControllerTest < ActionController::TestCase
 
   test 'should redirect index when not logged in' do
     get :index
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect new when not logged in' do
     get :new
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect create when not logged in' do
     post :create
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect edit when not logged in' do
     get :edit, params: { id: @public_book }
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect update when not logged in' do
     patch :update, params: { id: @public_book, book: { title: 'AAAAAA' } }
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect destroy when not logged in' do
     assert_no_difference 'Book.count' do
       delete :destroy, params: { id: @public_book }
     end
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect upload when not logged in' do
     get :upload, params: { id: @public_book }
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should get show when logged in as read-only user' do
@@ -151,14 +149,14 @@ class BooksControllerTest < ActionController::TestCase
   test 'should redirect to new when post empty create' do
     log_in_as(@admin_user)      
     @book = Book.new
-    post :create, params: { id: @book, book: @book_form_data }
+    post :create, params: { id: @book, book: @form_data[:invalid] }
     assert_template 'books/new'
     assert_select '#error_explanation p', count: 4
   end
 
   test 'should post create when logged in as admin' do
     log_in_as(@admin_user)      
-    post :create, params: { book: @valid_book_form_data }
+    post :create, params: { book: @form_data[:valid] }
     assert_redirected_to upload_book_path(Book.last)
   end
 
@@ -170,14 +168,14 @@ class BooksControllerTest < ActionController::TestCase
 
   test 'should redirect to edit with errors when post empty update' do
     log_in_as(@admin_user)
-    post :update, params: { id: @public_book, book: @book_form_data }
+    post :update, params: { id: @public_book, book: @form_data[:invalid] }
     assert_template 'books/edit'
     assert_select '#error_explanation p', count: 4
   end
 
   test 'should post update when logged in as admin' do
     log_in_as(@admin_user)
-    post :update, params: { id: @public_book, book: @valid_book_form_data }
+    post :update, params: { id: @public_book, book: @form_data[:valid] }
     assert_template 'books/edit'
     assert_select '#error_explanation p', count: 0
   end

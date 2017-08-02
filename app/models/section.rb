@@ -7,7 +7,7 @@ class Section < ActiveRecord::Base
   scope :with_order, ->(order) { where(order: order).limit(1) }
 
   def index_title
-    index_prefix + title.gsub(/(\A\s?|\s?\Z)/, '')
+    index_prefix + title.strip
   end
   
   def index_prefix

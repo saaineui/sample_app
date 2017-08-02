@@ -9,7 +9,7 @@ class SectionsControllerTest < ActionController::TestCase
     
   test 'should redirect new when not logged in' do
     post :new
-    assert_redirected_to root_url
+    assert_redirected_to login_url
   end
 
   test 'should redirect new when logged in as read-only user' do

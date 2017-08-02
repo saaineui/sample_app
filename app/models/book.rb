@@ -57,7 +57,11 @@ class Book < ActiveRecord::Base
   
   def get_section_from_location(location)
     order = location - SKIPS + 1
-    sections.with_order(order).first if sections.with_order(order).count > 0
+    get_section_from_order(order)
+  end
+  
+  def get_section_from_order(order)
+    sections.with_order(order).first if sections.with_order(order).count.positive?
   end
   
 end
