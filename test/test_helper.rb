@@ -58,7 +58,7 @@ module ActiveSupport
 
     # Returns true inside an integration test.
     def integration_test?
-      defined?(post_via_redirect)
+      defined?(follow_redirect!)
     end
 
     def create_pages

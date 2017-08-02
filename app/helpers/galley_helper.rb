@@ -1,13 +1,16 @@
 module GalleyHelper
-
-  PAGE_POSITIONS = ["FL","FR","BL","BR"]
+  PAGE_POSITIONS = %w[FL FR BL BR].freeze
     
-  def get_sidebar_string(page = nil) 
+  def sidebar_text(page) 
     if page
-      "S#{page['signature']}-So#{page['signature_order']}-#{PAGE_POSITIONS[page['page_position']]}---#{page['page_num']}"
+      [
+        'S' + page['signature'].to_s,
+        'So' + page['signature_order'].to_s,
+        PAGE_POSITIONS[page['page_position']] + '-',
+        '-' + page['page_num'].to_s
+      ].join('-')
     else
       '[sidebar]'
     end
   end
-
 end
