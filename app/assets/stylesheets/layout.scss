@@ -254,7 +254,8 @@ figure.index-logos img { max-width: 100%; height: auto; }
 /* Mobile */
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
-	body { background-image: none !important; background-color: #eee; }
+  body { background-image: none !important; }
+  body.books.show { background-color: #eee; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
   #book-nav { left: 1em; right: auto; filter: grayscale(100%); }
   #book-nav nav { opacity: 0.6; }
