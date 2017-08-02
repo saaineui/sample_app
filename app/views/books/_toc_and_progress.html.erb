@@ -1,0 +1,11 @@
+                    <li class="toc">
+                      <span>Table of Contents</span>
+                      <ul class="menu">
+                        <li><%= link_to 'Cover', open_book_path(@book, 0) %></li>
+                        <% @book.sections.chapters.order(:order).each do |section| %>
+                          <li><%= link_to section.index_title, open_book_path(@book, section.book_location) %></li>
+                        <% end %>
+                      </ul>
+                    </li>
+                    <div id="progress-bar"><span id="progress"></span></div>
+                    <div id="progress-percent"></div>

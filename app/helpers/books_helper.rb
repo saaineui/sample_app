@@ -16,8 +16,8 @@ module BooksHelper
       [
         'S' + page['signature'].to_s,
         'So' + page['signature_order'].to_s,
-        PAGE_POSITIONS[page['page_position']] + '-',
-        '-' + page['page_num'].to_s
+        PAGE_POSITIONS[page['page_position']],
+        '--' + page['page_num'].to_s
       ].join('-')
     else
       '[sidebar]'

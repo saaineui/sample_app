@@ -9,6 +9,10 @@ module ApplicationHelper
     [controller.controller_name, controller.action_name].join(' ')
   end
   
+  def books_show?
+    controller.controller_name.eql?('books') && controller.action_name.eql?('show')
+  end
+  
   def to_valid_dividend(num)
     num.to_i.zero? ? 1 : num
   end

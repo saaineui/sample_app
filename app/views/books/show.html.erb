@@ -1,4 +1,8 @@
-      <div id="scroll-wrap">
+    <% content_for :page_styles do %>
+      body { background-image: url('<%= @book.background_image_url %>'); }
+    <% end if @book.background_image_url.present? %>
+
+     <div id="scroll-wrap">
         <div id="ebook">
           <% case @location %>
           <% when 0 %>
@@ -30,10 +34,11 @@
       </div>
       <%= link_to_previous(@book, @location) %>
       <%= link_to_next(@book, @location) %>
-    </div>
-    <!-- Lightbox -->
-    <div id="lightbox">
-      <span id="close">x</span>
-    </div>
-    <%= render 'shared/books_js' %>
-    <div><!-- matching div close tag in application.html.erb -->
+
+    <% content_for :before_body_close do %>
+      <!-- Lightbox -->
+      <div id="lightbox">
+        <span id="close">x</span>
+      </div>
+<%= render 'shared/books_js' %>
+    <% end %>

@@ -10,12 +10,9 @@
     <%= csrf_meta_tags %>
     <%= favicon_link_tag 'favicon.png' %>
     <%= favicon_link_tag 'favicon.png', rel: 'apple-touch-icon', type: 'image/png' %>
-    
-    <%- if @book && @book.background_image_url.present? %>
-    <style>
-        body { background-image: url('<%= @book.background_image_url %>'); }
-    </style>
-    <%- end %>
+  <style>
+    <%= yield :page_styles %>
+  </style>
 </head>
 <body class="<%= render_body_classes %>">
     <div id="wrapper" class="box">
@@ -25,5 +22,6 @@
         <% end %>
         <%= yield %>
     </div>
+    <%= yield :before_body_close %>
 </body>
 </html>
