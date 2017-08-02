@@ -1,9 +1,9 @@
-<h2><%= @title[:subtitle] %> (<%= @books.count %>)</h2>
+    <h2><%= @title[:subtitle] %> (<%= @books.count %>)</h2>
 
-<ul class="users">
-<% @books.each do |book| %>
-    <%= render book %>
-<% end %>
-</ul>
+    <ul class="app_index">
+    <% @books.each do |book| %>
+        <%= render book %>
+    <% end %>
+    </ul>
 
-        <p><%= link_to 'New Book', new_book_path, class: 'btn' %></p>
+    <p><%= link_to 'New Book', new_book_path, class: 'btn' %></p>

@@ -11,6 +11,6 @@ class DeletedBooksTest < ActionDispatch::IntegrationTest
     get new_bookmark_path(book_id: @book, location: 1, scroll: 50)
     delete book_path(@book)
     get user_path(@admin_user)
-    assert_select 'tr th a', "Book ##{@book.id} can not be found."
+    assert_select 'ul.bookmarks li a', "Book ##{@book.id} can not be found."
   end
 end
