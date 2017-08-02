@@ -14,6 +14,10 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_dom_equal %(My Book), clean_title
   end
 
+  test '#render_body_classes returns string with controller and action name' do
+    assert_dom_equal %(test ), render_body_classes
+  end
+  
   test '#to_valid_dividend should return number if not zero' do
     assert_equal 64, to_valid_dividend(64)
   end

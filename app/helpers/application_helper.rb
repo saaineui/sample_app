@@ -5,6 +5,10 @@ module ApplicationHelper
     title
   end
   
+  def render_body_classes
+    [controller.controller_name, controller.action_name].join(' ')
+  end
+  
   def to_valid_dividend(num)
     num.to_i.zero? ? 1 : num
   end

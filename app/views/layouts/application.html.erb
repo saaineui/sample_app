@@ -17,7 +17,7 @@
     </style>
     <%- end %>
 </head>
-<body>
+<body class="<%= render_body_classes %>">
     <div id="wrapper" class="box">
 <%= render 'layouts/header' %>
         <% flash.each do |message_type, message| %>
