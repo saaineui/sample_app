@@ -1,33 +1,39 @@
-<div id="scroll-wrap">
-	<div id="ebook">
-		<%- case @location %>
-		<%- when 0 %>
-		<p><figure><%= image_tag @book.cover_image_url, alt: @book.title, class: 'book-cover' %></figure></p>
-		<%- when 1 %>
-		<h2><%= @book.title %></h2>
-		<h3 class="author">by <%= @book.author %></h3>
-		<p class="buffcenter"><%= @book.subtitle %></p>
-		<%- when 2 %>
-		<%= @book.epigraph.html_safe if @book.epigraph %>
-		<%- when 3 %>
-		<%= @book.copyright.html_safe if @book.copyright %>
-		<%- else %>
-		<%= @section.text.html_safe if @section %>
-		<%- end %>
-	</div>
-</div>
-<div id="book-nav">
-    <nav class="up">
-        Scroll Up
-    </nav>
-    <nav class="down">
-        Scroll Down
-    </nav>
-</div>
-<%= link_to 'Back', open_book_path(@book, @location - 1), id: 'back-btn' if @location > 0 %>
-<%= link_to 'Next', open_book_path(@book, @location + 1), id: 'next-btn' if @location + 1 < @book.max_number_of_locations %>
+      <div id="scroll-wrap">
+        <div id="ebook">
+          <% case @location %>
+          <% when 0 %>
+            <p>
+              <figure>
+                <%= image_tag @book.cover_image_url, alt: @book.title, class: 'book-cover' %>
+              </figure>
+            </p>
+          <% when 1 %>
+            <h2><%= @book.title %></h2>
+            <h3 class="author">by <%= @book.author %></h3>
+            <p class="buffcenter"><%= @book.subtitle %></p>
+          <% when 2 %>
+            <%= @book.epigraph.html_safe if @book.epigraph %>
+          <% when 3 %>
+            <%= @book.copyright.html_safe if @book.copyright %>
+          <% else %>
+            <%= @section.text.html_safe if @section %>
+          <% end %>
+        </div>
+      </div>
+      <div id="book-nav">
+        <nav class="up">
+          Scroll Up
+        </nav>
+        <nav class="down">
+          Scroll Down
+        </nav>
+      </div>
+      <%= link_to_previous(@book, @location) %>
+      <%= link_to_next(@book, @location) %>
     </div>
     <!-- Lightbox -->
-    <div id="lightbox"><span id="close">x</span></div>
+    <div id="lightbox">
+      <span id="close">x</span>
+    </div>
     <%= render 'shared/books_js' %>
     <div><!-- matching div close tag in application.html.erb -->

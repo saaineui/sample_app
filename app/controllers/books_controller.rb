@@ -27,7 +27,8 @@ class BooksController < ApplicationController
   end
 
   def show 
-    generate_progress_vars
+    @location = @book.location_in_range(params[:location])
+    @scroll = @book.scroll_in_range(params[:scroll])
 
     # Get section content 
     @section = @book.get_section_from_location(@location) if @book.main_text?(@location) 
@@ -96,13 +97,6 @@ class BooksController < ApplicationController
   
   def use_custom_page_subtitle?
     @section && @section.indexable?
-  end
-  
-  def generate_progress_vars
-    @location = @book.location_in_range(params[:location])
-    @scroll = @book.scroll_in_range(params[:scroll])
-    @section_progress_points = @book.section_progress_points(@location)
-    @progress_start = @book.progress_start(@location)
   end
   
   def process_pages # sort page data passed by galley.js

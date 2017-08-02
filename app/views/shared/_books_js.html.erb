@@ -1,11 +1,9 @@
 <script type="text/javascript">
     /* variables to pass to book.js */
     var spineless = {
-
- 	    progress_start: <%= @progress_start || '0' %>,
-	    section_progress_points: <%= @section_progress_points || '0' %>,
+ 	    progress_start: <%= @book.progress_start(@location) %>,
+	    section_progress_points: <%= @book.section_progress_points(@location) %>,
 	    scroll: <%= @scroll %>
-		
     };
 </script>
 <%= javascript_include_tag 'book' %>
