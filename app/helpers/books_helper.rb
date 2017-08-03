@@ -1,5 +1,9 @@
 module BooksHelper
   PAGE_POSITIONS = %w[FL FR BL BR].freeze
+  
+  def clean_up_sample(sample_raw)
+    strip_tags(sample_raw.split(".").last(3).join(".")).strip
+  end
     
   def link_to_next(book, location) 
     return nil if location + 1 >= book.max_number_of_locations

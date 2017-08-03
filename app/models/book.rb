@@ -64,4 +64,13 @@ class Book < ActiveRecord::Base
     sections.with_order(order).first if sections.with_order(order).count.positive?
   end
   
+  def sample_text
+    if sections.empty?
+      ''
+    elsif sections.sample_worthy.count.zero?
+      sections.sample(1).first.text
+    else
+      sections.sample_worthy.sample(1).first.text
+    end
+  end
 end

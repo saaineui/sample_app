@@ -5,6 +5,7 @@ class Section < ActiveRecord::Base
 
   scope :chapters, -> { where(indexable: true) }
   scope :with_order, ->(order) { where(order: order).limit(1) }
+  scope :sample_worthy, -> { where('length(text) > 480') }
 
   def index_title
     index_prefix + title.strip

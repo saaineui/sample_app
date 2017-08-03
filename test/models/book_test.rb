@@ -129,4 +129,8 @@ class BookTest < ActiveSupport::TestCase
   test 'progress_with_scroll method returns 0 for front matter' do
     assert_equal @book_with_sections.progress_with_scroll(2, 10), 0
   end
+  
+  test 'sample_text returns string' do
+    assert @book_with_sections.sample_text.include? 'String'
+  end
 end

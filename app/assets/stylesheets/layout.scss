@@ -8,6 +8,9 @@ box-sizing:         border-box;
 @mixin round_corners {
 border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 }
+@mixin drop_cap {
+	float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; 
+}
 
 $dk-orange: #FF9900;
 $lt-orange: #fffff8;
@@ -173,9 +176,9 @@ a.btn, input.btn {
 a:hover .bookmark-icon { fill: #ccc; }
 
 /* Homepage */
-p.covers { text-align: center; }
-p.covers img { height: 300px; box-shadow: 10px 10px 0px $dk-orange; margin: 10px; }
-p.covers a:hover img { opacity: 0.75; box-shadow: 10px 10px 0px #ccc; }
+p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: #ccc; }
+div.catalog img { height: 300px; box-shadow: 10px 10px 0px $dk-orange; margin: 10px; }
+div.catalog a:hover img { opacity: 0.75; box-shadow: 10px 10px 0px #ccc; }
 
 /* Form Helpers */
 form { @include box_sizing; @include round_corners; text-align: left; max-width: 600px; width: 100%; float: none; margin: 1em auto; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; }

@@ -11,12 +11,12 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     
   test 'public books rendered on home' do
     get root_path
-    assert_select 'p.covers a img[alt=?]', books(:public).title
+    assert_select 'div.catalog a img[alt=?]', books(:public).title
   end
       
   test 'private books not rendered on home' do
     get root_path
-    assert_select 'p.covers a img[alt=?]', books(:hidden).title, false
+    assert_select 'div.catalog a img[alt=?]', books(:hidden).title, false
   end
       
   test 'should get home when logged in as read-only user' do
