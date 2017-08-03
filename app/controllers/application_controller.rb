@@ -11,14 +11,12 @@ class ApplicationController < ActionController::Base
   # Before filters
   def require_login 
     return true if logged_in?
-    store_location
     flash[:danger] = 'Please log in.'
     redirect_to login_url
   end
   
   def require_admin 
     return true if current_user.admin?
-    store_location
     flash[:danger] = 'You do not have permission to do that.'
     redirect_back fallback_location: root_url 
   end
