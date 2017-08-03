@@ -1,13 +1,12 @@
-	jQuery(document).ready(function() {
+$(document).ready(function() {
+    // Toggle menus 
+    $("div.nav-wrapper > ul > li").click(function(){
+        var show_menu = !$(this).hasClass("open");
 
-		/* Toggle menus */
-		jQuery("div.nav-wrapper > ul > li").click(function(){
-			jQuery(this).next().children("ul.menu").hide();
-			jQuery(this).next().removeClass("open");
-			jQuery(this).prev().children("ul.menu").hide();
-			jQuery(this).prev().removeClass("open");
-			jQuery(this).children("ul.menu").toggle();
-			jQuery(this).toggleClass("open");
-		});
-		
-	});
+        $(this).parent().children().removeClass("open");
+
+        if (show_menu) {
+          $(this).addClass("open");
+        }
+    });
+});

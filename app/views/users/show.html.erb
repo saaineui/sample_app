@@ -26,8 +26,10 @@
               </a>
             </span>
             <span class="clearfix">
-            <%= bookmark.updated_at.in_time_zone('Pacific Time (US & Canada)').strftime('%B %e, %Y %-I:%M %p') %> 
-            <%= link_to 'delete', bookmark, method: :delete, data: { confirm: 'Are you sure you want to delete this bookmark?' } %>
+              <span>
+                <%= bookmark.updated_at.in_time_zone('Pacific Time (US & Canada)').strftime('%B %e, %Y %-I:%M %p') %>
+              </span>
+              <%= link_to 'delete', bookmark, method: :delete, data: { confirm: 'Are you sure you want to delete this bookmark?' } %>
             </span>
           </li>
           <% end %>

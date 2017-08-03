@@ -2,16 +2,6 @@ $(document).ready(function(spineless) {
 
     BookScroll.initialize_data(spineless); 
     
-    // Lightbox for zooming in on book images
-    $("#ebook figure img").click(function(){
-        $("#lightbox").css("background-image", "url('" + $(this).attr("src") + "')");
-        $("#lightbox").show();
-    });
-  
-    $("#close").click(function(){
-        $("#lightbox").hide();
-    });
-
     $(window).load(function() {
         BookScroll.initialize_height_props(); // 1
       
