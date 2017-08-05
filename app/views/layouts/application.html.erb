@@ -18,7 +18,10 @@
     <div id="wrapper" class="box">
 <%= render 'layouts/header' %>
         <% flash.each do |message_type, message| %>
-            <div class="alert alert-<%= message_type %>"><%= message %></div>
+            <div class="clearfix alert alert-<%= message_type %>">
+              <%= message %> 
+              <span class="close">[x]</span>
+            </div>
         <% end %>
         <%= yield %>
     </div>
