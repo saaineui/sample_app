@@ -1,6 +1,6 @@
 include ApplicationHelper
 
-class Book < ActiveRecord::Base
+class Book < ApplicationRecord
   has_many :sections
   has_many :bookmarks
   has_many :users, through: :bookmarks
@@ -65,12 +65,15 @@ class Book < ActiveRecord::Base
   end
   
   def sample_text
-    if sections.empty?
-      ''
-    elsif sections.sample_worthy.count.zero?
-      sections.sample(1).first.text
+    return '' if sections.empty?
+    sample_section.text
+  end
+  
+  def sample_section
+    if sections.sample_worthy.count.zero?
+      sections.sample(1).first
     else
-      sections.sample_worthy.sample(1).first.text
+      sections.sample_worthy.sample(1).first
     end
   end
 end

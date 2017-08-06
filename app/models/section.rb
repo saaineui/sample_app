@@ -1,4 +1,4 @@
-class Section < ActiveRecord::Base
+class Section < ApplicationRecord
   belongs_to :book
   
   validates :order, :book, presence: true

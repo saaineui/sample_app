@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class BooksEditTest < ActionDispatch::IntegrationTest
+  SAMPLE_PAGES = [[1, 'Ruby Rails'], [5, '2. Section. 1.'], 
+                  [10, '7. Section. 6.'], [30, '27. Article. VI.']].freeze
+
   def setup
     @read_user = users(:read)
     @admin_user = users(:admin)
@@ -57,8 +60,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
     end
     assert_template 'sections/new'
     
-    sample_pages = [[1, 'Ruby Rails'], [5, '2. Section. 1.'], [10, '7. Section. 6.'], [30, '27. Article. VI.']]
-    sample_pages.each do |location, subtitle|
+    SAMPLE_PAGES.each do |location, subtitle|
       get book_path(@book, location: location)
       assert_select 'title', 'Foo Bar | ' + subtitle
     end
