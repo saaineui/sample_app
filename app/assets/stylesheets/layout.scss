@@ -1,5 +1,9 @@
 /* Meta Stuff */
 
+$dk-orange: #FF9900;
+$md-orange: #ffcc99;
+$lt-orange: #fffff8;
+
 @mixin box_sizing {
 -moz-box-sizing:    border-box;
 -webkit-box-sizing: border-box;
@@ -11,9 +15,11 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 @mixin drop_cap {
 	float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; 
 }
-
-$dk-orange: #FF9900;
-$lt-orange: #fffff8;
+@mixin faux_3d_book {
+  box-shadow: 0px -18px 0px $md-orange, 18px 0px 0px $md-orange, 18px -18px 0px $md-orange; 
+  margin: 18px 18px 0px 0px; 
+  clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%)
+}
 
 /* End Meta Stuff */
 
@@ -182,8 +188,8 @@ a:hover .bookmark-icon { fill: #ccc; }
 
 /* Homepage */
 p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: #ccc; }
-div.catalog img { height: 300px; box-shadow: 10px 10px 0px $dk-orange; margin: 10px; }
-div.catalog a:hover img { opacity: 0.75; box-shadow: 10px 10px 0px #ccc; }
+div.catalog img { width: 88%; height: auto; @include faux_3d_book; }
+div.catalog a:hover img { filter: grayscale(100%); opacity: 0.88; }
 
 /* Form Helpers */
 form { @include box_sizing; @include round_corners; text-align: left; max-width: 600px; width: 100%; float: none; margin: 1em auto; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; }
@@ -267,6 +273,7 @@ figure.index-logos img { max-width: 100%; height: auto; }
 
 @media only screen and (max-width: 570px) {
   .one_two, .one_four { width: 98%; text-align: center; }
+  div.catalog img { width: 70%; }
 }
 
 /* Mobile */
