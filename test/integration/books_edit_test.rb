@@ -66,12 +66,27 @@ class BooksEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'user book deletion' do
+  test 'book deletion deletes book and sections' do
     log_in_as(@admin_user)
+    
+    sections = @book.sections.map(&:id)
+    sections_total_count = Section.all.count
     
     assert_difference 'Book.count', -1 do
       delete book_path(@book)
     end
     assert_redirected_to books_path
+    
+    assert_equal Section.where(id: sections), []
+    assert_equal sections_total_count - sections.count, Section.all.count
+  end
+
+  test 'regular user can not delete book' do
+    log_in_as(@read_user)
+    
+    assert_no_difference 'Book.count' do
+      delete book_path(@book)
+    end
+    assert_redirected_to root_path
   end
 end

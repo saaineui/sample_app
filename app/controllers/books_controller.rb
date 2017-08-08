@@ -49,12 +49,10 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    num_deleted = 0  
-    @book.sections.each { |section| num_deleted += 1 if section.destroy }
-    
-    flash[:success] = "#{num_deleted} sections were deleted from #{@book.title}."
-    unless @book.destroy
-      flash[:error] = "The book #{title} could not be deleted." 
+    if @book.destroy
+      flash[:success] = "The book #{@book.title} was deleted."
+    else
+      flash[:error] = "The book #{@book.title} could not be deleted." 
     end
     redirect_to books_url
   end

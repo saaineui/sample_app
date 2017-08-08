@@ -1,7 +1,7 @@
 include ApplicationHelper
 
 class Book < ApplicationRecord
-  has_many :sections
+  has_many :sections, dependent: :destroy
   has_many :bookmarks
   has_many :users, through: :bookmarks
 
