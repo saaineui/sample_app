@@ -63,4 +63,17 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = 'a' * 5
     assert_not @user.valid?
   end
+  
+  test 'User.digest should return a 60 character string' do
+    assert_equal User.digest('foobar').length, 60
+  end
+  
+  test 'User.new_token should return a 22 character string' do
+    assert_equal User.new_token.length, 22
+  end
+  
+  test '#remember should set remember_digest to a 60 character string' do
+    @user.remember
+    assert_equal @user.remember_digest.length, 60
+  end
 end
