@@ -18,6 +18,11 @@ class BooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should redirect show with invalid id' do
+    get :show, params: { id: -1 }
+    assert_redirected_to root_path
+  end
+
   test 'should get show with front-matter location data' do
     get :show, params: { id: @public_book, location: 3 }
     assert_response :success

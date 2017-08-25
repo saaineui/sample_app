@@ -120,7 +120,10 @@ class BooksController < ApplicationController
 
   # Before filters
   def find_book_or_redirect
-    redirect_back fallback_location: root_url unless Book.exists?(params[:id]) 
-    @book = Book.find(params[:id])
+    if Book.exists?(params[:id])
+      @book = Book.find(params[:id])
+    else
+      redirect_back fallback_location: root_url
+    end
   end
 end

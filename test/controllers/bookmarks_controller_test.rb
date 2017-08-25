@@ -12,13 +12,22 @@ class BookmarksControllerTest < ActionController::TestCase
     log_in_as(@read_user)
 
     assert_difference 'Bookmark.count', 1 do
-      get :new, params: { book_id: @public_book, user_id: @read_user, location: 5, scroll: 25 }
+      get :new, params: { book_id: @public_book, location: 5, scroll: 25 }
     end
     assert_redirected_to open_book_path(@public_book, 5, scroll: 25)
   end
 
+  test 'get new with invalid data should redirect to profile page without creating' do
+    log_in_as(@read_user)
+
+    assert_no_difference 'Bookmark.count' do
+      get :new, params: { book_id: -1, location: 5, scroll: 25 }
+    end
+    assert_redirected_to user_path(@read_user)
+  end
+
   test 'get new should redirect to login page when not logged in' do
-    get :new, params: { book_id: @public_book, user_id: @read_user, location: 5, scroll: 25 }
+    get :new, params: { book_id: @public_book, location: 5, scroll: 25 }
     assert_redirected_to login_url
   end
   

@@ -65,5 +65,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
       get book_path(new_book, location: location)
       assert_select 'title', 'The Constitution of the United States | ' + subtitle
     end
+    
+    assert_equal new_book.sample_text.count('.'), 3
   end
 end

@@ -18,6 +18,12 @@ class SectionsControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+  test 'should redirect new with invalid book_id' do
+    log_in_as(@admin_user)
+    post :new, params: { upload: { auto_assign_chapter_nums: 0, book_id: -1, ebook_file: '' } }
+    assert_redirected_to books_url
+  end
+
   test 'should post new when logged in as admin user' do
     log_in_as(@admin_user)
     post :new, params: { upload: { auto_assign_chapter_nums: 0, book_id: 1, ebook_file: '' } }

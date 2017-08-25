@@ -29,3 +29,6 @@ vendor/*
 app/assets/javascripts/jasmine_examples/*
 spec/javascripts/helpers/jasmine_examples/*
 spec/javascripts/jasmine_examples/*
+
+# Simplecov
+coverage
