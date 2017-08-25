@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
-
   has_many :bookmarks
   has_many :books, through: :bookmarks
 
@@ -21,16 +19,5 @@ class User < ApplicationRecord
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
-  end
-
-  # Returns a random token.
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  # Remembers a user in the database for use in persistent sessions.
-  def remember
-    self.remember_token = User.new_token
-    update(remember_digest: User.digest(remember_token))
   end
 end
