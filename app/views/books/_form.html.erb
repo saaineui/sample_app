@@ -1,0 +1,58 @@
+<%= form_for(@book) do |f| %>
+<%= render partial: 'shared/error_messages', locals: { resource: @book } %>
+
+	<p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+	</p>
+
+	<p>
+    <%= f.label :author %>
+    <%= f.text_field :author %>
+	</p>
+
+	<p>
+    <%= f.label :subtitle %>
+    <%= f.text_field :subtitle %>
+	</p>
+
+	<p>
+    <%= f.label :logo_url %>
+    <%= f.text_field :logo_url %>
+	</p>
+
+	<p>
+    <%= f.label :cover_image_url %>
+    <%= f.text_field :cover_image_url %>
+	</p>
+
+	<p>
+    <%= f.label :background_image_url %>
+    <%= f.text_field :background_image_url %>
+	</p>
+
+	<p>
+    <%= f.label :epigraph %>
+    <%= f.text_area :epigraph %>
+	</p>
+
+<%= render partial: 'epigraph_example' %>
+
+	<p>
+    <%= f.label :copyright %>
+    <%= f.text_area :copyright %>
+	</p>
+
+<%= render partial: 'copyright_example' %>
+
+  <p>
+    <%= f.submit submit_btn_text, class: 'btn' %>
+  </p>
+
+  <p class="form-nav-links">
+    <%= link_to 'Back to Manage Books', books_path %>
+    <% if @book.id %>
+    | <%= link_to "Go to #{@book.title}", book_path(@book) %>
+    <% end %>
+  </p>
+<% end %>

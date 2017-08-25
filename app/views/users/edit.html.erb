@@ -1,28 +1,2 @@
 <h2><%= @title[:subtitle] %></h2>
-<%= form_for(@user) do |f| %>
-<%= render 'shared/error_messages' %>
-
-<p>
-<%= f.label :name %>
-<%= f.text_field :name %>
-</p>
-
-<p>
-<%= f.label :email %>
-<%= f.email_field :email %>
-</p>
-
-<p>
-<%= f.label :password %>
-<%= f.password_field :password %>
-</p>
-
-<p>
-<%= f.label :password_confirmation, 'Password Confirmation' %>
-<%= f.password_field :password_confirmation %>
-</p>
-
-<p>
-<%= f.submit 'Save', class: 'btn' %>
-</p>
-<% end %>
+<%= render partial: 'users/form', locals: { submit_btn_text: 'Save Changes' } %>
