@@ -14,6 +14,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_dom_equal %(My Book), clean_title
   end
 
+  test '#clean_title should return default if no @title' do
+    assert_dom_equal %(Spineless), clean_title
+
+    @title = { subtitle: 'Edit Book' }
+    assert_dom_equal %(Spineless | Edit Book), clean_title
+  end
+
   test '#render_body_classes returns string with controller and action name' do
     assert_dom_equal %(test ), render_body_classes
   end

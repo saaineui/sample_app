@@ -1,8 +1,9 @@
 module ApplicationHelper
   def clean_title
-    title = @title && @title.key?(:title) ? @title[:title] : 'Spineless'
-    title += ' | ' + @title[:subtitle] if @title && @title[:subtitle].present?
-    title
+    @title ||= {}
+    @title[:title] = 'Spineless' unless @title.key?(:title)
+    @title[:subtitle] = @title[:subtitle].present? ? ' | ' + @title[:subtitle] : ''
+    @title[:title] + @title[:subtitle]
   end
   
   def render_body_classes
