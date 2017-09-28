@@ -70,10 +70,12 @@ class Book < ApplicationRecord
   end
   
   def sample_section
-    if sections.sample_worthy.count.zero?
+    sample_sections_count = sections.sample_worthy.count
+    
+    if sample_sections_count <= 1
       sections.sample(1).first
     else
-      sections.sample_worthy.sample(1).first
+      sections.sample_worthy.order(:order).limit(sample_sections_count - 1).sample(1).first
     end
   end
 end

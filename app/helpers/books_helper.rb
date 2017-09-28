@@ -2,7 +2,9 @@ module BooksHelper
   PAGE_POSITIONS = %w[FL FR BL BR].freeze
   
   def clean_up_sample(sample_raw)
-    strip_tags(sample_raw.split('.').last(3).join('.')).strip
+    sample = strip_tags(sample_raw.split('.').last(4).join('.')).strip
+    sample = sample[0, 725] + '...' if sample.length > 725
+    sample
   end
     
   def link_to_next(book, location) 
