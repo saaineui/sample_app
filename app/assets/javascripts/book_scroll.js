@@ -142,7 +142,7 @@
                     }
 
                     update('anchor', data.anchor + anchor_increment);
-                    $("#ebook").animate({ marginTop: -1 * (data.scroll_interval * data.anchor) + "px" }, 700);
+                    $("#ebook").animate({ marginTop: -1 * (data.scroll_interval * data.anchor) + "px" }, 500);
 
                     update_progress_bar();
                     update_bookmark_links();
