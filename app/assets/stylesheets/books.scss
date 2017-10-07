@@ -90,6 +90,7 @@
             line-height: $line-height;
             padding: 0 1.5em;
             text-align: left;
+            font-size: $line-height*0.567;
         }
 
 	/* Chapter Heads and Drop Caps */
@@ -153,7 +154,11 @@
     margin: $line-height*0.5 auto;
   }
 	
-	hr { background-color: #ccc; height: 1px; border:none; margin-top: $line-height*0.5-1; margin-bottom: $line-height*0.5; }
+	hr { background-color: #ccc; height: 1px; border:none; margin-top: $line-height*1-1; margin-bottom: $line-height; }
+  
+  sup, sub { font-size: $line-height*0.5; line-height: $line-height*0.5; height: $line-height*0.5; padding: 0; }
+  sup { margin-bottom: $line-height*0.5; }
+  sub { margin-top: $line-height*0.5; }
 	
 } /* Close #ebook */
 
