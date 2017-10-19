@@ -1,8 +1,10 @@
 /* Meta Stuff */
 
-$dk-orange: #FF9900;
-$md-orange: #ffcc99;
-$lt-orange: #fffff8;
+$dk-primary: #2b71f2;
+$md-primary: #79a4f2;
+$lt-primary: #e1eafa;
+$highlight: yellow;
+$books-bg-color: #fff;
 
 @mixin box_sizing {
 -moz-box-sizing:    border-box;
@@ -16,7 +18,7 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 	float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; 
 }
 @mixin faux_3d_book {
-  box-shadow: 0px -18px 0px $dk-orange, 18px 0px 0px $dk-orange, 18px -18px 0px $dk-orange; 
+  box-shadow: 0px -18px 0px $dk-primary, 18px 0px 0px $dk-primary, 18px -18px 0px $dk-primary; 
   margin: 18px 18px 0px 0px; 
   clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
   -webkit-clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
@@ -39,23 +41,12 @@ body {
 	font-weight: 400;
 }
 
-::-moz-selection {
-    background: $dk-orange;
-    color: #fff;
-    text-shadow: none;
-}
-::selection {
-    background: $dk-orange;
-    color: #fff;
-    text-shadow: none;
-}
-
 h1, h2, h3 { font-weight: 300; }
 h1 { font-size: 2em; margin: 0; }
 h2 { font-size: 2em; }
 p { position: relative; text-align: left; }
 
-a, a:visited, input[type=submit] { font-weight: 700; color: $dk-orange; text-decoration: none; }
+a, a:visited, input[type=submit] { font-weight: 700; color: $dk-primary; text-decoration: none; }
 a:hover, a:active, .here, input[type=submit]:hover { color: #ccc; }
 
 header#sticky-bar > nav {
@@ -72,11 +63,11 @@ header#sticky-bar > nav {
 		}
     .open ul.menu { display: block; }
 		div#progress-bar { 
-			height: 23px; border: 1px solid $dk-orange; margin: 0.5em; float: right; width: 50%; position: relative;
-			span#progress { display: block; position: absolute; top: 0px; left: 0px; height: 23px; width: 0px; background: $dk-orange; }
+			height: 23px; border: 1px solid $dk-primary; margin: 0.5em; float: right; width: 50%; position: relative;
+			span#progress { display: block; position: absolute; top: 0px; left: 0px; height: 23px; width: 0px; background: $dk-primary; }
 		}
 		div#progress-percent {
-			color: $dk-orange; text-align: right; font-size: 1.35em; padding: 0.5em; margin-right: 0.5em; font-weight: 300; float: right;
+			color: $dk-primary; text-align: right; font-size: 1.35em; padding: 0.5em; margin-right: 0.5em; font-weight: 300; float: right;
 		}
     }
 	div.nav-wrapper > ul > li, figure.help-icon {
@@ -100,7 +91,7 @@ header#sticky-bar > nav {
 		&.main { background-position: left 0px; }
 		&.toc { background-position: right 0px; }
     &:hover { background-image: asset-url('menu-icons-sprite_gray.png'); }
-		&.open { background-image: asset-url('menu-icons-sprite.png'); border-color: $dk-orange; }
+		&.open { background-image: asset-url('menu-icons-sprite.png'); border-color: $dk-primary; }
 	}
 }
 ul.menu { cursor: auto; }
@@ -127,7 +118,7 @@ figure.help-icon {
 	position: relative;
 	background: #fff;
 }
-    body.books.show #wrapper { background: #eee; }
+    body.books.show #wrapper { background: $books-bg-color; }
 
 
 ul {
@@ -140,7 +131,7 @@ ul {
 
 .alert { 
   font-size: 13px; font-weight: 700; text-align: center; padding: 1em; margin-bottom: 1em; 
-  background: $lt-orange; color: $dk-orange; 
+  background: $lt-primary; color: $dk-primary; 
 }
 .alert.alert-success { margin-top: 0.2em; background: #f8f8f8; color: #aaa; }
 .alert .close { float: right; margin-left: 1em; cursor: pointer; }
@@ -153,12 +144,12 @@ a.btn, input.btn {
 	display: block; 
 	margin: 2px auto; 
 	padding: 1em; 
-	border: 1px solid $dk-orange; 
+	border: 1px solid $dk-primary; 
 	text-align: center; 
 	font-size: inherit; 
 	cursor: pointer; 
-	background: $lt-orange; 
-	border-color: $dk-orange;
+	background: $lt-primary; 
+	border-color: $dk-primary;
 	
     &:hover {
         background: none;
@@ -184,7 +175,7 @@ a.btn, input.btn {
   li span { width: 100%; display: block; position: relative; }
   li span:last-child a { float: right; }
 }
-.bookmark-icon { width: 15px; height: 15px; fill: $dk-orange; }
+.bookmark-icon { width: 15px; height: 15px; fill: $dk-primary; }
 a:hover .bookmark-icon { fill: #ccc; }
 
 /* Homepage */
@@ -199,15 +190,15 @@ label { display: block; }
 input[type=text], input[type=email], input[type=password], textarea { 
   width: 100%; position: relative; @include box_sizing; 
     &:focus {
-    background-color: $lt-orange;
-    border: 1px solid $dk-orange;
+    background-color: $lt-primary;
+    border: 1px solid $dk-primary;
     outline: none;
-    box-shadow: 0px 0px 3px $dk-orange;
+    box-shadow: 0px 0px 3px $dk-primary;
   }
 }
 textarea { height: 180px; }
-div.field_with_errors { display: inline; font-size: 1em; color: $dk-orange; input { border: 1px solid $dk-orange; } }
-#error_explanation { color: $dk-orange; p { margin: 0; font-size: 1em; } }
+div.field_with_errors { display: inline; font-size: 1em; color: $dk-primary; input { border: 1px solid $dk-primary; } }
+#error_explanation { color: $dk-primary; p { margin: 0; font-size: 1em; } }
 .form-nav-links { text-align: center; }
 div.example-markup {
     color: #aaa;
@@ -258,10 +249,20 @@ figure.index-logos img { max-width: 100%; height: auto; }
 #next-btn { right: 0px; }
 #back-btn { left: 0px; }
 
+/* Highlight FX */
+::-moz-selection {
+    background: $highlight;
+    text-shadow: none;
+}
+::selection {
+    background: $highlight;
+    text-shadow: none;
+}
+
 /* Desktop No Margins */
 
 @media only screen and (max-width: 900px) {
-	#next-btn, #back-btn { background: #eee; }
+	#next-btn, #back-btn { background: $books-bg-color; }
 }
 
 /* Small Desktop */
@@ -280,7 +281,7 @@ figure.index-logos img { max-width: 100%; height: auto; }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px), only screen and (max-device-width: 640px) {
   body { background-image: none !important; }
-  body.books.show { background-color: #eee; }
+  body.books.show { background-color: $books-bg-color; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
   #book-nav { left: 1em; right: auto; filter: grayscale(100%); }
   #book-nav nav { opacity: 0.6; }
