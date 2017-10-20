@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825063357) do
+ActiveRecord::Schema.define(version: 20171020004103) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "book_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170825063357) do
     t.string "cover_image_url"
     t.integer "text_length"
     t.string "subtitle"
+    t.text "sample"
   end
 
   create_table "sections", force: :cascade do |t|

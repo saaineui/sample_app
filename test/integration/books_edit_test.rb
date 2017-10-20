@@ -50,15 +50,16 @@ class BooksEditTest < ActionDispatch::IntegrationTest
     assert_select '.alert.alert-success', 1
 
     assert_difference 'Section.all.count', 27 do
-      post upload_review_path, params: { 
+      post book_sections_path(book_id: @book.id), params: { 
         upload: { 
           auto_assign_chapter_nums: 1, 
-          book_id: @book.id, 
           ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
         }
       }
     end
-    assert_template 'sections/new'
+    assert_redirected_to book_sections_path(book_id: @book.id)
+    follow_redirect!
+    assert_template 'sections/index'
     
     SAMPLE_PAGES.each do |location, subtitle|
       get book_path(@book, location: location)

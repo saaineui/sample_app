@@ -1,12 +1,10 @@
 <h2>Upload</h2>
 <h3><%= @book.title %></h3>
 
-<%= form_for(:upload, url: upload_review_path) do |f| %>
+<%= form_for(:upload, url: book_sections_path(book_id: @book)) do |f| %>
 
-    <p>Your file should be an HTML document containing your entire book test marked up with HTML5 and the classes and tags defined in 1_books.scss.</p>
+    <p>Your file should be an text document containing your entire book marked up with HTML and the classes and tags defined in the <%= link_to 'Spineless CSS', 'https://github.com/saaineui/spineless/blob/master/app/assets/stylesheets/books.scss' %>.</p>
     <p>The inner HTML of each section element in your file will be saved automatically in a separate section.</p>
-
-    <%=  f.hidden_field :book_id, :value => @book.id %>
 
     <p>
         <%= f.label :ebook_file %>

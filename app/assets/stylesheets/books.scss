@@ -160,6 +160,16 @@
   sup { margin-bottom: $line-height*0.5; }
   sub { margin-top: $line-height*0.5; }
 	
+
+  /* Highlight FX */
+  ::-moz-selection {
+      background: $highlight;
+      text-shadow: none;
+  }
+  ::selection {
+      background: $highlight;
+      text-shadow: none;
+  }
 } /* Close #ebook */
 
 /* Lightbox */

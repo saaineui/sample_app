@@ -5,12 +5,6 @@ class BooksHelperTest < ActionView::TestCase
     @book = books(:public)
   end
   
-  test '#clean_up_sample should remove tags and outer whitespace from string raw_sample' do
-    raw_sample = '    
-<p>Lorem ipsum.</p> <p>What a <br />world.</p>  '
-    assert_dom_equal %(Lorem ipsum. What a world.), clean_up_sample(raw_sample)
-  end
-  
   test '#link_to_next should return an anchor tag to next section' do
     assert_dom_equal %(<a id="next-btn" href="/books/1/3">Next</a>), link_to_next(@book, 2)
   end

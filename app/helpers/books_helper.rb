@@ -1,12 +1,6 @@
 module BooksHelper
   PAGE_POSITIONS = %w[FL FR BL BR].freeze
   
-  def clean_up_sample(sample_raw)
-    sample = strip_tags(sample_raw.split('.').last(4).join('.')).strip
-    sample = sample[0, 725] + '...' if sample.length > 725
-    sample
-  end
-    
   def link_to_next(book, location) 
     return nil if location + 1 >= book.max_number_of_locations
     link_to 'Next', open_book_path(book, location + 1), id: 'next-btn'
