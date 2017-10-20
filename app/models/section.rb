@@ -1,5 +1,3 @@
-include ActionView::Helpers::SanitizeHelper
-
 class Section < ApplicationRecord
   belongs_to :book
   
@@ -22,8 +20,14 @@ class Section < ApplicationRecord
   end
   
   def clean_sample
-    sample = strip_tags(text.split('.').last(4).join('.')).strip
-    sample = truncate(sample, length: 725, separator: ' ', omission: '...') if sample.length > 725
+    sample = ActionController::Base.helpers.strip_tags(text.split('.').last(4).join('.')).strip
+    sample = shorten_sample(sample) if sample.length > 725
     sample
+  end
+  
+  private
+  
+  def shorten_sample(sample)
+    ActionController::Base.helpers.truncate(sample, length: 725, separator: ' ', omission: '...')
   end
 end
