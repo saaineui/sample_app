@@ -45,6 +45,15 @@
 
 <%= render partial: 'copyright_example' %>
 
+  <% if @book.sample %>
+    <p>
+      <%= f.label :sample %>
+      <%= f.text_area :sample %>
+    </p>
+
+<%= render partial: 'sample_selector' %>
+  <% end %>
+
   <p>
     <%= f.submit submit_btn_text, class: 'btn' %>
   </p>
