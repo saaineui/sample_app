@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SectionTest < ActiveSupport::TestCase
   def setup
-    @section = Section.new(title: 'Ex', order: 3, chapter: 2, text: 'Lorem ipsum. Hi. Bye. Hola. Adios.', indexable: true, book_id: 1)
+    @section = Section.new(title: 'Ex', order: 3, chapter: 2, text: 'Lorem ipsum. Hi. Bye. Hola. Adios.          ', indexable: true, book_id: 1)
   end
   
   test 'should be valid' do
@@ -56,6 +56,6 @@ class SectionTest < ActiveSupport::TestCase
   end
   
   test '#clean_sample returns first 750 chars of last 3 sentences of #text' do
-    assert_equal @section.clean_sample, 'Hi. Bye. Hola. Adios.'
+    assert_equal @section.clean_sample, 'Bye. Hola. Adios.'
   end
 end

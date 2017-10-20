@@ -135,6 +135,6 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test '#sample_editor_texts returns array of clean samples' do
-    assert_equal @book_with_sections.sample_editor_texts, ['', ' 2', ' 6'].map { |suff| "MyString#{suff}." }
+    assert_equal @book_with_sections.sample_editor_texts, ['', ' 2', ' 6'].map { |suff| "MyString#{suff}" }
   end
 end

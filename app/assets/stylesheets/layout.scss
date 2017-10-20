@@ -4,6 +4,7 @@ $dk-primary: #2b71f2;
 $md-primary: #79a4f2;
 $lt-primary: #e1eafa;
 $books-bg-color: #fff;
+$main-font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 
 @mixin box_sizing {
 -moz-box-sizing:    border-box;
@@ -34,7 +35,7 @@ body, html {
 }
 
 body {
-	font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
+	font-family: $main-font-family;
 	font-size:1em;
 	text-align:center;
 	background-image: asset-url('spiral_bg.png');
@@ -186,16 +187,19 @@ div.catalog img { width: 64%; height: auto; @include faux_3d_book; }
 div.catalog a:hover img { filter: grayscale(100%); opacity: 0.64; @include faux_3d_book_hover; }
 
 /* Form Helpers */
-form { @include box_sizing; @include round_corners; text-align: left; max-width: 600px; width: 100%; float: none; margin: 1em auto; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; }
+form { @include box_sizing; @include round_corners; text-align: left; width: 100%; float: none; margin: 1em auto; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; }
 form label::after { content: ": "; }
 label { display: block; }
 input[type=text], input[type=email], input[type=password], textarea { 
-  width: 100%; position: relative; @include box_sizing; 
-    &:focus {
+	font-family: $main-font-family;
+  width: 100%; position: relative; @include box_sizing; padding: 0.5em;
+  font-size: 0.9em;
+  &:focus {
     background-color: $lt-primary;
     border: 1px solid $dk-primary;
     outline: none;
     box-shadow: 0px 0px 3px $dk-primary;
+    padding: 0.5em;
   }
 }
 textarea { height: 180px; }
@@ -206,6 +210,19 @@ div.example-markup {
     color: #aaa;
     padding: 0px 1em 1em 1em;
 }
+#toggle-samples { cursor: pointer; color: $dk-primary; text-decoration: underline; }
+#toggle-samples:hover { color: #ccc; }
+#alt-samples { 
+  display: none; 
+  padding: 1em;
+  background: $lt-primary;
+  input[type=radio] { clear: both; display: block; width: 9%; margin: 0 1% 1% 0; }
+  input[type=radio], label { float: left; margin-bottom: 1em; }
+  label { width: 90%; }
+  p { color: #aaa; }
+}
+form label.sample_selector::after { content: ""; }
+.selected { color: $dk-primary; }
 
 /* Table Helpers */
 table { border: 1px solid #ccc; text-align: left; min-width: 100%; }
@@ -278,9 +295,9 @@ figure.index-logos img { max-width: 100%; height: auto; }
   body { background-image: none !important; }
   body.books.show { background-color: $books-bg-color; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
-  #book-nav { left: 1em; right: auto; filter: grayscale(100%); }
-  #book-nav nav { opacity: 0.6; }
-  #book-nav nav:hover { opacity: 0.3; }
+  #book-nav { left: 1em; right: auto; }
+  #book-nav nav { opacity: 0.4; }
+  #book-nav nav:hover { filter: grayscale(100%) brightness(100%); opacity: 0.3; }
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait), 

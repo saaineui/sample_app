@@ -1,0 +1,10 @@
+<p class="centered">
+  <strong id="toggle-samples">show alternate sample texts</strong>
+</p>
+<div id="alt-samples" class="clearfix">
+  <p>Select a sample below to auto-fill the box above with the selected text. No changes are final until you submit.</p>
+  <% @book.sample_editor_texts.each_with_index do |sample, index| %>
+    <%= radio_button_tag :sample, index %>
+    <%= label_tag(:sample, sample, class: 'sample_selector') %>
+  <% end %>
+</div>

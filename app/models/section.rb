@@ -23,7 +23,7 @@ class Section < ApplicationRecord
   
   def clean_sample
     sample = strip_tags(text.split('.').last(4).join('.')).strip
-    sample = sample.truncate(725, ' ') + '..' if sample.length > 725
-    sample + '.'
+    sample = sample.truncate(725, ' ') + '...' if sample.length > 725
+    sample
   end
 end
