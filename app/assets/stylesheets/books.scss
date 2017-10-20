@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$highlight: yellow;
 
 #scroll-wrap {
 	margin-top: 16px;
@@ -160,6 +161,16 @@
   sup { margin-bottom: $line-height*0.5; }
   sub { margin-top: $line-height*0.5; }
 	
+
+  /* Highlight FX */
+  ::-moz-selection {
+      background: $highlight;
+      text-shadow: none;
+  }
+  ::selection {
+      background: $highlight;
+      text-shadow: none;
+  }
 } /* Close #ebook */
 
 /* Lightbox */

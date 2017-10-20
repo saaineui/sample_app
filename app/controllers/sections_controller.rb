@@ -1,8 +1,12 @@
 class SectionsController < ApplicationController
-  before_action :redirect_if_missing_data
   before_action :find_book_or_redirect
+  before_action :redirect_if_missing_data, only: :create
   
-  def new
+  def index
+    @title = { subtitle: "Review Upload for #{@book.title}" }
+  end
+  
+  def create
     @book.sections.each(&:delete) # Delete old sections, if any
     process_file(params[:upload][:auto_assign_chapter_nums].to_i.eql?(1))
     save_book_or_redirect
@@ -44,30 +48,36 @@ class SectionsController < ApplicationController
   
   def save_book_or_redirect
     if @book.save
+      set_default_sample
       @book.reload
-      flash[:success] = 'Your file was uploaded.'        
-      @title = { subtitle: "Review Upload for #{@book.title}" }
+      flash[:success] = 'Your file was uploaded.'
+      redirect_to book_sections_path(book_id: @book)
     else
       flash[:error] = 'Your upload failed. Please check your file and try again.'
       redirect_to upload_book_path(@book)
     end
   end
   
-  def valid_form_data?
-    params[:upload] && params[:upload][:book_id] && params[:upload][:ebook_file]
+  def set_default_sample
+    @book.reload
+    @book.update(sample: @book.sample_text)
   end
 
   # Before filters
-  def redirect_if_missing_data
-    redirect_to(upload_book_path) unless valid_form_data?
-  end
-  
   def find_book_or_redirect
-    if Book.exists?(params[:upload][:book_id])
-      @book = Book.find(params[:upload][:book_id])
+    if Book.exists?(params[:book_id])
+      @book = Book.find(params[:book_id])
     else
       flash[:error] = 'That book does not exist.'
       redirect_back fallback_location: books_url
     end
   end  
+
+  def redirect_if_missing_data
+    redirect_to(upload_book_path(@book)) unless valid_form_data?
+  end
+  
+  def valid_form_data?
+    params[:upload] && params[:upload][:ebook_file]
+  end
 end

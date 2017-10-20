@@ -1,3 +1,5 @@
+include ActionView::Helpers::SanitizeHelper
+
 class Section < ApplicationRecord
   belongs_to :book
   
@@ -17,5 +19,11 @@ class Section < ApplicationRecord
   
   def book_location
     order + Book::SKIPS - 1
+  end
+  
+  def clean_sample
+    sample = strip_tags(text.split('.').last(4).join('.')).strip
+    sample = sample.truncate(725, ' ') + '..' if sample.length > 725
+    sample + '.'
   end
 end

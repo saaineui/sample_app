@@ -13,14 +13,14 @@ Rails.application.routes.draw do
   resources :users
   resources :bookmarks, only: %i[new destroy]
   resources :books do
+    resources :sections, only: %i[index create]
+    
     member do
       get 'upload'
-      get 'galley', to: 'books#galley', as: :galley
-      post 'print', to: 'books#print', as: :print
+      get 'galley'
+      post 'print'
     end
   end
 
   get 'books/:id/:location', to: 'books#show', as: :open_book 
-
-  post	'upload_review'	=>	'sections#new'
 end

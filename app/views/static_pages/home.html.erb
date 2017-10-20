@@ -10,7 +10,7 @@
         <h3><%= book.title %></h3>
         <h3><%= book.author %></h3>
         <p class="sample">
-          <span>&ldquo;</span> <%= clean_up_sample(book.sample_text) %>
+          <span>&ldquo;</span> <%= book.sample %>
         </p>
         <p>
           <%= link_to 'Read ' + book.title, book_path(book), class: 'btn' %> 

@@ -24,10 +24,9 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     get upload_book_path(@book)
     assert_redirected_to root_path
     
-    post upload_review_path, params: { 
+    post book_sections_path(book_id: @book.id), params: { 
       upload: { 
         auto_assign_chapter_nums: 0, 
-        book_id: @book.id, 
         ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
       } 
     }
@@ -49,16 +48,19 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     assert_select 'title', 'Spineless | Upload The Constitution of the United States'
     assert_select 'h3', 'The Constitution of the United States'
 
-    post upload_review_path, params: { 
+    post book_sections_path(book_id: new_book.id), params: { 
       upload: { 
         auto_assign_chapter_nums: 0, 
-        book_id: new_book.id, 
         ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
       } 
     }
+    assert_redirected_to book_sections_path(book_id: new_book.id)
     assert_not flash.empty?
-    assert_template 'sections/new'
-
+    follow_redirect!
+    assert_template 'sections/index'
+    
+    new_book.reload
+    
     assert_equal new_book.sections.count, 30
     
     [[1, 'Various'], [5, 'Section. 1.'], [10, 'Section. 6.'], [30, 'Article. VI.']].each do |location, subtitle|
@@ -66,6 +68,6 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
       assert_select 'title', 'The Constitution of the United States | ' + subtitle
     end
     
-    assert_not new_book.sample_text.empty?
+    assert_equal new_book.sample, new_book.sample_text
   end
 end

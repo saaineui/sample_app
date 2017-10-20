@@ -66,16 +66,20 @@ class Book < ApplicationRecord
   
   def sample_text
     return '' if sections.empty?
-    sample_section.text
+    sample_sections.first(2).last.clean_sample
   end
   
-  def sample_section
-    sample_sections_count = sections.sample_worthy.count
-    
-    if sample_sections_count <= 1
-      sections.sample(1).first
+  def sample_editor_texts
+    sample_sections.first(6).map(&:clean_sample)
+  end
+  
+  private
+  
+  def sample_sections
+    if sections.sample_worthy.count <= 1
+      sections
     else
-      sections.sample_worthy.order(:order).limit(sample_sections_count - 1).sample(1).first
+      sections.sample_worthy.order(:order)
     end
   end
 end

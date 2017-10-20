@@ -38,7 +38,7 @@ five:
     text: MyString 5
     indexable: false
 
-five:
+six:
     id: 6
     book_id: 1
     title: MyString 6
