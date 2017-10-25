@@ -1,5 +1,5 @@
 class Section < ApplicationRecord
-  belongs_to :book, counter_cache: true
+  belongs_to :book
   
   validates :order, :book, presence: true
 
