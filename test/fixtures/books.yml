@@ -9,6 +9,8 @@ public:
     logo_url: https://www.rubyonrails.org/logo%20image%202016-10-06.jpg
     background_image_url: https://www.rubyonrails.org/mvc_bg%202016-10-06.jpg
     text_length: 28
+    sections_count: 3
+    chapters_count: 2
 
 hidden:
     id: 2
@@ -17,3 +19,5 @@ hidden:
     cover_image_url: http://www.stephsun.com/assets/l/lorem_cover.png
     logo_url: http://www.stephsun.com/assets/l/lorem_logo.png
     text_length: 30
+    sections_count: 3
+    chapters_count: 1

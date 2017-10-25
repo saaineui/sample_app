@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020004103) do
+ActiveRecord::Schema.define(version: 20171025045245) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "book_id"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20171020004103) do
     t.integer "text_length"
     t.string "subtitle"
     t.text "sample"
+    t.integer "sections_count", default: 0
+    t.integer "chapters_count", default: 0
   end
 
   create_table "sections", force: :cascade do |t|

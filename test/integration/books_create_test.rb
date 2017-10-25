@@ -61,9 +61,10 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     
     new_book.reload
     
-    assert_equal new_book.sections.count, 30
+    assert_equal new_book.sections_count, 31
+    assert_equal new_book.chapters_count, 28
     
-    [[1, 'Various'], [5, 'Section. 1.'], [10, 'Section. 6.'], [30, 'Article. VI.']].each do |location, subtitle|
+    [[1, 'Various'], [5, 'Section. 1.'], [10, 'Section. 6.'], [31, 'Article. VI.']].each do |location, subtitle|
       get book_path(new_book, location: location)
       assert_select 'title', 'The Constitution of the United States | ' + subtitle
     end

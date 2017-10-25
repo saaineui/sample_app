@@ -30,6 +30,16 @@ class BookTest < ActiveSupport::TestCase
     assert_not @book.valid?
   end
   
+  test '#sections_count should equal #sections.count' do
+    assert_equal @book.sections_count, @book.sections.count
+    assert_equal @book_with_sections.sections_count, @book_with_sections.sections.count
+  end
+  
+  test '#chapters_count should equal #sections.chapters.count' do
+    assert_equal @book.chapters_count, @book.sections.chapters.count
+    assert_equal @book_with_sections.chapters_count, @book_with_sections.sections.chapters.count
+  end
+  
   test '#display scope should filter my books' do
     Book.display.each { |book| assert_not_equal book.author, 'Stephanie Sun' }
   end

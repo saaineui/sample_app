@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class BooksEditTest < ActionDispatch::IntegrationTest
-  SAMPLE_PAGES = [[1, 'Ruby Rails'], [5, '2. Section. 1.'], 
-                  [10, '7. Section. 6.'], [30, '27. Article. VI.']].freeze
+  SAMPLE_PAGES = [[1, 'Ruby Rails'], [5, '2. Section. 1.'], [10, '7. Section. 6.'], [31, '27. Article. VI.']].freeze
 
   def setup
     @read_user = users(:read)
@@ -49,7 +48,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
     assert_equal @book.title, 'Foo Bar'
     assert_select '.alert.alert-success', 1
 
-    assert_difference 'Section.all.count', 27 do
+    assert_difference 'Section.all.count', 28 do
       post book_sections_path(book_id: @book.id), params: { 
         upload: { 
           auto_assign_chapter_nums: 1, 

@@ -7,7 +7,7 @@ class SectionsController < ApplicationController
   end
   
   def create
-    @book.sections.each(&:delete) # Delete old sections, if any
+    @book.sections.destroy_all # Delete old sections, if any
     process_file(params[:upload][:auto_assign_chapter_nums].to_i.eql?(1))
     save_book_or_redirect
   end

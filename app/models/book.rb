@@ -8,6 +8,9 @@ class Book < ApplicationRecord
   scope :display, -> { where('author!=?', 'Stephanie Sun') }
 
   validates :title, :author, :logo_url, :cover_image_url, presence: true
+  
+  before_save :update_chapters_count, 
+    unless: Proc.new { |book| book.chapters_count.eql?(book.sections.chapters.count) }
 
   SKIPS = 4
   CHARACTERS_PER_PAGE = 3500
@@ -44,7 +47,7 @@ class Book < ApplicationRecord
   end
   
   def max_number_of_locations
-    sections.count + SKIPS
+    sections_count + SKIPS
   end
   
   def main_text?(location)
@@ -81,5 +84,9 @@ class Book < ApplicationRecord
     else
       sections.sample_worthy.order(:order)
     end
+  end
+  
+  def update_chapters_count
+    self.chapters_count = sections.chapters.count
   end
 end
