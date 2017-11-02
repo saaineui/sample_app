@@ -9,7 +9,7 @@
 .centered { text-align: center; }
 
 /* Slow Animations */
-a, a img, nav, li, .close { transition-property: opacity background color filter; transition-duration: 0.20s; transition-timing-function: ease-out; -webkit-transition-property: opacity background color filter; -webkit-transition-duration: 0.20s; -webkit-transition-timing-function: ease-out; -moz-transition-property: opacity background color filter; -moz-transition-duration: 0.20s; -moz-transition-timing-function: ease-out; -o-transition-property: opacity background color filter; -o-transition-duration: 0.20s; -o-transition-timing-function: ease-out; }
+a, a img, nav, li, .close, polygon, line { transition-property: opacity background color fill stroke filter; transition-duration: 0.20s; transition-timing-function: ease-out; -webkit-transition-property: opacity background color fill stroke filter; -webkit-transition-duration: 0.20s; -webkit-transition-timing-function: ease-out; -moz-transition-property: opacity background color fill stroke filter; -moz-transition-duration: 0.20s; -moz-transition-timing-function: ease-out; -o-transition-property: opacity background color fill stroke filter; -o-transition-duration: 0.20s; -o-transition-timing-function: ease-out; }
 
 
 @media only print {

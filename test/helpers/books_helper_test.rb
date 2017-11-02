@@ -6,7 +6,7 @@ class BooksHelperTest < ActionView::TestCase
   end
   
   test '#link_to_next should return an anchor tag to next section' do
-    assert_dom_equal %(<a id="next-btn" href="/books/1/3">Next</a>), link_to_next(@book, 2)
+    assert_dom_equal %(<a id="next-btn" rel="Next" href="/books/1/3"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="arrow"><polygon points="0,0 15,10 0,20"></polygon><line x1="18" x2="18" y1="0" y2="20"></line></svg></a>), link_to_next(@book, 2)
   end
   
   test '#link_to_next should return nothing if at back of book' do
@@ -14,7 +14,7 @@ class BooksHelperTest < ActionView::TestCase
   end
   
   test '#link_to_previous should return an anchor tag to previous section' do
-    assert_dom_equal %(<a id="back-btn" href="/books/1/1">Back</a>), link_to_previous(@book, 2)
+    assert_dom_equal %(<a id="back-btn" rel="Back" href="/books/1/1"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="arrow"><polygon points="20,0 5,10 20,20"></polygon><line x1="3" x2="3" y1="0" y2="20"></line></svg></a>), link_to_previous(@book, 2)
   end
   
   test '#link_to_previous should return nothing if at front of book' do

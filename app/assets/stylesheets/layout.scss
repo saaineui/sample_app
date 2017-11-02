@@ -259,22 +259,42 @@ figure.index-logos img { max-width: 100%; height: auto; }
 	right: 1em;
 	top: 50%;
 	margin-top: -52px;
-	nav { float: left; display: block; width: 48px; height: 47px; font-size: 0.001px; text-indent: -9999px; overflow: hidden; background-image: asset-url('up-down.png'); background-size: 100% auto; background-repeat: no-repeat; cursor: pointer; }
-	nav:hover { filter: grayscale(100%) brightness(250%); opacity: 0.5; }
+	nav { 
+    float: left; display: block; width: 50px; height: 50px; font-size: 0.001px; text-indent: -9999px; overflow: hidden; background: asset-url('up-down.png') 1px 1px no-repeat #fff; background-size: 100% auto; cursor: pointer; 
+    border-radius: 25px; -moz-border-radius: 25px; -webkit-border-radius: 25px; -o-border-radius: 25px;
+  }
 	nav.up { background-position: center top; margin-bottom: 10px; }
   nav.down { background-position: center bottom; }
 }
 #next-btn, #back-btn { 
-  position: fixed; bottom: 0px; width: 60px; padding: 4px; height: 19px; 
-  text-decoration: underline; background: rgba(255, 255, 255, 0.5);
+  position: fixed; bottom: 2px; width: 20px; padding: 7px 1em; height: 20px; 
+  background: #fff;
+  border-radius: 1em;
+  svg.arrow {
+    polygon { fill: $dk-primary; }
+    line { stroke: $dk-primary; stroke-width: 1.5px; }
+  }
 }
-#next-btn { right: 0px; }
-#back-btn { left: 0px; }
+#next-btn { right: 1em; }
+#back-btn { left: 1em; }
+#book-nav nav:hover {
+  filter: grayscale(100%) brightness(150%);
+}
+#next-btn:hover, #back-btn:hover { 
+  svg.arrow {
+    polygon { fill: #ccc; }
+    line { stroke: #ccc; }
+  }
+}
 
 /* Desktop No Margins */
 
 @media only screen and (max-width: 900px) {
+#next-btn { right: 0px; }
+#back-btn { left: 0px; }
 	#next-btn, #back-btn { background: $books-bg-color; }
+  #book-nav nav { background-color: transparent; opacity: 0.4; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; -o-border-radius: 0; }
+  #book-nav nav:hover { filter: grayscale(100%) brightness(100%); opacity: 0.3; }
 }
 
 /* Small Desktop */
@@ -295,9 +315,6 @@ figure.index-logos img { max-width: 100%; height: auto; }
   body { background-image: none !important; }
   body.books.show { background-color: $books-bg-color; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
-  #book-nav { left: 1em; right: auto; }
-  #book-nav nav { opacity: 0.4; }
-  #book-nav nav:hover { filter: grayscale(100%) brightness(100%); opacity: 0.3; }
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait), 
