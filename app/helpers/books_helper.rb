@@ -12,17 +12,18 @@ module BooksHelper
   end
   
   def next_icon
-    options = { width: 20, height: 20, viewBox: '0 0 20 20', xmlns: 'http://www.w3.org/2000/svg', class: 'arrow' }
-    triangle = tag.polygon('', points: '0,0 15,10 0,20')
-    line = tag.line('', x1: 18, x2: 18, y1: 0, y2: 20)
-    tag.svg([triangle, line].join.html_safe, options)
+    nav_icon('M5 0 L 15 15 L 5 30', 'M25 0 L 35 15 L 25 30')
   end
   
   def previous_icon
-    options = { width: 20, height: 20, viewBox: '0 0 20 20', xmlns: 'http://www.w3.org/2000/svg', class: 'arrow' }
-    triangle = tag.polygon('', points: '20,0 5,10 20,20')
-    line = tag.line('', x1: 3, x2: 3, y1: 0, y2: 20)
-    tag.svg([triangle, line].join.html_safe, options)
+    nav_icon('M15 0 L 5 15 L 15 30', 'M35 0 L 25 15 L 35 30')
+  end
+  
+  def nav_icon(path1_d, path2_d)
+    options = { width: 40, height: 30, viewBox: '0 0 40 30', xmlns: 'http://www.w3.org/2000/svg', class: 'arrow' }
+    path1 = tag.path('', d: path1_d)
+    path2 = tag.path('', d: path2_d)
+    tag.svg([path1, path2].join.html_safe, options)
   end
   
   def sidebar_text(page) 

@@ -267,12 +267,14 @@ figure.index-logos img { max-width: 100%; height: auto; }
   nav.down { background-position: center bottom; }
 }
 #next-btn, #back-btn { 
-  position: fixed; bottom: 2px; width: 20px; padding: 7px 1em; height: 20px; 
+  position: fixed; bottom: 2px; width: 50px; height: 30px; 
   background: #fff;
   border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+  -o-border-radius: 1em;
   svg.arrow {
-    polygon { fill: $dk-primary; }
-    line { stroke: $dk-primary; stroke-width: 1.5px; }
+    path, line { stroke: $dk-primary; stroke-width: 1.5px; fill: transparent; }
   }
 }
 #next-btn { right: 1em; }
@@ -282,8 +284,7 @@ figure.index-logos img { max-width: 100%; height: auto; }
 }
 #next-btn:hover, #back-btn:hover { 
   svg.arrow {
-    polygon { fill: #ccc; }
-    line { stroke: #ccc; }
+    path, line { stroke: #ccc; }
   }
 }
 
