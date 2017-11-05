@@ -18,13 +18,10 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 	float: left; font-size: 3em; padding-top: 0.2em; padding-right: 8px; padding-left: 3px; font-style: normal; 
 }
 @mixin faux_3d_book {
-  box-shadow: 0px -18px 0px $dk-primary, 18px 0px 0px $dk-primary, 18px -18px 0px $dk-primary; 
   margin: 18px 18px 0px 0px; 
   clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
   -webkit-clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
-}
-@mixin faux_3d_book_hover {
-  box-shadow: 0px -18px 0px #c8c8c8, 18px 0px 0px #c8c8c8, 18px -18px 0px #c8c8c8; 
+  box-shadow: 0px -18px 0px #ddd, 18px 0px 0px #ddd, 18px -18px 0px #ddd; 
 }
 
 /* End Meta Stuff */
@@ -38,7 +35,7 @@ body {
 	font-family: $main-font-family;
 	font-size:1em;
 	text-align:center;
-	background-image: asset-url('spiral_bg.png');
+	background-image: asset-url('silhouettes.png');
 	background-position: center 0px;
 	background-repeat: repeat;
 	font-weight: 400;
@@ -171,20 +168,80 @@ a.btn, input.btn {
 		text-align: left; 
 		margin-bottom: 1em; 
 	}
-  
-  th { width: 20%; }
-  td { width: 80%; }
-  li { line-height: 1.5; padding: 0.2em 0em; }
-  li span { width: 100%; display: block; position: relative; }
-  li span:last-child a { float: right; }
 }
-.bookmark-icon { width: 15px; height: 15px; fill: $dk-primary; }
-a:hover .bookmark-icon { fill: #ccc; }
+ul.bookmarks { 
+  text-align: right;
+  li {
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5em 0px;
+    &:first-child { padding-top: 0; }
+    &:last-child { border-bottom: none; padding-bottom: 0; }
+  }
+}
+ul.bookmarks.left-align { 
+		text-align: left; 
+}
+
+.bookmark-icon { 
+  width: 12px; height: auto; fill: $lt-primary; margin-right: 0.6em;
+}
+a.user-bookmark {
+  text-align: left;
+  position: relative;
+  @include box_sizing;
+  @include round_corners;
+  display: block;
+  width: 20em;
+  max-width: 99%;
+  margin: 0.5%;
+  padding: 0.2em 1em 0.75em 1em;
+  background: $dk-primary;
+  color: #fff;
+  .bookmark-icon { fill: #fff; }
+  &:hover { background: #ccc; }
+} 
+.bookmark-progress, .bookmark-progress > span {
+  height: 4px;
+  border-radius: 2px;
+  display: block;
+}
+.bookmark-progress { 
+  background: $md-primary; width: 18em; max-width: 95%; 
+  position: absolute;
+  bottom: 0.35em;
+  left: 1em;
+}
+.bookmark-progress > span { background: #fff; }
+.bookmark-delete { line-height: 1.75em; }
 
 /* Homepage */
-p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: #ccc; }
+p.sample { @include round_corners; color: #555; padding: 1em; background: #f8f8f8; }
+p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: #fff; }
 div.catalog img { width: 64%; height: auto; @include faux_3d_book; }
-div.catalog a:hover img { filter: grayscale(100%); opacity: 0.64; @include faux_3d_book_hover; }
+.catalog-row { margin-bottom: 1em; border-bottom: 1px solid #eee; padding: 1.25em 0; }
+.catalog-row:first-child { border-top: 1px solid #eee; }
+.book-title { font-size: 20px; text-transform: uppercase; font-weight: 700; color: #333; }
+
+.btn.icon-btn { 
+  position: relative; 
+  padding-top: 3em;
+  
+  .primary-icon-head { 
+    @include box_sizing;
+    position: absolute; width: 100%; top: 0; left: 0; 
+    background: $dk-primary;
+    color: #fff;
+    padding: 0.5em 1em;
+  }
+}
+.icon-btn-icon { 
+  fill: #fff; 
+  width: 20px; height: auto; 
+}
+.book-bottom {
+  fill: $md-primary;
+}
 
 /* Form Helpers */
 form { @include box_sizing; @include round_corners; text-align: left; width: 100%; float: none; margin: 1em auto; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; }
@@ -224,31 +281,26 @@ div.example-markup {
 form label.sample_selector::after { content: ""; }
 .selected { color: $dk-primary; }
 
+/* Columns */
+.one_two { position: relative; text-align: left; float: left; margin: 1%; }
+.one_two { width: 48%; }
+
 /* Table Helpers */
-table { border: 1px solid #ccc; text-align: left; min-width: 100%; }
-th, td { width: 50%; padding: 1em; vertical-align: top; }
+table { border: 1px solid #ccc; text-align: left; min-width: 100%; border-collapse: collapse; }
+table.app_index, table.book-data-review, table.user-profile { 
+  td, th { border: 1px solid #ccc; }
+  th { background: #f8f8f8; }
+}
+
+th, td { padding: 1em; vertical-align: top; }
 th:first-child, td:first-child { font-weight: 700; }
 
 table.book-data-review {
-	th, td { width: auto; }
 	input[type=number] { width: 50px; }
 	input[type=text] { width: 240px; }
 	td:nth-child(3), td:last-child { text-align: right; }
 }
 
-/* Columns */
-.one_two, .one_four { position: relative; text-align: left; float: left; margin: 1%; }
-.one_two { width: 48%; }
-.one_four { width: 23%; }
-  body.users.index .one_four:last-child { text-align: right; }
-
-/* Index Styles */
-ul.app_index { @include box_sizing; position: relative; padding: 0em 1em; border: 1px solid #ccc; }
-ul.app_index li { @include box_sizing; position: relative; width: 100%; border-bottom: 1px solid #ccc; padding: 1em; margin: 0; }
-ul.app_index li:last-child { border-bottom: none; }
-
-figure.index-logos { text-align: center; margin: 1em 0 0 0; width: 100%; clear: both; }
-figure.index-logos img { max-width: 100%; height: auto; }
 
 /* Navigation */
 #book-nav {
@@ -267,7 +319,7 @@ figure.index-logos img { max-width: 100%; height: auto; }
   nav.down { background-position: center bottom; }
 }
 #next-btn, #back-btn { 
-  position: fixed; bottom: 2px; width: 50px; height: 30px; 
+  position: fixed; bottom: 6px; width: 50px; height: 30px; 
   background: #fff;
   border-radius: 1em;
   -moz-border-radius: 1em;
@@ -301,13 +353,10 @@ figure.index-logos img { max-width: 100%; height: auto; }
 /* Small Desktop */
 @media only screen and (max-width: 730px) {
 	div#progress-bar { display: none; }
-  .one_four { width: 48%; }
-  .one_four:nth-child(3) { clear: both; }
-  body.users.index .one_four:last-child { width: 98%; }
 }
 
 @media only screen and (max-width: 570px) {
-  .one_two, .one_four { width: 98%; text-align: center; }
+  .one_two { width: 98%; text-align: center; }
 }
 
 /* Mobile */
@@ -316,6 +365,16 @@ figure.index-logos img { max-width: 100%; height: auto; }
   body { background-image: none !important; }
   body.books.show { background-color: $books-bg-color; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
+  table.user-profile { 
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+    th, td { 
+      @include box_sizing;
+      border-top: none;
+      display: block; width: 100%; 
+    }
+  }
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait), 

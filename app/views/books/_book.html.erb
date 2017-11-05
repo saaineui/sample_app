@@ -1,20 +1,17 @@
-<li class="clearfix">
-  <div class="clearfix">
-    <div class="one_four">
-        <%= link_to book.title, book %>
-    </div>
-    <div class="one_four">
-        <%= book.author %>
-    </div>
-    <div class="one_four">
-        <%= book.chapters_count %> Chapters<br /> 
-        <%= number_with_delimiter(book.text_length) %> Characters
-    </div>
-    <div class="one_four">
-        <%= link_to 'edit', edit_book_path(book) %> | 
-        <%= link_to 'upload', upload_book_path(book) %> | 
-        <%= link_to "delete", book, method: :delete, data: { confirm: "Are you sure you want to delete #{book.title} permanently?" } %>
-    </div>
-  </div>
-  <figure class="index-logos"><%= image_tag book.logo_url %></figure>
-</li>
+<tr>
+  <td>
+      <%= link_to book.title, book %>
+  </td>
+  <td>
+      <%= book.author %>
+  </td>
+  <td>
+      <%= book.chapters_count %> Chapters<br /> 
+      <%= number_with_delimiter(book.text_length) %> Characters
+  </td>
+  <td>
+      <%= link_to 'edit', edit_book_path(book) %> | 
+      <%= link_to 'upload', upload_book_path(book) %> | 
+      <%= link_to "delete", book, method: :delete, data: { confirm: "Are you sure you want to delete #{book.title} permanently?" } %>
+  </td>
+</tr>

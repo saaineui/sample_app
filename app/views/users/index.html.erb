@@ -1,7 +1,16 @@
     <h2><%= @title[:subtitle] %> (<%= @users.count %>)</h2>
 
-    <ul class="app_index">
-    <% @users.each do |user| %>
+    <table class="app_index">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Currently Reading</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
         <%= render user %>
-    <% end %>
-    </ul>
+      <% end %>
+      </tbody>
+    </table>

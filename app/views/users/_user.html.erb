@@ -1,18 +1,15 @@
-<li class="clearfix">
-  <div class="one_four">
+<tr>
+  <td>
     <%= link_to user.name, user %>
-  </div>
-  <div class="one_two">
-    <span>is currently reading...</span>
-    <ul>
-    <% user.books.uniq.each do |book| %>
-      <%= content_tag(:li, link_to(book.title, book)) %>
-    <% end %>
+  </td>
+  <td>
+    <ul class="bookmarks left-align">
+      <% user.books.uniq.each do |book| %>
+        <%= tag.li link_to(book.title, book) %>
+      <% end %>
     </ul>
-  </div>
-  <% if current_user.admin? && !current_user?(user) %>
-    <div class="one_four">
-      <%= link_to 'delete', user, method: :delete, data: { confirm: "Are you sure you want to delete #{user.name} permanently?" } %>
-    </div>
-  <% end %>
-</li>
+  </td>
+  <td>
+    <%= link_to 'delete', user, method: :delete, data: { confirm: "Are you sure you want to delete #{user.name} permanently?" } if current_user.admin? && !current_user?(user) %>
+  </td>
+</tr>

@@ -9,7 +9,7 @@
 		</tr>
 	</thead>
 	<tbody>
-        <% @book.sections.each do |section| %>
+        <% @book.sections.order(:order).each do |section| %>
 		<tr>
 			<td><%= section.chapter %></td>
 			<td><%= section.title %></td>

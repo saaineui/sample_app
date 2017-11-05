@@ -1,19 +1,20 @@
 <article>
-	<h2>Catalog</h2>
+	<h2>Read on any device</h2>
+  <p class="centered">Check these books off your bucket list once and for all.</p>
 	<div class="catalog">
 	<% Book.display.each do |book| %>
     <div class="catalog-row clearfix">
       <div class="one_two">
-        <%= link_to image_tag(book.cover_image_url, alt: book.title), book_path(book) %> 
+        <%= image_tag(book.cover_image_url, alt: book.title) %> 
       </div>
       <div class="one_two">
-        <h3><%= book.title %></h3>
+        <h3 class="book-title"><%= book.title %></h3>
         <h3><%= book.author %></h3>
         <p class="sample">
           <span>&ldquo;</span> <%= book.sample %>
         </p>
         <p>
-          <%= link_to 'Read ' + book.title, book_path(book), class: 'btn' %> 
+          <%= render partial: 'shared/icon_button', locals: { link_path: book_path(book), button_text: book.title } %>
         </p>
       </div>
     </div>

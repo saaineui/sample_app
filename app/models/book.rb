@@ -10,7 +10,7 @@ class Book < ApplicationRecord
   validates :title, :author, :logo_url, :cover_image_url, presence: true
   
   before_save :update_chapters_count, 
-    unless: Proc.new { |book| book.chapters_count.eql?(book.sections.chapters.count) }
+              unless: proc { |book| book.chapters_count.eql?(book.sections.chapters.count) }
 
   SKIPS = 4
   CHARACTERS_PER_PAGE = 3500

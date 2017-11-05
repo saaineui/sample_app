@@ -36,8 +36,8 @@ class BookmarkTest < ActiveSupport::TestCase
     assert_equal @bookmark.percent_read.class, Integer
   end
   
-  test 'name method prints book title and progress' do
-    assert_equal @bookmark.name, 'Lorem Ipsum: A Love Story (49%)'
+  test 'name method prints book title' do
+    assert_equal @bookmark.name, 'Lorem Ipsum: A Love Story'
   end
 
   test 'percent_read method returns integer if book is deleted' do

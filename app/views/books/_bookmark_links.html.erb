@@ -1,2 +1,4 @@
-              <li><%= link_to 'Get Bookmark', request.original_url.html_safe, id: 'bookmark' %></li>
+              <li>
+                <%= link_to 'Get Bookmark', request.original_url.html_safe, id: 'bookmark' %>
+              </li>
               <%= content_tag(:li, link_to('Save Bookmark', new_bookmark_path(book_id: @book.id, location: @location, scroll: @scroll), id: 'new-bookmark')) if logged_in? %>
