@@ -1,9 +1,21 @@
     <h2><%= @title[:subtitle] %> (<%= @books.count %>)</h2>
 
-    <ul class="app_index">
-    <% @books.each do |book| %>
+    <table class="app_index">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Counts</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @books.each do |book| %>
         <%= render book %>
-    <% end %>
-    </ul>
+      <% end %>
+      </tbody>
+    </table>
 
     <p><%= link_to 'New Book', new_book_path, class: 'btn' %></p>
+    <p><%= link_to 'View Profile', user_path(current_user), class: 'btn' %></p>
+    <p><%= link_to 'All Users', users_path, class: 'btn' %></p>

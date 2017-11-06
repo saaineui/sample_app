@@ -1,0 +1,7 @@
+      <a class="user-bookmark" href="<%= open_book_path(bookmark.book_id, bookmark.location, scroll: bookmark.scroll) %>">
+        <svg class="bookmark-icon" viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,6 14,6 14,20 7,14 0,20" />
+        </svg> 
+        <%= bookmark.name %>
+        <%= tag.span(tag.span('', style: "width: #{bookmark.percent_read}%"), class: 'bookmark-progress') %>
+      </a>

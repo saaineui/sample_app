@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   def index
     @users = User.all
-    @title = { subtitle: 'All Readers' }
+    @title = { subtitle: 'All Users' }
   end
 
   def new

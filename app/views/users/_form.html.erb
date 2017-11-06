@@ -22,5 +22,6 @@
 
   <p>
     <%= f.submit submit_btn_text, class: 'btn' %>
+    <%= link_to 'Cancel', user_path(@user) if @user.persisted? %>
   </p>
 <% end %>
