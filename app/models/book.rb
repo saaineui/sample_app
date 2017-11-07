@@ -5,7 +5,7 @@ class Book < ApplicationRecord
   has_many :bookmarks
   has_many :users, through: :bookmarks
 
-  scope :display, -> { where('author!=?', 'Stephanie Sun') }
+  scope :not_mine, -> { where('author!=?', 'Stephanie Sun') }
 
   validates :title, :author, :logo_url, :cover_image_url, presence: true
   

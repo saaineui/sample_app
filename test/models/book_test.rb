@@ -40,8 +40,8 @@ class BookTest < ActiveSupport::TestCase
     assert_equal @book_with_sections.chapters_count, @book_with_sections.sections.chapters.count
   end
   
-  test '#display scope should filter my books' do
-    Book.display.each { |book| assert_not_equal book.author, 'Stephanie Sun' }
+  test '#not_mine scope should filter my books' do
+    assert_not Book.not_mine.any? { |book| book.author.eql? 'Stephanie Sun' }
   end
   
   test '::SKIPS constant returns integer' do

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   skip_before_action :require_admin, except: :destroy
+  before_action :find_user_or_redirect, only: %i[show edit update destroy]
   before_action :require_owner, only: %i[edit update]
   
   def index
@@ -26,17 +27,14 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
     @title = { subtitle: "About #{@user.name}" }
   end
 
   def edit
-    @user = User.find(params[:id])
     @title = { subtitle: "Edit #{@user.name}" }
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to @user
       flash[:success] = 'Changes to your profile have been saved.'
@@ -47,7 +45,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     user_name = @user.name
     
     if @user.destroy
@@ -66,8 +63,17 @@ class UsersController < ApplicationController
   end
 
   # Before filters
+  def find_user_or_redirect
+    if User.exists?(params[:id])
+      @user = User.find(params[:id])
+    else
+      flash[:danger] = 'The requested page was not found.'
+      redirect_back fallback_location: users_path
+    end
+  end
+  
   def require_owner
-    return true if User.exists?(params[:id]) && current_user?(User.find(params[:id]))
+    return true if current_user?(@user)
     flash[:danger] = 'You do not have permission to do that.'
     redirect_back fallback_location: current_user
   end
