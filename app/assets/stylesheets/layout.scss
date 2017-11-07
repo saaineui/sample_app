@@ -1,8 +1,9 @@
 /* Meta Stuff */
 
-$dk-primary: #2b71f2;
+$dk-primary: #2b71f2; // blue
 $md-primary: #79a4f2;
 $lt-primary: #e1eafa;
+$dk-secondary: #67c9bb; // teal
 $books-bg-color: #fff;
 $main-font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 
@@ -207,21 +208,24 @@ a.user-bookmark {
   display: block;
 }
 .bookmark-progress { 
-  background: $md-primary; width: 18em; max-width: 95%; 
+  background: $md-primary; width: 90%; 
   position: absolute;
   bottom: 0.35em;
-  left: 1em;
+  left: 5%;
 }
 .bookmark-progress > span { background: #fff; }
 .bookmark-delete { line-height: 1.75em; }
 
 /* Homepage */
 p.sample { @include round_corners; color: #555; padding: 1em; background: #f8f8f8; }
-p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: #fff; }
+p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: $dk-secondary; }
 div.catalog img { width: 64%; height: auto; @include faux_3d_book; }
-.catalog-row { margin-bottom: 1em; border-bottom: 1px solid #eee; padding: 1.25em 0; }
-.catalog-row:first-child { border-top: 1px solid #eee; }
+.catalog-row { position: relative; margin-bottom: 1em; border-bottom: 2px solid $dk-secondary; padding: 1.25em 0; }
+.catalog-row:first-child { border-top: 2px solid $dk-secondary; }
 .book-title { font-size: 20px; text-transform: uppercase; font-weight: 700; color: #333; }
+.separator { width: 24px; height: 24px; position: absolute; left: 50%; bottom: -12px; margin-left: -12px; }
+.separator circle { fill: #fff; stroke: $dk-secondary; r: 11; cx: 12; cy: 12; stroke-width: 2px; }
+.separator.top-separator { bottom: auto; top: -12px; }
 
 .btn.icon-btn { 
   position: relative; 
@@ -366,13 +370,17 @@ table.book-data-review {
   body.books.show { background-color: $books-bg-color; }
 	#wrapper { padding: 1em; min-height: 100%; box-shadow: none; }
   table.user-profile { 
+    display: block; 
     border-left: none;
     border-bottom: none;
     border-right: none;
+    tbody, thead, tr, th, td {
+      display: block; 
+    }
     th, td { 
       @include box_sizing;
       border-top: none;
-      display: block; width: 100%; 
+      width: 100%; 
     }
   }
 }
