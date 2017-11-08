@@ -7,6 +7,7 @@
         var BookScroll = (function() {
           
             var FALLBACK_LINE_HEIGHT = 30;
+            var FALLBACK_STICKY_BAR_HEIGHT = 41;
             var WRAPPER_PADDING = 16; // #wrapper div padding
             var SCROLL_WRAP_MARGIN = 16; // #scroll-wrap div margin
             var NEXT_BACK_MARGIN = 30; // footer height to clear
@@ -20,7 +21,7 @@
             function initialize_height_props() {
                 data.line_height = get_line_height(); // 1
               
-                var sticky_bar_height = parseInt( $("#sticky-bar > nav").height() ); // 2
+                var sticky_bar_height = get_sticky_bar_height(); // 2
                 var all_vertical_padding = sticky_bar_height + WRAPPER_PADDING + SCROLL_WRAP_MARGIN + NEXT_BACK_MARGIN; // 3
                 var box_height = $(window).height() - all_vertical_padding; // 4
                 data.scroll_interval = box_height - (box_height % data.line_height); // 5
@@ -62,6 +63,14 @@
                     return parseInt( $('#ebook p').css('line-height') );
                 }
                 return FALLBACK_LINE_HEIGHT;
+            }
+              
+            // get sticky_bar_height from sticky bar nav tag; fallback to hard-coded value 
+            function get_sticky_bar_height() {
+                if ($('#sticky-bar > nav').length > 0) {
+                    return parseInt( $("#sticky-bar > nav").height() );
+                }
+                return FALLBACK_STICKY_BAR_HEIGHT;
             }
               
             // compute accrued progress points for current section
@@ -158,6 +167,7 @@
                 compute_max_clicks: compute_max_clicks,
                 compute_scroll: compute_scroll,
                 get_line_height: get_line_height,
+                get_sticky_bar_height: get_sticky_bar_height,
                 initialize_data: initialize_data,
                 initialize_height_props: initialize_height_props,
                 is_multipage: is_multipage,

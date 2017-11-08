@@ -3,8 +3,6 @@ class BooksController < ApplicationController
   skip_before_action :require_admin, only: %i[show galley print]
   before_action :find_book_or_redirect, only: %i[show edit update destroy galley print upload]
   
-  POSITIONS = { 'Front' => (0..1), 'Back' => (2..3) }.freeze
-    
   def index
     @books = Book.all
     @title = { subtitle: 'Manage Books' }
@@ -111,7 +109,7 @@ class BooksController < ApplicationController
   end
     
   def position_matches?(page, position)
-    POSITIONS[position].include?(page['page_position'])
+    { 'Front' => (0..1), 'Back' => (2..3) }[position].include?(page['page_position'])
   end
     
   def get_sort_order(page)

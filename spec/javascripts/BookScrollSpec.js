@@ -71,6 +71,12 @@ describe("BookScroll", function() {
     expect(BookScroll.get_line_height()).toEqual( 36 );
   });
   
+  it("#get_sticky_bar_height retrieves sticky bar height from <nav> child of #sticky-bar", function() {
+    $('<div/>', { "id": 'sticky-bar' }).appendTo('#wrapper');
+    $('<nav/>', { "height": 15 }).appendTo('#sticky-bar');
+    expect(BookScroll.get_sticky_bar_height()).toEqual( 15 );
+  });
+  
   it("#compute_anchor handles short chapter", function() {
     BookScroll.initialize_data(short_chapter);
     expect(BookScroll.compute_anchor()).toEqual( 0 );
