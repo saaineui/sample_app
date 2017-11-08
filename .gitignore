@@ -20,7 +20,7 @@
 .DS_Store
 
 # Ignore compiled assets
-public/assets/*
+# public/assets/*
 
 # Ignore vendor files
 vendor/*
