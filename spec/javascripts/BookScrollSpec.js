@@ -1,17 +1,18 @@
 describe("BookScroll", function() {
-  var chapter, short_chapter;
+  var chapter, short_chapter, percent_interval;
 
   beforeEach(function() {
     chapter = {
       progress_start: 0,
       section_progress_points: 100, // book has one chapter, so section_progress_points is 100%
       scroll: 0,
-      content_height: 100,
+      content_height: 101,
       scroll_interval: 20,
       anchor: 0,
-      max_clicks: 4,
+      max_clicks: 5,
     };
     BookScroll.initialize_data(chapter);
+    percent_interval = 1 / (chapter.max_clicks + 1);
     
     short_chapter = {
       progress_start: 0,
@@ -85,20 +86,20 @@ describe("BookScroll", function() {
   it("#compute_anchor outputs zero-indexed page number", function() {
     expect(BookScroll.compute_anchor()).toEqual( 0 );
     
-    BookScroll.update('scroll', 20);
+    BookScroll.update('scroll', 19.8);
     expect(BookScroll.compute_anchor()).toEqual( 1 );
 
-    BookScroll.initialize_data({ scroll: 5, content_height: 1850, scroll_interval: 100 });
+    BookScroll.initialize_data({ scroll: 5.26, content_height: 1850, scroll_interval: 100 });
     expect(BookScroll.compute_anchor()).toEqual( 1 );
 
-    BookScroll.update('scroll', 84);
+    BookScroll.update('scroll', 84.21);
     expect(BookScroll.compute_anchor()).toEqual( 16 );
   });
 
   it("#compute_scroll computes scroll amount from zero index page anchor", function() {
     expect(BookScroll.compute_scroll(BookScroll.data().anchor, BookScroll.data().max_clicks)).toEqual( 0 );
-    expect(BookScroll.compute_scroll(1, 18)).toEqual( 5 );
-    expect(BookScroll.compute_scroll(16, 18)).toEqual( 84 );
+    expect(BookScroll.compute_scroll(1, 18)).toEqual( 5.26 );
+    expect(BookScroll.compute_scroll(16, 18)).toEqual( 84.21 );
   });
   
   it("#compute_max_clicks handles short chapter", function() {
@@ -107,10 +108,10 @@ describe("BookScroll", function() {
   });
   
   it("#compute_max_clicks tells us number of clicks to traverse section", function() {
-    expect(BookScroll.compute_max_clicks()).toEqual( 4 );
-    
-    BookScroll.update('scroll_interval', 19);
     expect(BookScroll.compute_max_clicks()).toEqual( 5 );
+    
+    BookScroll.update('content_height', 100);
+    expect(BookScroll.compute_max_clicks()).toEqual( 4 );
   });
   
   it ("#update_anchor_and_max_clicks updates props with computed vals", function() {
@@ -150,38 +151,38 @@ describe("BookScroll", function() {
 
   it("#update_progress_bar updates progress bar to match data object", function() {
     BookScroll.update('anchor', 1);
-    var expected_progress_bar_width = progress_div.parent().width() / 5;
+    var expected_progress_bar_width = progress_div.parent().width() * percent_interval;
     
     BookScroll.update_progress_bar();
     expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 1 );
-    expect(progress_percent_div.text()).toEqual( "20%" );
+    expect(progress_percent_div.text()).toEqual( "16%" );
   });
 
   it("#update_bookmark_links updates bookmark links to match data object", function() {
     BookScroll.update('anchor', 1);
     BookScroll.update_bookmark_links();
-    expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=20' );
-    expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=20' );
+    expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=16_67' );
+    expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=16_67' );
   });
 
   it("#scroll_page increments anchor and progress bar", function() {
     BookScroll.scroll_page(BookScroll.get_anchor_increment(down_nav_btn));
-    var expected_progress_bar_width = progress_div.parent().width() / 5;
+    var expected_progress_bar_width = progress_div.parent().width() * percent_interval;
     
     expect(BookScroll.data().anchor).toEqual( 1 );
     expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 1 );
-    expect(progress_percent_div.text()).toEqual( "20%" );
-    expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=20' );
-    expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=20' );
+    expect(progress_percent_div.text()).toEqual( "16%" );
+    expect(get_bookmark_a.attr("href")).toEqual( '/books/2/4?scroll=16_67' );
+    expect(save_bookmark_a.attr("href")).toEqual( '/bookmarks/new?book_id=2&location=4&scroll=16_67' );
   });
 
   it("#scroll_page maxes out at max_clicks", function() {
     for (i=0; i<10; i++) { BookScroll.scroll_page(1); }
-    var expected_progress_bar_width = progress_div.parent().width() * 0.8;
+    var expected_progress_bar_width = progress_div.parent().width() * percent_interval * 5;
     
-    expect(BookScroll.data().anchor).toEqual( 4 );
+    expect(BookScroll.data().anchor).toEqual( 5 );
     expect(Math.abs(progress_div.width() - expected_progress_bar_width)).toBeLessThan( 2 );
-    expect(progress_percent_div.text()).toEqual( "80%" );
+    expect(progress_percent_div.text()).toEqual( "83%" );
   });
 
   it("#scroll_page maxes out at 0", function() {

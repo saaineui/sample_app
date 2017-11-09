@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025045245) do
+ActiveRecord::Schema.define(version: 20171108234951) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "book_id"
     t.integer "location"
-    t.integer "scroll"
+    t.decimal "scroll", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"

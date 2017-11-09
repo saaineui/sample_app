@@ -107,8 +107,10 @@ class BookTest < ActiveSupport::TestCase
   test '#scroll_in_range returns integer within range' do
     assert_equal @book.scroll_in_range(-3), 0
     assert_equal @book.scroll_in_range(3), 3
-    assert_equal @book.scroll_in_range(33.33), 33
+    assert_equal @book.scroll_in_range('25'), 25
+    assert_equal @book.scroll_in_range('33_33'), 33.33
     assert_equal @book.scroll_in_range(101), 100
+    assert_equal @book.scroll_in_range(nil), 0
   end
   
   test '#progress_start returns length of fully completed sections as percent of total' do
@@ -122,8 +124,8 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test '#section_progress_points returns section length as percent of total' do
-    assert_equal @book_with_sections.section_progress_points(4), (800 / 28)
-    assert_equal @book_with_sections.section_progress_points(5), (1000 / 28)
+    assert_equal @book_with_sections.section_progress_points(4), (800 / 28.0)
+    assert_equal @book_with_sections.section_progress_points(5), (1000 / 28.0)
   end
 
   test '#section_progress_points returns 0 for front matter' do
@@ -131,9 +133,9 @@ class BookTest < ActiveSupport::TestCase
   end
   
   test '#progress_with_scroll returns expected value' do
-    assert_equal @book_with_sections.progress_with_scroll(4, 10), (10 * 8 / 28)
-    assert_equal @book_with_sections.progress_with_scroll(5, 50), (800 / 28 + (50 * 10 / 28).to_i)
-    assert_equal @book_with_sections.progress_with_scroll(6, 33), (1800 / 28 + (33 * 10 / 28).to_i)
+    assert_equal @book_with_sections.progress_with_scroll(4, 10), (10 * 8 / 28.0).to_i
+    assert_equal @book_with_sections.progress_with_scroll(5, 50), (800 / 28 + (50 * 10 / 28.0)).to_i
+    assert_equal @book_with_sections.progress_with_scroll(6, 33), (1800 / 28 + (33 * 10 / 28.0)).to_i
   end
   
   test '#progress_with_scroll returns 0 for front matter' do

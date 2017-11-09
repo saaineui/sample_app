@@ -7,7 +7,7 @@ class BookmarksController < ApplicationController
   def new
     if @bookmark && @bookmark.save
       flash[:success] = 'Your place has been saved.'
-      redirect_to open_book_path(@bookmark.book_id, @bookmark.location, scroll: @bookmark.scroll)
+      redirect_to open_book_path(@bookmark.book_id, @bookmark.location, scroll: @bookmark.safe_scroll)
     else
       flash[:danger] = 'There was an error with your bookmark.'
       redirect_back fallback_location: current_user
@@ -33,7 +33,7 @@ class BookmarksController < ApplicationController
       book_id: params[:book_id], 
       user_id: current_user.id, 
       location: params[:location].to_i, 
-      scroll: params[:scroll].to_i
+      scroll: Book.new.scroll_in_range(params[:scroll])
     )
   end
 

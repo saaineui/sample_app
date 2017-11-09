@@ -20,13 +20,16 @@ class Book < ApplicationRecord
     max_number_of_locations > location ? location : (max_number_of_locations - 1)
   end
   
-  def scroll_in_range(scroll = 0)
-    scroll = scroll.to_i >= 0 ? scroll.to_i : 0
+  def scroll_in_range(scroll)
+    scroll ||= 0 
+    scroll = scroll.tr('_', '.') if scroll.respond_to? :tr
+    scroll = scroll.to_d
+    scroll = scroll >= 0 ? scroll : 0
     scroll <= 100 ? scroll : 100
   end
   
   def progress_with_scroll(location, scroll)
-    progress_start(location) + (scroll.to_i * 0.01 * section_progress_points(location)).to_i
+    progress_start(location) + (scroll * 0.01 * section_progress_points(location)).to_i
   end
 
   def progress_start(location)
@@ -36,7 +39,7 @@ class Book < ApplicationRecord
   
   def section_progress_points(location)
     if main_text?(location)
-      get_section_from_location(location).text.length * 100 / to_valid_dividend(text_length)
+      get_section_from_location(location).text.length * 100.0 / to_valid_dividend(text_length)
     else 
       0
     end
