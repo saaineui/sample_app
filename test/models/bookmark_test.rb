@@ -32,8 +32,8 @@ class BookmarkTest < ActiveSupport::TestCase
     assert_not @bookmark.valid?
   end
   
-  test 'percent_read method returns integer' do
-    assert_equal @bookmark.percent_read.class, Integer
+  test 'percent_read method returns number' do
+    assert_kind_of Integer, @bookmark.percent_read
   end
   
   test 'name method prints book title' do
@@ -44,7 +44,7 @@ class BookmarkTest < ActiveSupport::TestCase
     @book.delete
     @bookmark.reload
 
-    assert_equal @bookmark.percent_read.class, Integer
+    assert_kind_of Integer, @bookmark.percent_read
   end
   
   test 'name method prints string if book is deleted' do

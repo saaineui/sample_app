@@ -13,6 +13,12 @@
             var NEXT_BACK_MARGIN = 30; // footer height to clear
             var data;
           
+            function round(number, precision) {
+              var factor = Math.pow(10, precision);
+              var tempNumber = Math.round(number * factor);
+              return tempNumber / factor;
+            };
+          
             function initialize_data(d) {
                 data = Object.assign({}, d);
             }
@@ -38,13 +44,13 @@
             }
           
             function update_bookmark_links() {
-                var scroll_param = "scroll=" + compute_scroll(data.anchor, data.max_clicks);
+                var scroll_param = "scroll=" + safe_scroll(data.anchor, data.max_clicks);
 
-                var bookmark = $("#bookmark").attr("href").replace(/\?scroll=[0-9|.]*/, "")+"?"+scroll_param;
+                var bookmark = $("#bookmark").attr("href").replace(/\?scroll=[0-9]*_*[0-9]*/, "")+"?"+scroll_param;
                 $("#bookmark").attr("href", bookmark);
 
                 if ($("#new-bookmark").length > 0) {
-                    var new_bookmark = $("#new-bookmark").attr("href").replace(/scroll=[0-9|.]*/, scroll_param);
+                    var new_bookmark = $("#new-bookmark").attr("href").replace(/scroll=[0-9]*_*[0-9]*/, scroll_param);
                     $("#new-bookmark").attr("href", new_bookmark);
                 }
             }
@@ -78,9 +84,14 @@
                 return data.anchor * data.section_progress_points / (data.max_clicks + 1);
             }
           
+            // scroll string with underscore for decimal point
+            function safe_scroll(anchor, max_clicks) {
+                return compute_scroll(anchor, max_clicks).toString().replace('.', '_');
+            }
+          
             // compute scroll value (integer) for an anchor and max_clicks pair
             function compute_scroll(anchor, max_clicks) {
-                return Math.floor(anchor * 100.0 / (max_clicks + 1));
+                return round(anchor * 100.0 / (max_clicks + 1), 2);
             }
           
             // compute anchor (zero index for which page we are on) from scroll

@@ -37,7 +37,7 @@ class BooksReadTest < ActionDispatch::IntegrationTest
     assert_template 'books/show'
 
     (1..book.max_number_of_locations - 1).each do |location|
-      scroll = Random.rand(1..100)
+      scroll = Bookmark.new(scroll: Random.rand(1..100)).safe_scroll
       save_bookmark_href = new_bookmark_path(book_id: book, location: location, scroll: scroll)
       
       get open_book_path(book, location, scroll: scroll)
