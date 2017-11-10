@@ -1,12 +1,9 @@
-<% svg_options = proc { |style_class| { class: ['separator', style_class].join(' '), viewBox: '0 0 24 24', xmlns: 'http://www.w3.org/2000/svg' } } %>
 <article>
 	<h2>Read on any device</h2>
   <p class="centered">Check these books off your bucket list once and for all.</p>
 	<div class="catalog">
 	<% Book.not_mine.each_with_index do |book, index| %>
     <div class="catalog-row clearfix">
-      <%= tag.svg(tag.circle(''), svg_options.call('top-separator')) if index.zero? %>
-      <%= tag.svg(tag.circle(''), svg_options.call) %>
       <div class="one_two">
         <%= image_tag(book.cover_image_url, alt: book.title) %> 
       </div>

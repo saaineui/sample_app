@@ -150,7 +150,7 @@ a.btn, input.btn {
 	font-size: inherit; 
 	cursor: pointer; 
 	background: $lt-primary; 
-	border-color: $dk-primary;
+	border-color: $dk-secondary;
 	
     &:hover {
         background: none;
@@ -218,14 +218,10 @@ a.user-bookmark {
 
 /* Homepage */
 p.sample { @include round_corners; color: #555; padding: 1em; background: #f8f8f8; }
-p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: $dk-secondary; }
+p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: $md-primary; }
 div.catalog img { width: 64%; height: auto; @include faux_3d_book; }
-.catalog-row { position: relative; margin-bottom: 1em; border-bottom: 2px solid $dk-secondary; padding: 1.25em 0; }
-.catalog-row:first-child { border-top: 2px solid $dk-secondary; }
+.catalog-row { position: relative; margin-bottom: 1em; padding: 1.25em 0; }
 .book-title { font-size: 20px; text-transform: uppercase; font-weight: 700; color: #333; }
-.separator { width: 24px; height: 24px; position: absolute; left: 50%; bottom: -12px; margin-left: -12px; }
-.separator circle { fill: #fff; stroke: $dk-secondary; r: 11; cx: 12; cy: 12; stroke-width: 2px; }
-.separator.top-separator { bottom: auto; top: -12px; }
 
 .btn.icon-btn { 
   position: relative; 
