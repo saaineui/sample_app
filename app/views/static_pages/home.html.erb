@@ -1,23 +1,27 @@
-<article>
-	<h2>Read on any device</h2>
-  <p class="centered">Check these books off your bucket list once and for all.</p>
+  <section class="banner">
+    <div class="banner-interior">
+      <h2>Read on any device</h2>
+      <p>Check these books off your bucket list once and for all.</p>
+    </div>
+  </section>
 	<div class="catalog">
 	<% Book.not_mine.each_with_index do |book, index| %>
     <div class="catalog-row clearfix">
-      <div class="one_two">
-        <%= image_tag(book.cover_image_url, alt: book.title) %> 
-      </div>
-      <div class="one_two">
-        <h3 class="book-title"><%= book.title %></h3>
-        <h3><%= book.author %></h3>
-        <p class="sample">
-          <span>&ldquo;</span> <%= book.sample %>
-        </p>
-        <p>
-          <%= render partial: 'shared/icon_button', locals: { link_path: book_path(book), button_text: book.title } %>
-        </p>
+      <div class="centered-book">
+        <div class="one_two">
+          <%= link_to(image_tag(book.cover_image_url, alt: book.title, class: "faux-book"), book_path(book)) %> 
+        </div>
+        <div class="one_two">
+          <h3 class="book-title"><%= book.title %></h3>
+          <h3><%= book.author %></h3>
+          <p class="sample">
+            <span>&ldquo;</span> <%= book.sample %>
+          </p>
+          <p>
+            <%= render partial: 'shared/icon_button', locals: { link_path: book_path(book), button_text: book.title } %>
+          </p>
+        </div>
       </div>
     </div>
 	<% end %>
 	</div>
-</article>
