@@ -27,6 +27,8 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 
 /* End Meta Stuff */
 
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,700italic);
+
 body, html {
 	margin:0;
 	padding: 0;
@@ -247,12 +249,14 @@ section.banner {
   margin: 0 auto;
 }
 .catalog-row { 
+  padding-top: 1em;
+  padding-bottom: 1.5em;
   position: relative;
 }
 .catalog-row:nth-child(5n-4) { background: #add2e0; }
-.catalog-row:nth-child(5n-3) { background: #84a7e6; }
-.catalog-row:nth-child(5n-2) { background: #bfd9e8; }
-.catalog-row:nth-child(5n-1) { background: #baccef; }
+.catalog-row:nth-child(5n-3) { background: #8fb2f3; }
+.catalog-row:nth-child(5n-2) { background: #99bdff; }
+.catalog-row:nth-child(5n-1) { background: #87c9e1; }
 .catalog-row:nth-child(5n) { background: #d9e2f4; }
 img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
 img.faux-book:hover { 
