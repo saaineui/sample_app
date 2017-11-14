@@ -1,23 +1,147 @@
-  body {
-    background: url(./silhouettes.png) center center repeat #e1eafa;
-    text-align: center;
-    font-family: HelveticaNeue, Helvetica, sans-serif;
-    margin: 0;
-  }
+ @import url(https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,700italic);
 
-  div.dialog {
-    width: 33em;
-    max-width: 95%;
-    margin: 4em auto 1em;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border-radius: 1em;
-    -moz-border-radius: 1em;
-    -webkit-border-radius: 1em;
-    background-color: white;
-    padding: 1em;
-  }
+.clearfix:before, .clearfix:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.clearfix:after {
+  clear: both;
+}
 
-    a { color: #2b71f2; text-decoration: none; }
-    a:hover { color: #ccc; }
+/* Slow Animations */
+a, a img, nav, li, .close, path, line, .primary-icon-head {
+  transition-property: opacity background color fill stroke filter;
+  transition-duration: 0.20s;
+  transition-timing-function: ease-out;
+  -webkit-transition-property: opacity background color fill stroke filter;
+  -webkit-transition-duration: 0.20s;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-property: opacity background color fill stroke filter;
+  -moz-transition-duration: 0.20s;
+  -moz-transition-timing-function: ease-out;
+  -o-transition-property: opacity background color fill stroke filter;
+  -o-transition-duration: 0.20s;
+  -o-transition-timing-function: ease-out;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1em;
+  text-align: center;
+  font-weight: 400;
+}
+
+p {
+  position: relative;
+  text-align: left;
+}
+
+a, a:visited {
+  font-weight: 700;
+  color: #2b71f2;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: #ccc;
+}
+
+header#sticky-bar > nav h1, header#sticky-bar > nav p {
+  display: block;
+}
+header#sticky-bar > nav h1 {
+  width: 50%;
+  float: left;
+  text-align: left;
+}
+header#sticky-bar > nav h1 a img {
+  display: inline-block;
+  max-width: 100%;
+}
+header#sticky-bar > nav h1 a:hover img {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+header#sticky-bar > nav div.nav-wrapper {
+  float: right;
+  width: 50%;
+  font-size: 0.75em;
+}
+
+#wrapper {
+  width: 900px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 16px 3em 1em 3em;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  background: #fff;
+}
+
+section.banner {
+  display: block;
+  position: relative;
+  background: url(silhouettes.png) center bottom repeat;
+  width: 100%;
+  margin: 0;
+  min-height: 381px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 1em;
+  color: #fff;
+}
+section.banner h2, section.banner p {
+  text-shadow: 0px 0px 6px #79a4f2;
+  -moz-text-shadow: 0px 0px 6px #79a4f2;
+  -webkit-text-shadow: 0px 0px 6px #79a4f2;
+  text-align: left;
+}
+section.banner h2 {
+  font-weight: 700;
+  font-size: 3em;
+}
+section.banner p {
+  font-size: 1.25em;
+}
+
+.banner-interior {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+  padding: 1em;
+  margin: 0 auto;
+}
+
+.catalog-row {
+  padding-top: 1em;
+  padding-bottom: 1.5em;
+  position: relative;
+  background: #add2e0;
+}
+.catalog-row h3 {
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.35em;
+  color: #555;
+}
+.catalog-row p {
+  font-size: 1.1em;
+  line-height: 1.5em;
+  text-align: center;
+}
+.catalog-row .banner-interior {
+  padding: 1.75em 1em;
+}
