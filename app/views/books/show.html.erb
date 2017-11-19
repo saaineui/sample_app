@@ -1,6 +1,6 @@
     <% content_for :page_styles do %>
-      body { background-image: url('<%= @book.background_image_url %>'); }
-    <% end if @book.background_image_url.present? %>
+      body { <%= @book.background_image %> }
+    <% end %>
 
      <div id="scroll-wrap">
         <div id="ebook">

@@ -82,6 +82,14 @@ describe("BookScroll", function() {
     BookScroll.initialize_data(short_chapter);
     expect(BookScroll.compute_anchor()).toEqual( 0 );
   });
+
+  it("#compute_anchor handles out of bounds scroll value", function() {
+    BookScroll.update('scroll', -10);
+    expect(BookScroll.compute_anchor()).toEqual( 0 );
+
+    BookScroll.update('scroll', 100);
+    expect(BookScroll.compute_anchor()).toEqual( 5 );
+  });
   
   it("#compute_anchor outputs zero-indexed page number", function() {
     expect(BookScroll.compute_anchor()).toEqual( 0 );

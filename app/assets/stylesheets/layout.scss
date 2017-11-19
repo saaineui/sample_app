@@ -53,6 +53,14 @@ p { position: relative; text-align: left; }
 a, a:visited, input[type=submit] { font-weight: 700; color: $dk-primary; text-decoration: none; }
 a:hover, a:active, .here, input[type=submit]:hover { color: #ccc; }
 
+input[type="button"], input[type="submit"], input[type="reset"], input[type="file"]::-webkit-file-upload-button, button {
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	outline: none;
+}
+
+	
 header#sticky-bar > nav {
     h1, p { display: block; }
     h1 { width: 50%; float: left; text-align: left; }
@@ -121,6 +129,7 @@ figure.help-icon {
 	@include box_sizing;
 	position: relative;
 	background: #fff;
+	border: 1px solid #f8f8f8;
 }
     body.books.show #wrapper { background: $books-bg-color; }
     body.home #wrapper, body.help #wrapper { min-height: 0px; padding-bottom: 1em; }
@@ -252,12 +261,14 @@ section.banner {
   padding-top: 1em;
   padding-bottom: 1.5em;
   position: relative;
+  background-position: center 0px;
+  background-repeat: repeat;
 }
-.catalog-row:nth-child(5n-4) { background: #add2e0; }
-.catalog-row:nth-child(5n-3) { background: #8fb2f3; }
-.catalog-row:nth-child(5n-2) { background: #99bdff; }
-.catalog-row:nth-child(5n-1) { background: #87c9e1; }
-.catalog-row:nth-child(5n) { background: #d9e2f4; }
+.catalog-row:nth-child(5n-4) { background-color: #8fb2f3; }
+.catalog-row:nth-child(5n-3) { background-color: #99bdff; }
+.catalog-row:nth-child(5n-2) { background-color: #87c9e1; }
+.catalog-row:nth-child(5n-1) { background-color: #add2e0; }
+.catalog-row:nth-child(5n) { background-color: #bfe6ff; }
 img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
 img.faux-book:hover { 
   transform: rotate(-5deg); 
@@ -311,6 +322,18 @@ input[type=text], input[type=email], input[type=password], textarea {
     box-shadow: 0px 0px 3px $dk-primary;
     padding: 0.5em;
   }
+}
+input[type="file"]::-webkit-file-upload-button {
+  background-color: $lt-primary;
+  border-color: $dk-secondary;
+  color: $dk-primary;
+  &:hover, &:focus {
+    color: #ccc;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    }
 }
 textarea { height: 180px; }
 div.field_with_errors { display: inline; font-size: 1em; color: $dk-primary; input { border: 1px solid $dk-primary; } }

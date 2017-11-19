@@ -79,6 +79,10 @@ class Book < ApplicationRecord
     sample_sections.first(6).map(&:clean_sample)
   end
   
+  def background_image
+    "background-image: url(#{background_image_url});" if background_image_url 
+  end
+
   private
   
   def sample_sections

@@ -38,6 +38,12 @@ body {
   font-weight: 400;
 }
 
+h1 {
+	font-weight: 300;
+	font-size: 2em;
+	margin: 0;
+}
+
 p {
   position: relative;
   text-align: left;
@@ -123,13 +129,14 @@ section.banner p {
   max-width: 100%;
   padding: 1em;
   margin: 0 auto;
+  min-height: 320px;
 }
 
 .catalog-row {
   padding-top: 1em;
   padding-bottom: 1.5em;
   position: relative;
-  background: #add2e0;
+  background: #8fb2f3;
 }
 .catalog-row h3 {
   text-align: left;

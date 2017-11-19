@@ -8,7 +8,8 @@ module BooksHelper
   
   def link_to_previous(book, location) 
     return nil if location <= 0
-    link_to previous_icon, open_book_path(book, location - 1), id: 'back-btn', rel: 'Back'
+    path_options = location <= Book::SKIPS ? {} : { scroll: 100 }
+    link_to previous_icon, open_book_path(book, location - 1, path_options), id: 'back-btn', rel: 'Back'
   end
   
   def next_icon

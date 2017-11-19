@@ -98,18 +98,32 @@
             function compute_anchor() {
                 if (!is_multipage()) { return 0; } // short pages have no scroll
               
-                var estimated_anchor = Math.floor((data.content_height * data.scroll * 0.01) / data.scroll_interval);
-                var scroll_diff = compute_scroll(estimated_anchor, data.max_clicks) - data.scroll;
+                normalize_scroll();
+            
+		var est_anchor = estimated_anchor();
+                var scroll_diff = compute_scroll(est_anchor, data.max_clicks) - data.scroll;
 
-                if (scroll_diff === 0) { return estimated_anchor; } // exact match found
+                if (scroll_diff === 0) { return est_anchor; } // exact match found
                 
-                var scroll_diff_next_anchor = compute_scroll(estimated_anchor + 1, data.max_clicks) - data.scroll;
+                var scroll_diff_next_anchor = compute_scroll(est_anchor + 1, data.max_clicks) - data.scroll;
               
-                if (Math.abs(scroll_diff) < Math.abs(scroll_diff_next_anchor)) {
-                    return estimated_anchor;
+                if (est_anchor == data.max_clicks || Math.abs(scroll_diff) < Math.abs(scroll_diff_next_anchor)) {
+                    return est_anchor;
                 } else {
-                    return estimated_anchor + 1;
+                    return est_anchor + 1;
                 }
+            }
+
+	    function estimated_anchor() {
+	        return Math.floor((data.content_height * data.scroll * 0.01) / data.scroll_interval);    
+	    }
+
+	    function normalize_scroll() {
+		if (data.scroll < 0) { 
+		    update('scroll', 0);  
+		} else if (estimated_anchor() > data.max_clicks) { 
+		    update('scroll', compute_scroll(data.max_clicks, data.max_clicks)); 
+		}
             }
           
             // compute upper bound for scroll
