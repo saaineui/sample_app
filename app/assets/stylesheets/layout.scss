@@ -129,10 +129,11 @@ figure.help-icon {
 	@include box_sizing;
 	position: relative;
 	background: #fff;
-	border: 1px solid #f8f8f8;
+	border-left: 1px solid #f8f8f8;
+	border-right: 1px solid #f8f8f8;
 }
     body.books.show #wrapper { background: $books-bg-color; }
-    body.home #wrapper, body.help #wrapper { min-height: 0px; padding-bottom: 1em; }
+    body.home #wrapper, body.help #wrapper { min-height: 0px; padding-bottom: 1em; border: 0px; }
 
 
 ul {
