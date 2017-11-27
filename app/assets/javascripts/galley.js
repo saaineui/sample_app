@@ -6,6 +6,7 @@ $(document).ready(function() {
     var page_height = parseInt( $(".page").first().height() );
     var line_height = parseInt( $("#ebook p").css("line-height") );
     var page_positions = ["FL","FR","BL","BR"];
+    var auto_resize_images = window.location.pathname.match('galley') !== null;
   
     $('#page_height').val( page_height );
     $('#line_height').val( line_height );
@@ -103,9 +104,12 @@ $(document).ready(function() {
         $( ".page" ).each(function( index ) {
             var section_order = $(this).attr('data-order');
             $(this).find("img").each(function( n ){
+              if (auto_resize_images) {
                 GalleyImages.shrink_to_print_size.call(this); // print resolution
-                GalleyImages.align_image.call(this, line_height, page_height);
-                make_image($(this).attr('src'), $(this).css('height'), $(this).css("margin-top"), $(this).css("margin-bottom"), section_order, n, $(this).parent().prop('nodeName'));
+              }
+              
+              GalleyImages.align_image.call(this, line_height, page_height);
+              make_image($(this).attr('src'), $(this).css('height'), $(this).css("margin-top"), $(this).css("margin-bottom"), section_order, n, $(this).parent().prop('nodeName'));
             });
         
             // new section: create blank pages until slot is on right

@@ -272,9 +272,10 @@ section.banner {
 .catalog-row:nth-child(5n) { background-color: #bfe6ff; }
 img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
 img.faux-book:hover { 
-  transform: rotate(-5deg); 
-  -moz-transform: rotate(-5deg); 
-  -webkit-transform: rotate(-5deg); 
+  transform: rotate(360deg);
+  transition: transform 600ms ease; 
+  -moz-transform: rotate(360deg); 
+  -webkit-transform: rotate(360deg); 
 }
 .book-title { font-size: 20px; text-transform: uppercase; font-weight: 700; color: #333; }
 p.sample { @include round_corners; color: #555; padding: 1em; background: #f8f8f8; }

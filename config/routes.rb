@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get 'upload'
       get 'galley'
       post 'print'
+      get 'illustrated'
+      post 'i9d_print'
     end
   end
 

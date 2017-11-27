@@ -1,4 +1,4 @@
-<% content_for :stylesheet { stylesheet_link_tag 'galley', media: 'all' } %>
+<% content_for :stylesheet { stylesheet_link_tag 'illustrated', media: 'all' } %>
 
 <style>
 <% @single_images.each do |image| %>
@@ -16,7 +16,7 @@
 
 <div class="screen-only centered">
     <h3><%= @title[:subtitle] %></h3>
-    <p><%= link_to 'Back to Preview', galley_book_path(@book) %></p>
+    <p><%= link_to 'Back to Preview', illustrated_book_path(@book) %></p>
 </div>
 <div id="ebook">
     <%- @pages.each_with_index do |page, index| %>
