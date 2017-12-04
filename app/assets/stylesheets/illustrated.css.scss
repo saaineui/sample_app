@@ -1,0 +1,65 @@
+$line-height: 20px;
+$page-height: 680px;
+$text-width: 5.5in;
+$sidebar-width: 0.75in;
+$sidebar-line-height: 0.1in;
+$page-width: $text-width+$sidebar-width;
+
+@import "global";
+@import "books";
+@import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
+
+body { margin: 0; padding: 0; font-family: Baskerville, Garamond, serif; }
+
+#wrapper { width: $page-width*2; margin: 0 auto; padding: 0 0.01in 0 0; }
+
+.spread { position: relative; width: 100%; page-break-after: always; margin-bottom: $line-height*2; }
+
+.page { position: relative; width: $page-width; height: $page-height; overflow-y: hidden; float: left; }
+
+    .rendered-text { width: $text-width; position: absolute; top: 0in; }
+        .page:last-child .rendered-text { left: $sidebar-width; }
+        .page:first-child .rendered-text { left: 0in; }
+
+    .sidebar { position: absolute; height: $sidebar-width; width: $page-height; text-align: center; padding-top: ($sidebar-width - $sidebar-line-height) * 0.5; font-size: $sidebar-line-height; line-height: $sidebar-line-height; box-sizing: border-box; }
+        .page:last-child .sidebar { transform-origin: 0in 0in; left: $sidebar-width; transform: rotate(90deg); }
+        .page:first-child .sidebar { transform-origin: $page-height 0in; left: auto; right: $sidebar-width; transform: rotate(-90deg); }
+
+#ebook section { 
+		padding-top: 0;
+}
+#ebook h1 { 
+    font-family: Bungee Shade, sans-serif;
+    font-size: $line-height*1.65;
+    line-height: $line-height*2;
+    text-align: center;
+    width: 100%; 
+    float: none; 
+    text-transform: uppercase;
+}
+#ebook h1, .epigraph-wrap { margin-top: $line-height*8; }
+#ebook figure:before, #ebook figure:after, #ebook h2:before, #ebook h2:after {
+	  content: " "; /* 1 */
+	  display: table; /* 2 */
+}
+#ebook figure:after, #ebook h2:after {
+	  clear: both;
+}
+.epigraph-wrap { position: relative; }
+#ebook header {
+  padding: $line-height*9 0 0 0;
+}
+#ebook h2 { font-size: $line-height*1.65; line-height: $line-height*2; padding: 0 1in; margin: 0; }
+#ebook p, #ebook li { font-size: $line-height*0.75; }
+#ebook img { height: $page-height - $line-height*2; max-width: none; width: auto; display: block; margin: 0 auto; box-sizing: border-box; border: 0.08in solid #000; }
+
+@media only print {
+    .spread { 
+        margin-bottom: 0px;
+    }
+}
+
+/* Test Classes */
+.fake-textbox { width: 100%; height: 650px; }
+#ebook img.fake-image { width: 100px; height: 98px; }
+.fake-figure { width: 100%; height: 98px; }

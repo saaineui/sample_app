@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
-  skip_before_action :require_login, only: %i[show galley print]
-  skip_before_action :require_admin, only: %i[show galley print]
-  before_action :find_book_or_redirect, only: %i[show edit update destroy galley print upload]
+  skip_before_action :require_login, only: %i[show galley print illustrated i9d_print]
+  skip_before_action :require_admin, only: %i[show galley print illustrated i9d_print]
+  before_action :find_book_or_redirect, except: %i[index new create]
   
   def index
     @books = Book.all
@@ -61,6 +61,19 @@ class BooksController < ApplicationController
   end
   
   def print
+    @page_height = params[:page_height].to_i
+    @title = { subtitle: "#{@book.title} - Print #{params[:position]}" }
+    @pages = processed_pages
+    @single_images, @multiple_images = processed_images
+    render layout: '/layouts/galley' # plain styling
+  end
+  
+  def illustrated
+    @title = { subtitle: "#{@book.title} - Galleys" }
+    render layout: '/layouts/galley'
+  end
+  
+  def i9d_print
     @page_height = params[:page_height].to_i
     @title = { subtitle: "#{@book.title} - Print #{params[:position]}" }
     @pages = processed_pages
