@@ -38,7 +38,7 @@ body {
 	font-family: $main-font-family;
 	font-size:1em;
 	text-align:center;
-	background-image: asset-url('silhouettes_pale.png');
+	background-image: asset-url('spineless_bg_invert.png');
 	background-position: center 0px;
 	background-repeat: repeat;
 	font-weight: 400;
@@ -234,17 +234,13 @@ a.user-bookmark {
 section.banner { 
   display: block;
   position: relative; 
-  background: asset-url('silhouettes.png') center bottom repeat; 
+  background: asset-url('spineless_bg.png') center bottom repeat; 
   width: 100%;
   margin: 0;
   min-height: 381px;
   @include box_sizing;
   padding: 1em;
-  color: #fff;
   h2, p { 
-    text-shadow: 0px 0px 6px $md-primary; 
-    -moz-text-shadow: 0px 0px 6px $md-primary; 
-    -webkit-text-shadow: 0px 0px 6px $md-primary; 
     text-align: left;
   }
   h2 { font-weight: 700; font-size: 3em; }
@@ -262,20 +258,14 @@ section.banner {
   padding-top: 1em;
   padding-bottom: 1.5em;
   position: relative;
-  background-position: center 0px;
-  background-repeat: repeat;
 }
-.catalog-row:nth-child(5n-4) { background-color: #8fb2f3; }
-.catalog-row:nth-child(5n-3) { background-color: #99bdff; }
-.catalog-row:nth-child(5n-2) { background-color: #87c9e1; }
-.catalog-row:nth-child(5n-1) { background-color: #add2e0; }
-.catalog-row:nth-child(5n) { background-color: #bfe6ff; }
+.catalog-row:nth-child(2n) {
+  background: asset-url('spineless_bg.png') center bottom repeat; 
+}
 img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
 img.faux-book:hover { 
-  transform: rotate(360deg);
-  transition: transform 600ms ease; 
-  -moz-transform: rotate(360deg); 
-  -webkit-transform: rotate(360deg); 
+  box-shadow: 0px -18px 0px $dk-primary, 18px 0px 0px $dk-primary, 18px -18px 0px $dk-primary; 
+  transition: box-shadow 500ms ease;
 }
 .book-title { font-size: 20px; text-transform: uppercase; font-weight: 700; color: #333; }
 p.sample { @include round_corners; color: #555; padding: 1em; background: #f8f8f8; }
