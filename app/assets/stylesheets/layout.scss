@@ -4,6 +4,7 @@ $dk-primary: #2b71f2; // blue
 $md-primary: #79a4f2;
 $lt-primary: #e1eafa;
 $dk-secondary: #67c9bb; // teal
+$lt-gray: #efefef;
 $books-bg-color: #fff;
 $main-font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
 
@@ -22,7 +23,7 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
   margin: 18px 18px 0px 0px; 
   clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
   -webkit-clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
-  box-shadow: 0px -18px 0px #ccc, 18px 0px 0px #ccc, 18px -18px 0px #ccc; 
+  box-shadow: 0px -18px 0px $lt-primary, 18px 0px 0px $lt-primary, 18px -18px 0px $lt-primary; 
 }
 
 /* End Meta Stuff */
@@ -38,9 +39,7 @@ body {
 	font-family: $main-font-family;
 	font-size:1em;
 	text-align:center;
-	background-image: asset-url('spineless_bg_invert.png');
-	background-position: center 0px;
-	background-repeat: repeat;
+	background: linear-gradient(to bottom right, $lt-primary, $md-primary);
 	font-weight: 400;
 }
 body.home, body.help { background-image: none; }
@@ -234,7 +233,7 @@ a.user-bookmark {
 section.banner { 
   display: block;
   position: relative; 
-  background: asset-url('spineless_bg.png') center bottom repeat; 
+	background: linear-gradient(to bottom right, #fff, $md-primary);
   width: 100%;
   margin: 0;
   min-height: 381px;
@@ -260,16 +259,16 @@ section.banner {
   position: relative;
 }
 .catalog-row:nth-child(2n) {
-  background: asset-url('spineless_bg.png') center bottom repeat; 
+	background: linear-gradient(to bottom right, #fff, $md-primary);
 }
 img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
 img.faux-book:hover { 
-  box-shadow: 0px -18px 0px $dk-primary, 18px 0px 0px $dk-primary, 18px -18px 0px $dk-primary; 
-  transition: box-shadow 500ms ease;
+  box-shadow: 0px -18px 0px $lt-gray, 18px 0px 0px $lt-gray, 18px -18px 0px $lt-gray; 
+  filter: saturate(0%) brightness(105%);
 }
-.book-title { font-size: 20px; text-transform: uppercase; font-weight: 700; color: #333; }
-p.sample { @include round_corners; color: #555; padding: 1em; background: #f8f8f8; }
-p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: $md-primary; }
+.book-title { font-size: 24px; font-weight: 700; color: #333; }
+p.sample { color: #555; padding: 1em; background: rgba(240, 240, 240, 0.5); }
+p.sample span { @include drop_cap; }
 
 .btn.icon-btn { 
   position: relative; 
@@ -278,9 +277,9 @@ p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: $
   .primary-icon-head { 
     @include box_sizing;
     position: absolute; width: 100%; top: 0; left: 0; 
-    background: $dk-primary;
-    color: #fff;
     padding: 0.5em 1em;
+    color: #fff;
+    background-color: $dk-primary;
   }
 }
 .icon-btn-icon { 
@@ -290,7 +289,6 @@ p.sample span { @include drop_cap; font-family: Times New Roman, serif; color: $
 .book-bottom {
   fill: $md-primary;
 }
-a.btn.icon-btn:hover .primary-icon-head { background: #ccc; }
 
 /* Help */
 article#help {
