@@ -23,7 +23,7 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
   margin: 18px 18px 0px 0px; 
   clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
   -webkit-clip-path: polygon(0% 0%, 18px -18px, 108% -18px, 108% 95%, 100% 100%, 0% 100%);
-  box-shadow: 0px -18px 0px $lt-primary, 18px 0px 0px $lt-primary, 18px -18px 0px $lt-primary; 
+  box-shadow: 0px -18px 0px $md-primary, 18px 0px 0px $md-primary, 18px -18px 0px $md-primary; 
 }
 
 /* End Meta Stuff */
@@ -39,7 +39,7 @@ body {
 	font-family: $main-font-family;
 	font-size:1em;
 	text-align:center;
-	background: linear-gradient(to bottom right, $lt-primary, $md-primary);
+	background: linear-gradient(to bottom right, $dk-secondary, $md-primary);
 	font-weight: 400;
 }
 body.home, body.help { background-image: none; }
@@ -233,7 +233,7 @@ a.user-bookmark {
 section.banner { 
   display: block;
   position: relative; 
-	background: linear-gradient(to bottom right, #fff, $md-primary);
+	background: linear-gradient(to bottom right, $dk-secondary, $md-primary);
   width: 100%;
   margin: 0;
   min-height: 381px;
@@ -259,7 +259,7 @@ section.banner {
   position: relative;
 }
 .catalog-row:nth-child(2n) {
-	background: linear-gradient(to bottom right, #fff, $md-primary);
+//	background: linear-gradient(to bottom right, #fff, $md-primary);
 }
 img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
 img.faux-book:hover { 
@@ -280,6 +280,13 @@ p.sample span { @include drop_cap; }
     padding: 0.5em 1em;
     color: #fff;
     background-color: $dk-primary;
+  }
+  
+  &:hover {
+    .primary-icon-head { 
+      background-color: $dk-secondary;
+      transition: all 0.20s ease-out;
+    }
   }
 }
 .icon-btn-icon { 

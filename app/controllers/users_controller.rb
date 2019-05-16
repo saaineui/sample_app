@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @title = { subtitle: 'Sign Up' }
+    @title = { subtitle: 'Sign up for spineless' }
   end
   
   def create
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       flash[:success] = 'That was easy. Happy reading!'
       redirect_to @user
     else
-      @title = { subtitle: 'Sign Up' }
+      @title = { subtitle: 'Sign up for spineless' }
       render 'new'
     end
   end
