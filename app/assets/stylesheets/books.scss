@@ -26,6 +26,10 @@ $highlight: yellow;
 	img {
 		max-width: 100%;
 		height: auto;
+    
+    &.book-cover {
+      max-width: 390px;
+    }
 	}
 	figure {
 		margin: $line-height 0;

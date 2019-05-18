@@ -261,11 +261,55 @@ section.banner {
 .catalog-row:nth-child(2n) {
 //	background: linear-gradient(to bottom right, #fff, $md-primary);
 }
-img.faux-book { width: 64%; height: auto; @include faux_3d_book; }
-img.faux-book:hover { 
-  box-shadow: 0px -18px 0px $lt-gray, 18px 0px 0px $lt-gray, 18px -18px 0px $lt-gray; 
-  filter: saturate(0%) brightness(105%);
+
+.catalog a.block-link,
+img.faux-book,
+img.book-thumb { 
+  display: block;
+  position: relative;
 }
+
+img.faux-book,
+img.book-thumb { 
+  width: 100%; 
+  height: auto; 
+}
+ 
+.catalog a.block-link {
+  width: 62%; 
+
+  &::after {
+    display: block;
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $dk-secondary;
+    opacity: 0;
+  }
+  
+  &:hover {
+    img.faux-book,
+    img.book-thumb { 
+      filter: saturate(0%) brightness(105%);
+    }
+    
+    &::after {
+      opacity: 0.6;
+    }
+  }
+}
+
+img.faux-book { 
+  @include faux_3d_book; 
+  
+  &:hover { 
+    box-shadow: 0px -18px 0px $lt-gray, 18px 0px 0px $lt-gray, 18px -18px 0px $lt-gray;
+  }
+}
+  
 .book-title { font-size: 24px; font-weight: 700; color: #333; }
 p.sample { color: #555; padding: 1em; background: rgba(240, 240, 240, 0.5); }
 p.sample span { @include drop_cap; }

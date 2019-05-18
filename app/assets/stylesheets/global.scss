@@ -11,6 +11,9 @@
 /* Slow Animations */
 a, a img, nav, li, .close, path, line { transition-property: all; transition-duration: 0.20s; transition-timing-function: ease-out; -webkit-transition-property: all; -webkit-transition-duration: 0.20s; -webkit-transition-timing-function: ease-out; -moz-transition-property: all; -moz-transition-duration: 0.20s; -moz-transition-timing-function: ease-out; -o-transition-property: all; -o-transition-duration: 0.20s; -o-transition-timing-function: ease-out; }
 
+a.block-link {
+  display: block;
+}
 
 @media only print {
     .screen-only { display: none; }
