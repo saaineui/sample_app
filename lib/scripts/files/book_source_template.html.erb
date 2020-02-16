@@ -4,7 +4,7 @@
     <h2><%= chapter[:id] %>.</h2>
     <h3><%= chapter[:title] %></h3>
   </header>
-  <%= chapter[:text] %>
+  <%= BookSourceBot.clean_chapter(chapter[:text]) %>
 </section>
 <% end %>
 

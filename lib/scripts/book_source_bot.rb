@@ -7,43 +7,36 @@ require_relative 'scripts_constants'
 module BookSourceBot
   module_function
 
-  def scrape_posts(filename)
+  def generate_files(csv_filename)
+    items = scrape_books(csv_filename)
+
+    items.each do |item|
+      book_source_file = File.open('lib/scripts/files/book_source_template.html.erb').read
+      book_source_file = ERB.new(book_source_file)
+
+      book_source_file_path = "lib/scripts/book_source_files/#{encode_title(item[:title])}.html"
+
+      out_file = File.new(book_source_file_path, "w")
+      out_file.puts(book_source_file.result(binding))
+      out_file.close
+
+      puts "# #{encode_title(item[:title])}.html has been created"
+    end
+  end
+
+  def scrape_books(csv_filename)
     headers = []
     items = []
 
-    CSV.foreach("lib/assets/#{filename}.csv").with_index do |row, index|
+    CSV.foreach("lib/assets/#{csv_filename}.csv").with_index do |row, index|
       url = row.first
       item = new_book_source_item(url)
-      item = scrape_post(item)
-
-      puts "# Post #{url} has been normalized"
+      item = scrape_book(item)
 
       items << item
     end
 
     return items
-  end
-
-  def generate_import_files(codes, source_url)
-    items = scrape_posts(codes[:country])
-
-    posts_erb = File.open('templates/posts.xml.erb').read
-    posts_erb = ERB.new(posts_erb)
-
-    num_import_files = items.length / Constants::MAX_POSTS_PER_IMPORT_FILE + 1
-
-    (1..num_import_files).each do |file_index|
-      import_file_path = "import_files/sl_posts_#{codes[:country]}_#{file_index}.xml"
-      items_set_start = (file_index - 1) * Constants::MAX_POSTS_PER_IMPORT_FILE
-      items_set_end = num_import_files == file_index ? -1 : file_index * Constants::MAX_POSTS_PER_IMPORT_FILE - 1
-      items_set = items[items_set_start..items_set_end]
-
-      out_file = File.new(import_file_path, "w")
-      out_file.puts(posts_erb.result(binding))
-      out_file.close
-
-      puts "# #{import_file_path} has been created"
-    end
   end
 
   def scrape_book(item)
@@ -60,11 +53,6 @@ module BookSourceBot
     end
 
     if book.respond_to?(:css)
-      bookmeta = {
-        title: '',
-        chapters: [],
-      }
-
       item[:title] = get_book_title(book)
 
       item[:chapters] = book.css('.toc a').map.with_index do |toc_link, index|
@@ -97,7 +85,7 @@ module BookSourceBot
       end
     end # end if book.respond_to?(:css)
 
-    puts "# Scraped #{item[:url]}"
+    puts "# Scraped #{item[:title]} - #{item[:url]}"
 
     item
   end
@@ -112,10 +100,14 @@ module BookSourceBot
   
   ## helper functions
   def get_book_title(book)
-    return '' if book.css('h1').empty?
+    return 'untitled' if book.css('h1').empty?
     
     title = book.css('h1').first.text.downcase.titleize 
     trim_content(title)
+  end
+  
+  def encode_title(title)
+    title.downcase.gsub(/\W/, '-')
   end
   
   def get_chapter_title(node)
@@ -136,5 +128,9 @@ module BookSourceBot
 
   def skip_node?(node)
     node.content.empty? || node.matches?('h2')
+  end
+  
+  def clean_chapter(chapter_text)
+    chapter_text = chapter_text.gsub(/ ?\[.+\]( ?)/, '\1')
   end
 end

@@ -1,5 +1,6 @@
 require 'test_helper'
 require_relative '../../lib/scripts/book_source_bot'
+require_relative '../../lib/scripts/scripts_constants'
 require_relative '../fixtures/peter_pan_chapters'
 
 class BookSourceBotTest < ActiveSupport::TestCase
@@ -8,7 +9,7 @@ class BookSourceBotTest < ActiveSupport::TestCase
   NIL_STUB = {
     url: '',
     title: '',
-    chapters: [],
+    chapters: []
   }
   TEST_BOOK_SOURCE_ITEM_STUB = {
     url: TEST_URL,
@@ -20,14 +21,24 @@ class BookSourceBotTest < ActiveSupport::TestCase
     title: 'Peter Pan',
     chapters: PETER_PAN_CHAPTERS
   }
+  
+  def clean_html(html)
+    html = html.gsub(/\s+/, ' ')
+    html = html.gsub(/[ \t]+<([^i])/, '<\1')
+    html = html.gsub(/<(p|h3|div|pre)( class="[\w -]+")?>[ \t]+/, '<\1\2>')
+    html = html.gsub(/<\/p></, "</p>#{ScriptsConstants::LINE_BREAK}<")
+    html = html.gsub(/<\/pre></, "</pre>#{ScriptsConstants::LINE_BREAK}<")
+    html = html.gsub(/<\/h3></, "</h3>#{ScriptsConstants::LINE_BREAK}<")
+    html = html.gsub(/<\/div></, "</div>#{ScriptsConstants::LINE_BREAK}<")
+  end
 
   test '#new_book_source_item handles nil' do
     assert_equal NIL_STUB, BookSourceBot.new_book_source_item() 
   end
 
-  test '#new_book_source_item creates a new item stub from url' do
-    assert_equal TEST_BOOK_SOURCE_ITEM_STUB, BookSourceBot.new_book_source_item(TEST_URL)
-  end
+#  test '#new_book_source_item creates a new item stub from url' do
+#    assert_equal TEST_BOOK_SOURCE_ITEM_STUB, BookSourceBot.new_book_source_item(TEST_URL)
+#  end
 
   test '#scrape_book handles nil item_url' do
     item = {
@@ -49,14 +60,12 @@ class BookSourceBotTest < ActiveSupport::TestCase
     assert_equal TEST_BOOK_SOURCE_ITEM, BookSourceBot.scrape_book(TEST_BOOK_SOURCE_ITEM_STUB)
   end
 
-#  test '#generate_import_file creates a file matching our sample' do
-#    BookSourceBot.generate_import_files(TEST_CODES_SCRAPER, TEST_URL_SCRAPER)
-#
-#    books_sample = File.open('spec/fixtures/books_smartling.xml').read.gsub(/( |\t)/, '')
-#    books_zd = File.open('import_files/sl_books_zd_1.xml').read.gsub(/( |\t)/, '')
-#
-#    expect(books_sample).to eq(books_zd)
-#
-#    File.delete('import_files/sl_books_zd_1.xml')
-#  end
+  test '#generate_files creates a file matching our sample' do
+    BookSourceBot.generate_files('test')
+
+    book_fixture = clean_html(File.open('test/fixtures/files/peter-pan.html').read)
+    book_generated = clean_html(File.open('lib/scripts/book_source_files/peter-pan.html').read)
+
+    assert_equal book_fixture, book_generated
+  end
 end
