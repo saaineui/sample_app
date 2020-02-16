@@ -65,7 +65,7 @@ module BookSourceBot
         chapters: [],
       }
 
-      bookmeta[:title] = book.css('h1').first.text unless book.css('h1').empty?
+      item[:title] = get_book_title(book)
 
       item[:chapters] = book.css('.toc a').map.with_index do |toc_link, index|
         chapter_text = ''
@@ -75,19 +75,23 @@ module BookSourceBot
         node = chapter_anchor.parent.next
         
         until end_of_chapter?(node) do
-          if chapter_text == ''
-            node.add_class('first')
-            node.add_class('first-of-chapter')
-          end
+          node.content = trim_content(node.content)
           
-          chapter_text += node.to_html
+          unless skip_node?(node)
+            if chapter_text == ''
+              node = node.add_class('first')
+              node = node.add_class('first-of-chapter')
+            end
+
+            chapter_text += node.to_html + ScriptsConstants::LINE_BREAK
+          end
           
           node = node.next
         end
         
         {
           id: index + 1,
-          title: toc_link.text,
+          title: get_chapter_title(toc_link),
           text: chapter_text
         }
       end
@@ -107,7 +111,30 @@ module BookSourceBot
   end
   
   ## helper functions
+  def get_book_title(book)
+    return '' if book.css('h1').empty?
+    
+    title = book.css('h1').first.text.downcase.titleize 
+    trim_content(title)
+  end
+  
+  def get_chapter_title(node)
+    title = node.text.downcase.titleize 
+    title = trim_content(title)
+    title.gsub(/chapter\s+\d+\s+/i, '')
+  end
+  
   def end_of_chapter?(node)
-    node.nil? || node.children.any? { |child| child.matches?('a[name]') }
+    node.nil? || node.children.any? { |child| child.matches?('a[name]') } ||
+      /Project Gutenberg EBook/.match(node.content)
+  end
+  
+  def trim_content(content)
+    content.gsub(/^\s+|\s+$/, '')
+           .gsub(/\s+/, ' ')
+  end
+
+  def skip_node?(node)
+    node.content.empty? || node.matches?('h2')
   end
 end

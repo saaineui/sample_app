@@ -21,12 +21,12 @@ class BookSourceBotTest < ActiveSupport::TestCase
     chapters: PETER_PAN_CHAPTERS
   }
 
-  test '#new_book_source_item handles nil url' do
-    assert_equal BookSourceBot.new_book_source_item(), NIL_STUB
+  test '#new_book_source_item handles nil' do
+    assert_equal NIL_STUB, BookSourceBot.new_book_source_item() 
   end
 
   test '#new_book_source_item creates a new item stub from url' do
-    assert_equal BookSourceBot.new_book_source_item(TEST_URL), TEST_BOOK_SOURCE_ITEM_STUB
+    assert_equal TEST_BOOK_SOURCE_ITEM_STUB, BookSourceBot.new_book_source_item(TEST_URL)
   end
 
   test '#scrape_book handles nil item_url' do
@@ -34,7 +34,7 @@ class BookSourceBotTest < ActiveSupport::TestCase
       url: nil
     }
 
-    assert_equal BookSourceBot.scrape_book(item), item
+    assert_equal item, BookSourceBot.scrape_book(item)
   end
 
   test '#scrape_book handles 404' do
@@ -42,11 +42,11 @@ class BookSourceBotTest < ActiveSupport::TestCase
       url: 'https://www.gutenberg.org/notapage',
     }
 
-    assert_equal BookSourceBot.scrape_book(item), item
+    assert_equal item, BookSourceBot.scrape_book(item)
   end
 
   test '#scrape_book returns item matching our sample' do
-    assert_equal BookSourceBot.scrape_book(TEST_BOOK_SOURCE_ITEM_STUB), TEST_BOOK_SOURCE_ITEM
+    assert_equal TEST_BOOK_SOURCE_ITEM, BookSourceBot.scrape_book(TEST_BOOK_SOURCE_ITEM_STUB)
   end
 
 #  test '#generate_import_file creates a file matching our sample' do

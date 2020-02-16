@@ -3,4 +3,7 @@ module ScriptsConstants
     title: '',
     chapters: [],
   }
+  
+  LINE_BREAK = '
+'
 end
