@@ -6,20 +6,26 @@ require_relative '../fixtures/peter_pan_chapters'
 class BookSourceBotTest < ActiveSupport::TestCase
   TEST_CSV = 'test'
   TEST_URL = 'https://www.gutenberg.org/files/16/16-h/16-h.htm'
+  TEST_TOC_SELECTOR = '.toc a'
+  DEFAULT_TOC_SELECTOR = 'td a'
+  
   NIL_STUB = {
     url: '',
     title: '',
-    chapters: []
+    chapters: [],
+    toc_selector: DEFAULT_TOC_SELECTOR,
   }
   TEST_BOOK_SOURCE_ITEM_STUB = {
     url: TEST_URL,
     title: '',
-    chapters: []
+    chapters: [],
+    toc_selector: TEST_TOC_SELECTOR,
   }
   TEST_BOOK_SOURCE_ITEM = {
     url: TEST_URL,
     title: 'Peter Pan',
-    chapters: PETER_PAN_CHAPTERS
+    chapters: PETER_PAN_CHAPTERS,
+    toc_selector: TEST_TOC_SELECTOR
   }
   
   def clean_html(html)
@@ -36,13 +42,19 @@ class BookSourceBotTest < ActiveSupport::TestCase
     assert_equal NIL_STUB, BookSourceBot.new_book_source_item() 
   end
 
-#  test '#new_book_source_item creates a new item stub from url' do
-#    assert_equal TEST_BOOK_SOURCE_ITEM_STUB, BookSourceBot.new_book_source_item(TEST_URL)
-#  end
+  test '#new_book_source_item creates a new item stub from row' do
+    row = [
+      TEST_URL,
+      TEST_TOC_SELECTOR
+      ]
+    
+    assert_equal TEST_BOOK_SOURCE_ITEM_STUB, BookSourceBot.new_book_source_item(row)
+  end
 
   test '#scrape_book handles nil item_url' do
     item = {
-      url: nil
+      url: '',
+      toc_selector: DEFAULT_TOC_SELECTOR
     }
 
     assert_equal item, BookSourceBot.scrape_book(item)
@@ -51,6 +63,7 @@ class BookSourceBotTest < ActiveSupport::TestCase
   test '#scrape_book handles 404' do
     item = {
       url: 'https://www.gutenberg.org/notapage',
+      toc_selector: DEFAULT_TOC_SELECTOR
     }
 
     assert_equal item, BookSourceBot.scrape_book(item)

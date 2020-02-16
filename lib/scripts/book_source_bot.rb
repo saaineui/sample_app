@@ -29,8 +29,7 @@ module BookSourceBot
     items = []
 
     CSV.foreach("lib/assets/#{csv_filename}.csv").with_index do |row, index|
-      url = row.first
-      item = new_book_source_item(url)
+      item = new_book_source_item(row)
       item = scrape_book(item)
 
       items << item
@@ -55,26 +54,28 @@ module BookSourceBot
     if book.respond_to?(:css)
       item[:title] = get_book_title(book)
 
-      item[:chapters] = book.css('.toc a').map.with_index do |toc_link, index|
+      item[:chapters] = book.css(item[:toc_selector]).map.with_index do |toc_link, index|
         chapter_text = ''
         
-        chapter_anchor = book.css(toc_link.attribute('href').value).first unless toc_link.attribute('href').nil?
-        
-        node = chapter_anchor.parent.next
-        
-        until end_of_chapter?(node) do
-          node.content = trim_content(node.content)
-          
-          unless skip_node?(node)
-            if chapter_text == ''
-              node = node.add_class('first')
-              node = node.add_class('first-of-chapter')
+        unless toc_link.attribute('href').nil? || book.css(toc_link.attribute('href').value).empty?        
+          node = book.css(toc_link.attribute('href').value).first
+          node = node.parent if node.respond_to?(:parent)
+          node = node.next
+
+          until end_of_chapter?(node) do
+            node.content = trim_content(node.content)
+
+            unless skip_node?(node)
+              if chapter_text == ''
+                node = node.add_class('first')
+                node = node.add_class('first-of-chapter')
+              end
+
+              chapter_text += node.to_html + ScriptsConstants::LINE_BREAK
             end
 
-            chapter_text += node.to_html + ScriptsConstants::LINE_BREAK
+            node = node.next
           end
-          
-          node = node.next
         end
         
         {
@@ -90,11 +91,15 @@ module BookSourceBot
     item
   end
 
-  def new_book_source_item(url = '')
+  def new_book_source_item(row = [])
+    url = row.empty? ? '' : row.first
+    toc_selector = row.size > 1 ? row.last : 'td a'
+    
     item = ScriptsConstants::BOOK_SOURCE_ITEM.dup
 
     item.merge({
-      url: url
+      url: url,
+      toc_selector: toc_selector
     })
   end
   
