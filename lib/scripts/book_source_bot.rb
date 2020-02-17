@@ -22,6 +22,8 @@ module BookSourceBot
 
       puts "# #{encode_title(item[:title])}.html has been created"
     end
+    
+    items.map { |item| "#{item[:title]} had #{item[:chapters].size} chapters." }
   end
 
   def scrape_books(csv_filename)
@@ -53,14 +55,17 @@ module BookSourceBot
 
     if book.respond_to?(:css)
       item[:title] = get_book_title(book)
+      
+      book.css('span.pagenum2').each(&:remove)
 
       item[:chapters] = book.css(item[:toc_selector]).map.with_index do |toc_link, index|
         chapter_text = ''        
         chapter_start_selector = toc_link_node_to_name_selector(toc_link)
         
         unless chapter_start_selector.nil? || book.css(chapter_start_selector).empty?        
-          node = book.css(toc_link.attribute('href').value).first
-          node = node.parent if node.respond_to?(:parent)
+          node = book.css(chapter_start_selector).first
+          
+          node = node.parent if node.respond_to?(:parent) && node.parent.matches?('p, h3')
           node = node.next if node.respond_to?(:next)
 
           until end_of_chapter?(node, item[:chapter_end_selector]) do
@@ -136,13 +141,27 @@ module BookSourceBot
   def get_chapter_title(node)
     return 'no title found' if node.nil?
     
-    title = trim_content(node.text)
+    node_text = trim_content(node.text)
     
-    stripped_title = title.gsub(/chapter\s+\d+\s+/i, '')
-                          .gsub(/(Chapter\s+)?[IXCDVM]+\.\s+/, '')
+    if node_text.match?(/chapter[\b\s]+(\d+|[IXCDVM]+)[\b\s]+/i)
+      chapter_num = node_text.match(/chapter[\b\s]+(\d+|[IXCDVM]+)[\b\s]+/i)[1]
+      
+      chapter_title = {
+        h2: "Chapter #{chapter_num}",
+        h3: encode_symbols(
+              trim_content( 
+                node_text.gsub(/chapter[\b\s]+(\d+|[IXCDVM]+)[\b\s]+/i, '') 
+              ).downcase.titleize
+            )
+        }
+    else
+      chapter_title = {
+        h2: encode_symbols( node_text.downcase.titleize ),
+        h3: ''
+        }
+    end
     
-    title = stripped_title unless stripped_title.empty?
-    title.downcase.titleize 
+    chapter_title 
   end
   
   def end_of_chapter?(node, selector)
@@ -163,6 +182,73 @@ module BookSourceBot
     text.gsub(/“/, '&ldquo;')
         .gsub(/”/, '&rdquo;')
         .gsub(/—/, '&mdash;')
+        .gsub(/£/, '&pound;')
+        .gsub(/©/, '&copy;')
+        .gsub(/²/, '&sup2;')
+        .gsub(/³/, '&sup3;')
+        .gsub(/´/, '&acute;')
+        .gsub(/À/, '&Agrave;')
+        .gsub(/Á/, '&Aacute;')
+        .gsub(/Â/, '&Acirc;')
+        .gsub(/Ã/, '&Atilde;')
+        .gsub(/Ä/, '&Auml;')
+        .gsub(/Å/, '&Aring;')
+        .gsub(/Æ/, '&AElig;')
+        .gsub(/Ç/, '&Ccedil;')
+        .gsub(/È/, '&Egrave;')
+        .gsub(/É/, '&Eacute;')
+        .gsub(/Ê/, '&Ecirc;')
+        .gsub(/Ë/, '&Euml;')
+        .gsub(/Ì/, '&Igrave;')
+        .gsub(/Í/, '&Iacute;')
+        .gsub(/Î/, '&Icirc;')
+        .gsub(/Ï/, '&Iuml;')
+        .gsub(/Ð/, '&ETH;')
+        .gsub(/Ñ/, '&Ntilde;')
+        .gsub(/Ò/, '&Ograve;')
+        .gsub(/Ó/, '&Oacute;')
+        .gsub(/Ô/, '&Ocirc;')
+        .gsub(/Õ/, '&Otilde;')
+        .gsub(/Ö/, '&Ouml;')
+        .gsub(/Ø/, '&Oslash;')
+        .gsub(/Ù/, '&Ugrave;')
+        .gsub(/Ú/, '&Uacute;')
+        .gsub(/Û/, '&Ucirc;')
+        .gsub(/Ü/, '&Uuml;')
+        .gsub(/Ý/, '&Yacute;')
+        .gsub(/Þ/, '&THORN;')
+        .gsub(/ß/, '&szlig;')
+        .gsub(/à/, '&agrave;')
+        .gsub(/á/, '&aacute;')
+        .gsub(/â/, '&acirc;')
+        .gsub(/ã/, '&atilde;')
+        .gsub(/ä/, '&auml;')
+        .gsub(/å/, '&aring;')
+        .gsub(/æ/, '&aelig;')
+        .gsub(/ç/, '&ccedil;')
+        .gsub(/è/, '&egrave;')
+        .gsub(/é/, '&eacute;')
+        .gsub(/ê/, '&ecirc;')
+        .gsub(/ë/, '&euml;')
+        .gsub(/ì/, '&igrave;')
+        .gsub(/í/, '&iacute;')
+        .gsub(/î/, '&icirc;')
+        .gsub(/ï/, '&iuml;')
+        .gsub(/ð/, '&eth;')
+        .gsub(/ñ/, '&ntilde;')
+        .gsub(/ò/, '&ograve;')
+        .gsub(/ó/, '&oacute;')
+        .gsub(/ô/, '&ocirc;')
+        .gsub(/õ/, '&otilde;')
+        .gsub(/ö/, '&ouml;')
+        .gsub(/ø/, '&oslash;')
+        .gsub(/ù/, '&ugrave;')
+        .gsub(/ú/, '&uacute;')
+        .gsub(/û/, '&ucirc;')
+        .gsub(/ü/, '&uuml;')
+        .gsub(/ý/, '&yacute;')
+        .gsub(/þ/, '&thorn;')
+        .gsub(/ÿ/, '&yuml;')
   end
   
   def clean_chapter(chapter_text)
@@ -170,9 +256,6 @@ module BookSourceBot
     
     # Remove inline styles
     chapter_text = chapter_text.gsub(/style="[\w:; \.\-\(\)]*?"/, '')
-    
-    # Remove inline page numbers
-    chapter_text = chapter_text.gsub(/<span class="pagenum\w?">\d*?<\/span>/, '')
     
     # Remove bracket annotations
     chapter_text = chapter_text.gsub(/ ?\[[^\[\]]+\]( ?)/, '\1')
