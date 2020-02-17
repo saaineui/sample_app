@@ -215,7 +215,9 @@ $highlight: yellow;
 /* Mobile */
 @media only screen and (max-width: 480px) and (orientation: portrait), only screen and (max-device-width: 480px) and (orientation: portrait), only screen and (max-device-width: 640px) and (orientation: portrait) {
 		#lightbox { background-size: 80% auto; }
+    #ebook img.book-cover { max-width: 100%; }
 }
 @media only screen and (max-width: 480px) and (orientation: landscape), only screen and (max-device-width: 480px) and (orientation: landscape), only screen and (max-device-width: 640px) and (orientation: landscape) {
 		#lightbox { background-size: auto 100%; }
+    #ebook img.book-cover { max-width: 100%; }
 }

@@ -3,8 +3,8 @@ ruby '2.4.0'
 gem 'bcrypt', '3.1.11'
 gem 'jbuilder'
 gem 'jquery-rails'
-gem 'nokogiri'
-gem 'rails', '5.1.2'
+gem 'nokogiri', '1.10.4'
+gem 'rails', '5.2.4'
 gem 'sass-rails'
 gem 'sdoc', group: :doc
 gem 'uglifier'
@@ -27,5 +27,5 @@ end
 
 group :production do
   gem 'pg',             '0.21.0'
-  gem 'puma',           '3.9.1'
+  gem 'puma',           '3.12.2'
 end

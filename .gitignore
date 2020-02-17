@@ -36,3 +36,4 @@ coverage
 # Vim
 *.swp
 
+lib/scripts/book_source_files/*
