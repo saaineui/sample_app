@@ -55,14 +55,15 @@ module BookSourceBot
       item[:title] = get_book_title(book)
 
       item[:chapters] = book.css(item[:toc_selector]).map.with_index do |toc_link, index|
-        chapter_text = ''
+        chapter_text = ''        
+        chapter_start_selector = toc_link_node_to_name_selector(toc_link)
         
-        unless toc_link.attribute('href').nil? || book.css(toc_link.attribute('href').value).empty?        
+        unless chapter_start_selector.nil? || book.css(chapter_start_selector).empty?        
           node = book.css(toc_link.attribute('href').value).first
           node = node.parent if node.respond_to?(:parent)
-          node = node.next
+          node = node.next if node.respond_to?(:next)
 
-          until end_of_chapter?(node) do
+          until end_of_chapter?(node, item[:chapter_end_selector]) do
             node.content = trim_content(node.content)
 
             unless skip_node?(node)
@@ -78,9 +79,15 @@ module BookSourceBot
           end
         end
         
+        if item[:toc_selector] == item[:chapter_title_selector]
+          chapter_title_node = toc_link
+        else
+          chapter_title_node = book.css(item[:chapter_title_selector])[index]
+        end
+        
         {
           id: index + 1,
-          title: get_chapter_title(toc_link),
+          title: get_chapter_title(chapter_title_node),
           text: chapter_text
         }
       end
@@ -100,6 +107,8 @@ module BookSourceBot
         item[:url] = val unless val.empty?
       when 1
         item[:toc_selector] = val unless val.empty?
+      when 2
+        item[:chapter_title_selector] = val unless val.empty?
       end
     end
       
@@ -118,14 +127,26 @@ module BookSourceBot
     title.downcase.gsub(/\W/, '-')
   end
   
-  def get_chapter_title(node)
-    title = node.text.downcase.titleize 
-    title = trim_content(title)
-    title.gsub(/chapter\s+\d+\s+/i, '')
+  def toc_link_node_to_name_selector(toc_link)
+    return nil? if toc_link.attribute('href').nil? || toc_link.attribute('href').value.empty?
+    
+    toc_link.attribute('href').value.gsub(/^#([\w\-]+)$/, '[name="\1"]')
   end
   
-  def end_of_chapter?(node)
-    node.nil? || node.children.any? { |child| child.matches?('a[name]') } ||
+  def get_chapter_title(node)
+    return 'no title found' if node.nil?
+    
+    title = trim_content(node.text)
+    
+    stripped_title = title.gsub(/chapter\s+\d+\s+/i, '')
+                          .gsub(/(Chapter\s+)?[IXCDVM]+\.\s+/, '')
+    
+    title = stripped_title unless stripped_title.empty?
+    title.downcase.titleize 
+  end
+  
+  def end_of_chapter?(node, selector)
+    node.nil? || node.matches?(selector) || node.children.any? { |child| child.matches?(selector) } ||
       /Project Gutenberg EBook/.match(node.content)
   end
   
@@ -146,6 +167,12 @@ module BookSourceBot
   
   def clean_chapter(chapter_text)
     chapter_text = encode_symbols(chapter_text)
+    
+    # Remove inline styles
+    chapter_text = chapter_text.gsub(/style="[\w:; \.\-\(\)]*?"/, '')
+    
+    # Remove inline page numbers
+    chapter_text = chapter_text.gsub(/<span class="pagenum\w?">\d*?<\/span>/, '')
     
     # Remove bracket annotations
     chapter_text = chapter_text.gsub(/ ?\[[^\[\]]+\]( ?)/, '\1')

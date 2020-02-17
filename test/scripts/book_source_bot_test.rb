@@ -8,24 +8,31 @@ class BookSourceBotTest < ActiveSupport::TestCase
   TEST_URL = 'https://www.gutenberg.org/files/16/16-h/16-h.htm'
   TEST_TOC_SELECTOR = '.toc a'
   DEFAULT_TOC_SELECTOR = 'td a'
+  DEFAULT_CHAPTER_END_SELECTOR = 'a[name]'
   
   TEST_ITEM_NIL = {
     url: '',
     title: '',
     chapters: [],
     toc_selector: DEFAULT_TOC_SELECTOR,
+    chapter_title_selector: DEFAULT_TOC_SELECTOR,
+    chapter_end_selector: DEFAULT_CHAPTER_END_SELECTOR
   }
   TEST_ITEM_STUB = {
     url: TEST_URL,
     title: '',
     chapters: [],
     toc_selector: TEST_TOC_SELECTOR,
+    chapter_title_selector: TEST_TOC_SELECTOR,
+    chapter_end_selector: DEFAULT_CHAPTER_END_SELECTOR
   }
   TEST_ITEM = {
     url: TEST_URL,
     title: 'Peter Pan',
     chapters: PETER_PAN_CHAPTERS,
-    toc_selector: TEST_TOC_SELECTOR
+    toc_selector: TEST_TOC_SELECTOR,
+    chapter_title_selector: TEST_TOC_SELECTOR,
+    chapter_end_selector: DEFAULT_CHAPTER_END_SELECTOR
   }
   
   def clean_html(html)
@@ -42,11 +49,22 @@ class BookSourceBotTest < ActiveSupport::TestCase
     assert_equal TEST_ITEM_NIL, BookSourceBot.new_book_source_item() 
   end
 
+  test '#new_book_source_item creates a new item stub from URL-only row' do
+    test_item = TEST_ITEM_NIL.merge( { url: TEST_URL } )
+    row = [
+      TEST_URL
+      ]
+    
+    assert_equal test_item, BookSourceBot.new_book_source_item(row)
+  end
+
   test '#new_book_source_item creates a new item stub from row' do
     test_item_stub = TEST_ITEM_STUB.dup
     row = [
       TEST_URL,
-      TEST_TOC_SELECTOR
+      TEST_TOC_SELECTOR,
+      TEST_TOC_SELECTOR,
+      DEFAULT_CHAPTER_END_SELECTOR
       ]
     
     assert_equal test_item_stub, BookSourceBot.new_book_source_item(row)
@@ -55,7 +73,9 @@ class BookSourceBotTest < ActiveSupport::TestCase
   test '#scrape_book handles nil item_url' do
     item = {
       url: '',
-      toc_selector: DEFAULT_TOC_SELECTOR
+      toc_selector: DEFAULT_TOC_SELECTOR,
+      chapter_title_selector: DEFAULT_TOC_SELECTOR,
+      chapter_end_selector: DEFAULT_CHAPTER_END_SELECTOR
     }
 
     assert_equal item, BookSourceBot.scrape_book(item)
@@ -64,7 +84,9 @@ class BookSourceBotTest < ActiveSupport::TestCase
   test '#scrape_book handles 404' do
     item = {
       url: 'https://www.gutenberg.org/notapage',
-      toc_selector: DEFAULT_TOC_SELECTOR
+      toc_selector: DEFAULT_TOC_SELECTOR,
+      chapter_title_selector: DEFAULT_TOC_SELECTOR,
+      chapter_end_selector: DEFAULT_CHAPTER_END_SELECTOR
     }
 
     assert_equal item, BookSourceBot.scrape_book(item)

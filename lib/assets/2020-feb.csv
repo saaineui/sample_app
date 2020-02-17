@@ -1,1 +1,8 @@
-https://www.gutenberg.org/files/37106/37106-h/37106-h.htm,table:first-of-type td a
+https://www.gutenberg.org/files/37106/37106-h/37106-h.htm,table:first-of-type td a[href],table:first-of-type tbody td:nth-child(2),hr.hr2
+https://www.gutenberg.org/files/84/84-h/84-h.htm,"td a:not([href=""https://www.gutenberg.org/ebooks/42324""])","td a:not([href=""https://www.gutenberg.org/ebooks/42324""])",a[name]
+https://www.gutenberg.org/files/408/408-h/408-h.htm,td a,td a,.chapter
+https://www.gutenberg.org/files/1184/1184-h/1184-h.htm,td a,td a,.chapter
+https://www.gutenberg.org/files/45/45-h/45-h.htm,".toc a:not([href=""#link2H_4_0001""])",".toc a:not([href=""#link2H_4_0001""])",hr
+https://www.gutenberg.org/files/36/36-h/36-h.htm,td a,td a,.chapter
+https://www.gutenberg.org/files/7469/7469-h/7469-h.htm,".toc a:not([href=""#2H_4_0001""])",".toc a:not([href=""#2H_4_0001""])",a[name]
+https://www.gutenberg.org/files/2500/2500-h/2500-h.htm,.toc a,.toc a,a[name]

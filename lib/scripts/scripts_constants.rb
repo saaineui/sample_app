@@ -3,7 +3,9 @@ module ScriptsConstants
     title: '',
     chapters: [],
     url: '',
-    toc_selector: 'td a'
+    toc_selector: 'td a',
+    chapter_title_selector: 'td a',
+    chapter_end_selector: 'a[name]'
   }
   
   LINE_BREAK = '
