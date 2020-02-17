@@ -9,19 +9,19 @@ class BookSourceBotTest < ActiveSupport::TestCase
   TEST_TOC_SELECTOR = '.toc a'
   DEFAULT_TOC_SELECTOR = 'td a'
   
-  NIL_STUB = {
+  TEST_ITEM_NIL = {
     url: '',
     title: '',
     chapters: [],
     toc_selector: DEFAULT_TOC_SELECTOR,
   }
-  TEST_BOOK_SOURCE_ITEM_STUB = {
+  TEST_ITEM_STUB = {
     url: TEST_URL,
     title: '',
     chapters: [],
     toc_selector: TEST_TOC_SELECTOR,
   }
-  TEST_BOOK_SOURCE_ITEM = {
+  TEST_ITEM = {
     url: TEST_URL,
     title: 'Peter Pan',
     chapters: PETER_PAN_CHAPTERS,
@@ -39,16 +39,17 @@ class BookSourceBotTest < ActiveSupport::TestCase
   end
 
   test '#new_book_source_item handles nil' do
-    assert_equal NIL_STUB, BookSourceBot.new_book_source_item() 
+    assert_equal TEST_ITEM_NIL, BookSourceBot.new_book_source_item() 
   end
 
   test '#new_book_source_item creates a new item stub from row' do
+    test_item_stub = TEST_ITEM_STUB.dup
     row = [
       TEST_URL,
       TEST_TOC_SELECTOR
       ]
     
-    assert_equal TEST_BOOK_SOURCE_ITEM_STUB, BookSourceBot.new_book_source_item(row)
+    assert_equal test_item_stub, BookSourceBot.new_book_source_item(row)
   end
 
   test '#scrape_book handles nil item_url' do
@@ -70,7 +71,9 @@ class BookSourceBotTest < ActiveSupport::TestCase
   end
 
   test '#scrape_book returns item matching our sample' do
-    assert_equal TEST_BOOK_SOURCE_ITEM, BookSourceBot.scrape_book(TEST_BOOK_SOURCE_ITEM_STUB)
+    test_item_stub = TEST_ITEM_STUB.dup
+    
+    assert_equal TEST_ITEM, BookSourceBot.scrape_book(test_item_stub)
   end
 
   test '#generate_files creates a file matching our sample' do

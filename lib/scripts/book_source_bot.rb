@@ -92,15 +92,18 @@ module BookSourceBot
   end
 
   def new_book_source_item(row = [])
-    url = row.empty? ? '' : row.first
-    toc_selector = row.size > 1 ? row.last : 'td a'
-    
     item = ScriptsConstants::BOOK_SOURCE_ITEM.dup
 
-    item.merge({
-      url: url,
-      toc_selector: toc_selector
-    })
+    row.each_with_index do |val, index|
+      case index
+      when 0
+        item[:url] = val unless val.empty?
+      when 1
+        item[:toc_selector] = val unless val.empty?
+      end
+    end
+      
+    item
   end
   
   ## helper functions
@@ -135,7 +138,35 @@ module BookSourceBot
     node.content.empty? || node.matches?('h2')
   end
   
+  def encode_symbols(text)
+    text.gsub(/“/, '&ldquo;')
+        .gsub(/”/, '&rdquo;')
+        .gsub(/—/, '&mdash;')
+  end
+  
   def clean_chapter(chapter_text)
-    chapter_text = chapter_text.gsub(/ ?\[.+\]( ?)/, '\1')
+    chapter_text = encode_symbols(chapter_text)
+    
+    # Remove bracket annotations
+    chapter_text = chapter_text.gsub(/ ?\[[^\[\]]+\]( ?)/, '\1')
+    
+    # Replace headers with italicized paragraph text
+    chapter_text = chapter_text.gsub(/<h[1-6][ \w="\-]*?>/, '<p class="buffcenter"><i>')
+                               .gsub(/<\/h[1-6]>/, '</i></p>')
+    
+    # Replace pre with supported text within text
+    chapter_text = chapter_text.gsub(/<pre[ \w:="-]+>/, '<div class="wrapper"><p class="pubs">')
+                               .gsub(/<\/pre>/, '</p></div>')
+    
+    # Replace all-caps with italics
+    chapter_text = chapter_text.gsub(/([A-Z]{3}[A-Z \-,;\.]+[ \.,;])/) do |match| 
+                     # ignore roman numerals
+                     if match.match?(/^[ \.,;IVXCDM]+$/)
+                       match
+                     else
+                       space = match.last == ' ' ? ' ' : ''
+                       match.gsub($1, "<i>#{match.downcase.titleize}</i>#{space}")
+                     end
+                   end
   end
 end

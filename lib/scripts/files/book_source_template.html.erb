@@ -2,7 +2,7 @@
 <section>
   <header class="chapter-head">
     <h2><%= chapter[:id] %>.</h2>
-    <h3><%= chapter[:title] %></h3>
+    <h3><%= BookSourceBot.encode_symbols(chapter[:title]) %></h3>
   </header>
   <%= BookSourceBot.clean_chapter(chapter[:text]) %>
 </section>
