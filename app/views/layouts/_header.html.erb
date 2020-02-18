@@ -2,9 +2,13 @@
   <nav class="clearfix">
     <h1>
     <% if books_show? %>
-      <%= link_to(image_tag(@book.logo_url, alt: @book.title), book_path(@book)) %>
+      <% if @book.logo_url.present? %>
+        <%= link_to(image_tag(@book.logo_url, alt: @book.title), book_path(@book)) %>
+      <% else %>
+        <%= link_to(@book.title, book_path(@book)) %>
+      <% end %>
     <% else %>
-      <%= link_to(image_tag(asset_path('spineless_logo.png'), alt: 'spineless'), root_path) %>
+      <%= link_to(image_tag(asset_path('spineless_logo.png'), alt: 'spineless', class: 'spineless-logo'), root_path) %>
     <% end %>
     </h1>
     <div class="nav-wrapper">
