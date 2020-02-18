@@ -156,7 +156,7 @@ class BooksControllerTest < ActionController::TestCase
     @book = Book.new
     post :create, params: { id: @book, book: @form_data[:invalid] }
     assert_template 'books/new'
-    assert_select '#error_explanation p', count: 4
+    assert_select '#error_explanation p', count: 3
   end
 
   test 'should post create when logged in as admin' do
@@ -175,7 +175,7 @@ class BooksControllerTest < ActionController::TestCase
     log_in_as(@admin_user)
     post :update, params: { id: @public_book, book: @form_data[:invalid] }
     assert_template 'books/edit'
-    assert_select '#error_explanation p', count: 4
+    assert_select '#error_explanation p', count: 3
   end
 
   test 'should post update when logged in as admin' do

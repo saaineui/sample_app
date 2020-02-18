@@ -7,7 +7,7 @@ class Book < ApplicationRecord
 
   scope :not_mine, -> { where('author!=?', 'Stephanie Sun') }
 
-  validates :title, :author, :logo_url, :cover_image_url, presence: true
+  validates :title, :author, :cover_image_url, presence: true
   
   before_save :update_chapters_count, 
               unless: proc { |book| book.chapters_count.eql?(book.sections.chapters.count) }
@@ -80,7 +80,7 @@ class Book < ApplicationRecord
   end
   
   def background_image
-    "background-image: url(#{background_image_url});" if background_image_url 
+    "background-image: url(#{background_image_url}); background-size: auto;" if background_image_url.present?
   end
 
   private

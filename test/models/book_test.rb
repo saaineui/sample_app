@@ -20,9 +20,9 @@ class BookTest < ActiveSupport::TestCase
     assert_not @book.valid?
   end
 
-  test '#logo_url should be present' do
+  test '#logo_url is optional' do
     @book.logo_url = '   '
-    assert_not @book.valid?
+    assert @book.valid?
   end
 
   test '#cover_image_url should be present' do
