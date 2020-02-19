@@ -181,6 +181,8 @@ module BookSourceBot
   def encode_symbols(text)
     text.gsub(/“/, '&ldquo;')
         .gsub(/”/, '&rdquo;')
+        .gsub(/‘/, '&lsquo;')
+        .gsub(/’/, '&rsquo;')
         .gsub(/—/, '&mdash;')
         .gsub(/£/, '&pound;')
         .gsub(/©/, '&copy;')
