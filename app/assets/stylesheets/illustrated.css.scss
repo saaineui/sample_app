@@ -1,8 +1,10 @@
 $line-height: 20px;
-$page-height: 360px;
-$text-width: 2in;
+//$page-height: 360px;
+//$text-width: 2in;
 //$page-height: 240px;
 //$text-width: 1.9in;
+$page-height: 680px;
+$text-width: 5in;
 $sidebar-width: 0.5in;
 $sidebar-line-height: 0.1in;
 $page-width: $text-width+$sidebar-width;
@@ -50,7 +52,7 @@ body { margin: 0; padding: 0; font-family: Baskerville, Garamond, serif; }
 #ebook header {
   padding: $line-height*6 0 0 0;
 }
-#ebook h2 { font-size: $line-height*1; line-height: $line-height*2; padding: 0; margin: 0; }
+#ebook h2 { font-size: $line-height*3; line-height: $line-height*4; padding: 0; margin: 0; }
 #ebook p, #ebook li { font-size: $line-height*0.75; }
 #ebook hr { background-color: #000; }
 #ebook .author { display: none; }
