@@ -5,8 +5,8 @@ class Book < ApplicationRecord
   has_many :bookmarks
   has_many :users, through: :bookmarks
 
-  scope :featured_not_hidden, -> { where(featured: true, hidden: false) }
-  scope :not_featured_not_hidden, -> { where(featured: false, hidden: false) }
+  scope :featured_not_hidden, -> { where(featured: 1, hidden: 0) }
+  scope :not_featured_not_hidden, -> { where(featured: 0, hidden: 0) }
 
   validates :title, :author, :cover_image_url, presence: true
   
