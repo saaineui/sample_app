@@ -3,10 +3,11 @@ $line-height: 20px;
 //$text-width: 2in;
 //$page-height: 240px;
 //$text-width: 1.9in;
+//$sidebar-width: 0.5in;
 $page-height: 680px;
 $text-width: 5in;
-$sidebar-width: 0.5in;
 $sidebar-line-height: 0.1in;
+$sidebar-width: 1in;
 $page-width: $text-width+$sidebar-width;
 
 @import "global";

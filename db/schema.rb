@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108234951) do
+ActiveRecord::Schema.define(version: 2020_03_21_214442) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "book_id"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20171108234951) do
     t.text "sample"
     t.integer "sections_count", default: 0
     t.integer "chapters_count", default: 0
+    t.integer "hidden", default: 0
+    t.integer "featured", default: 0
   end
 
   create_table "sections", force: :cascade do |t|
