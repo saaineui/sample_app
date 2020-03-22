@@ -40,8 +40,14 @@ class BookTest < ActiveSupport::TestCase
     assert_equal @book_with_sections.chapters_count, @book_with_sections.sections.chapters.count
   end
   
-  test '#not_mine scope should filter my books' do
-    assert_not Book.not_mine.any? { |book| book.author.eql? 'Stephanie Sun' }
+  test '#featured_not_hidden scope should select featured and not hidden books' do
+    assert_not Book.featured_not_hidden.any? { |book| !book.featured? }
+    assert_not Book.featured_not_hidden.any? { |book| book.hidden? }
+  end
+  
+  test '#not_featured_not_hidden scope should select not featured and not hidden books' do
+    assert_not Book.not_featured_not_hidden.any? { |book| book.featured? }
+    assert_not Book.not_featured_not_hidden.any? { |book| book.hidden? }
   end
   
   test '::SKIPS constant returns integer' do

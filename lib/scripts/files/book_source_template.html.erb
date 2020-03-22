@@ -1,8 +1,10 @@
 <% item[:chapters].each do |chapter| %>
 <section>
   <header class="chapter-head">
-    <h2><%= chapter[:title][:h2] %></h2>
-    <h3><%= chapter[:title][:h3] %></h3>
+    <% if chapter.has_key? :title %>
+      <h2><%= chapter[:title][:h2] if chapter[:title].has_key? :h2 %></h2>
+      <h3><%= chapter[:title][:h3] if chapter[:title].has_key? :h3 %></h3>
+    <% end %>
   </header>
   <%= BookSourceBot.clean_chapter(chapter[:text]) %>
 </section>

@@ -114,6 +114,8 @@ module BookSourceBot
         item[:toc_selector] = val unless val.empty?
       when 2
         item[:chapter_title_selector] = val unless val.empty?
+      when 3
+        item[:chapter_end_selector] = val unless val.empty?
       end
     end
       
@@ -139,7 +141,7 @@ module BookSourceBot
   end
   
   def get_chapter_title(node)
-    return 'no title found' if node.nil?
+    return { h2: 'No title found', h3: '' } if node.nil?
     
     node_text = trim_content(node.text)
     
@@ -179,6 +181,8 @@ module BookSourceBot
   end
   
   def encode_symbols(text)
+    return text unless text.encoding == Encoding::UTF_8
+    
     text.gsub(/“/, '&ldquo;')
         .gsub(/”/, '&rdquo;')
         .gsub(/‘/, '&lsquo;')

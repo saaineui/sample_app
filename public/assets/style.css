@@ -51,7 +51,7 @@ p {
 
 a, a:visited {
   font-weight: 700;
-  color: #2b71f2;
+  color: #67c9bb;
   text-decoration: none;
 }
 
@@ -70,15 +70,7 @@ header#sticky-bar > nav h1 {
 header#sticky-bar > nav h1 a img {
   display: inline-block;
   max-width: 100%;
-}
-header#sticky-bar > nav h1 a:hover img {
-  filter: grayscale(100%);
-  opacity: 0.3;
-}
-header#sticky-bar > nav div.nav-wrapper {
-  float: right;
-  width: 50%;
-  font-size: 0.75em;
+  width: 160px;
 }
 
 #wrapper {
@@ -96,7 +88,6 @@ header#sticky-bar > nav div.nav-wrapper {
 section.banner {
   display: block;
   position: relative;
-  background: url(silhouettes.png) center bottom repeat;
   width: 100%;
   margin: 0;
   min-height: 381px;
@@ -104,12 +95,8 @@ section.banner {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 1em;
-  color: #fff;
 }
 section.banner h2, section.banner p {
-  text-shadow: 0px 0px 6px #79a4f2;
-  -moz-text-shadow: 0px 0px 6px #79a4f2;
-  -webkit-text-shadow: 0px 0px 6px #79a4f2;
   text-align: left;
 }
 section.banner h2 {
@@ -132,23 +119,3 @@ section.banner p {
   min-height: 320px;
 }
 
-.catalog-row {
-  padding-top: 1em;
-  padding-bottom: 1.5em;
-  position: relative;
-  background: #8fb2f3;
-}
-.catalog-row h3 {
-  text-align: left;
-  font-weight: 700;
-  font-size: 1.35em;
-  color: #555;
-}
-.catalog-row p {
-  font-size: 1.1em;
-  line-height: 1.5em;
-  text-align: center;
-}
-.catalog-row .banner-interior {
-  padding: 1.75em 1em;
-}
