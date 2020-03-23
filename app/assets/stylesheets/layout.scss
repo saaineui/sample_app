@@ -278,6 +278,7 @@ section.banner {
   flex-direction: column;
   width: 33.33333%;
   box-sizing: border-box;
+  margin-bottom: 1rem;
 }
 
 .catalog a.block-link,
@@ -483,7 +484,7 @@ table.book-data-review {
 
 @media only screen and (max-width: 570px) {
   .one_two { width: 98%; text-align: center; }
-  .catalog-item { width: 100%; }
+  .catalog-item { width: 100%; margin-bottom: 2.5rem; }
 }
 
 /* Mobile */
