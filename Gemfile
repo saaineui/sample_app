@@ -3,7 +3,7 @@ ruby '2.4.0'
 gem 'bcrypt', '3.1.11'
 gem 'jbuilder'
 gem 'jquery-rails'
-gem 'nokogiri', '1.10.4'
+gem 'nokogiri', '1.10.10'
 gem 'rails', '5.2.4'
 gem 'sass-rails'
 gem 'sdoc', group: :doc
