@@ -30,12 +30,11 @@ class BooksReadTest < ActionDispatch::IntegrationTest
   test 'log in and read' do
     book = @books.last
     
-    post login_path, params: { session: { email: @read_user.email, password: 'password' } }
+    log_in_as(@read_user)
     assert logged_in?
 
     get book_path(book)
     assert_template 'books/show'
-
     (1..book.max_number_of_locations - 1).each do |location|
       scroll = Bookmark.new(scroll: Random.rand(1..100)).safe_scroll
       save_bookmark_href = new_bookmark_path(book_id: book, location: location, scroll: scroll)
