@@ -59,7 +59,7 @@ class BooksController < ApplicationController
   
   def galley
     @title = { subtitle: "#{@book.title} - Galleys" }
-    render template: '/layouts/galley'
+    render layout: 'galley'
   end
   
   def print
@@ -67,12 +67,12 @@ class BooksController < ApplicationController
     @title = { subtitle: "#{@book.title} - Print #{params[:position]}" }
     @pages = processed_pages
     @single_images, @multiple_images = processed_images
-    render template: '/layouts/galley' # plain styling
+    render layout: 'galley'
   end
   
   def illustrated
     @title = { subtitle: "#{@book.title} - Galleys" }
-    render template: '/layouts/galley'
+    render layout: 'galley'
   end
   
   def i9d_print
@@ -80,7 +80,7 @@ class BooksController < ApplicationController
     @title = { subtitle: "#{@book.title} - Print #{params[:position]}" }
     @pages = processed_pages
     @single_images, @multiple_images = processed_images
-    render template: '/layouts/galley' # plain styling
+    render layout: 'galley'
   end
   
   private
