@@ -52,7 +52,7 @@ class BooksEditTest < ActionDispatch::IntegrationTest
       post book_sections_path(book_id: @book.id), params: { 
         upload: { 
           auto_assign_chapter_nums: 1, 
-          ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+          ebook_file: fixture_file_upload('constitution.html', 'text/html') 
         }
       }
     end

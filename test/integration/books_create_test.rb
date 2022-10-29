@@ -27,7 +27,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     post book_sections_path(book_id: @book.id), params: { 
       upload: { 
         auto_assign_chapter_nums: 0, 
-        ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+        ebook_file: fixture_file_upload('constitution.html', 'text/html') 
       } 
     }
     assert_redirected_to root_path
@@ -51,7 +51,7 @@ class BooksCreateTest < ActionDispatch::IntegrationTest
     post book_sections_path(book_id: new_book.id), params: { 
       upload: { 
         auto_assign_chapter_nums: 0, 
-        ebook_file: fixture_file_upload('files/constitution.html', 'text/html') 
+        ebook_file: fixture_file_upload('constitution.html', 'text/html') 
       } 
     }
     assert_redirected_to book_sections_path(book_id: new_book.id)
