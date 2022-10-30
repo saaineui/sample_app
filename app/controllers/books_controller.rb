@@ -3,6 +3,8 @@ class BooksController < ApplicationController
   skip_before_action :require_admin, only: %i[show galley print illustrated i9d_print]
   before_action :find_book_or_redirect, except: %i[index new create]
   
+  POSITIONS_TO_PAGE_POSITION = { 'Front' => (0..1), 'Back' => (2..3) }
+
   def index
     @books = Book.all
     @title = { subtitle: 'Manage Books' }
@@ -38,7 +40,7 @@ class BooksController < ApplicationController
 
   def update
     @title = { subtitle: "Edit #{@book.title}" }
-    flash[:success] = "#{@book.title} has been updated." if @book.update_attributes(book_params)
+    flash[:success] = "#{@book.title} has been updated." if @book.update(book_params)
     render 'edit'
   end
 
@@ -57,7 +59,7 @@ class BooksController < ApplicationController
   
   def galley
     @title = { subtitle: "#{@book.title} - Galleys" }
-    render layout: '/layouts/galley'
+    render layout: 'galley'
   end
   
   def print
@@ -65,12 +67,12 @@ class BooksController < ApplicationController
     @title = { subtitle: "#{@book.title} - Print #{params[:position]}" }
     @pages = processed_pages
     @single_images, @multiple_images = processed_images
-    render layout: '/layouts/galley' # plain styling
+    render layout: 'galley'
   end
   
   def illustrated
     @title = { subtitle: "#{@book.title} - Galleys" }
-    render layout: '/layouts/galley'
+    render layout: 'galley'
   end
   
   def i9d_print
@@ -78,7 +80,7 @@ class BooksController < ApplicationController
     @title = { subtitle: "#{@book.title} - Print #{params[:position]}" }
     @pages = processed_pages
     @single_images, @multiple_images = processed_images
-    render layout: '/layouts/galley' # plain styling
+    render layout: 'galley'
   end
   
   private
@@ -95,8 +97,10 @@ class BooksController < ApplicationController
   end
   
   def processed_pages # sort page data passed by galley.js
-    return [] if params[:pages].nil?
-    pages = JSON.parse(params[:pages]).select { |page| position_matches?(page, params[:position]) } 
+    return [] if params[:pages].nil? || params[:position].nil? || !POSITIONS_TO_PAGE_POSITION.key?(params[:position])
+
+    pages = JSON.parse(params[:pages])
+    pages = pages.select { |page| page && position_matches?(page, params[:position]) } 
     pages.sort_by { |page| get_sort_order(page) }
   end
   
@@ -122,7 +126,7 @@ class BooksController < ApplicationController
   end
     
   def position_matches?(page, position)
-    { 'Front' => (0..1), 'Back' => (2..3) }[position].include?(page['page_position'])
+    POSITIONS_TO_PAGE_POSITION[position].include?(page['page_position'])
   end
     
   def get_sort_order(page)

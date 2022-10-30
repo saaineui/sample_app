@@ -21,10 +21,9 @@ module BooksHelper
   end
   
   def nav_icon(path1_d, path2_d)
-    options = { width: 40, height: 30, viewBox: '0 0 40 30', xmlns: 'http://www.w3.org/2000/svg', class: 'arrow' }
     path1 = tag.path('', d: path1_d)
     path2 = tag.path('', d: path2_d)
-    tag.svg([path1, path2].join.html_safe, options)
+    tag.svg [path1, path2].join.html_safe, width: 40, height: 30, viewBox: '0 0 40 30', xmlns: 'http://www.w3.org/2000/svg', class: 'arrow'
   end
   
   def sidebar_text(page) 
