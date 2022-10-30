@@ -11,6 +11,6 @@
 <h2>Dependencies:</h2>
 
 <ul>
-    <li>Ruby 2.4.0</li>
-    <li>Rails 5.1.2</li>
+    <li>Ruby 3.1.2</li>
+    <li>Rails 7.0.3</li>
 </ul>
