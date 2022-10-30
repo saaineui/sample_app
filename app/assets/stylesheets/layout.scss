@@ -4,7 +4,7 @@ $dk-primary: #000; // black
 $md-primary: #444;
 $lt-primary: #efefef;
 $dk-secondary: #67c9bb; // teal
-$lt-secondary: #fcffff;
+$lt-secondary: #dcf0f0;
 $lt-gray: #efefef;
 $books-bg-color: #fff;
 $main-font-family: Lato, HelveticaNeue-Light, "Helvetica Neue", Helvetica, sans-serif;
@@ -24,6 +24,7 @@ border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em;
 /* End Meta Stuff */
 
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,700italic);
+@import url(https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700);
 
 body, html {
 	margin:0;
@@ -79,7 +80,16 @@ header#sticky-bar > nav {
     div.nav-wrapper {
         float: right; width: 50%; font-size: 0.75em;
 		ul.menu { 
-			display: none; position: absolute; right: 0px; top: 40px; z-index: 99; width: 16em; padding: 1em; background: $lt-secondary; 
+			display: none; 
+            position: absolute; 
+            right: 0px; 
+            top: 40px; 
+            z-index: 99; 
+            width: 16em; 
+            padding: 1em; 
+            background: $lt-secondary; 
+            max-height: 300px;
+            overflow: scroll;
 			li { text-align: right; margin: 0 0 1em 0; }
 			a { text-transform: uppercase; }
 		}
@@ -320,7 +330,14 @@ img.book-thumb {
 }
 
 .book-title { font-size: 24px; font-weight: 700; color: #333; }
-p.sample { color: $md-primary; padding: 1em; background: $lt-secondary; }
+p.sample { 
+  color: $md-primary; 
+  padding: 1em; 
+  background: $lt-secondary; 
+  font-family: Libre Baskerville, Baskerville, Times New Roman, serif;
+  line-height: 1.6;
+}
+
 p.sample span { @include drop_cap; color: $dk-primary; }
 
 .btn.icon-btn { 
