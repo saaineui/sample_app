@@ -97,7 +97,7 @@ class BooksController < ApplicationController
   end
   
   def processed_pages # sort page data passed by galley.js
-    return [] if params[:pages].nil? || params[:position].nil? || POSITIONS_TO_PAGE_POSITION.key?(params[:position])
+    return [] if params[:pages].nil? || params[:position].nil? || !POSITIONS_TO_PAGE_POSITION.key?(params[:position])
 
     pages = JSON.parse(params[:pages])
     pages = pages.select { |page| page && position_matches?(page, params[:position]) } 

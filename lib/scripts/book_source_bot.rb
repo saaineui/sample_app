@@ -44,9 +44,8 @@ module BookSourceBot
     return item if item[:url].nil? || item[:url].empty?
 
     begin
-      book = Nokogiri::HTML(
-        open(item[:url])
-      )
+      book_raw = URI.open(item[:url]).read
+      book = Nokogiri::HTML(book_raw)
     rescue OpenURI::HTTPError => http_error
       puts http_error
     rescue StandardError => error
@@ -65,7 +64,7 @@ module BookSourceBot
         unless chapter_start_selector.nil? || book.css(chapter_start_selector).empty?        
           node = book.css(chapter_start_selector).first
           
-          node = node.parent if node.respond_to?(:parent) && node.parent.matches?('p, h3')
+          node = node.parent if node.respond_to?(:parent) && node.parent.matches?('p, h2, h3')
           node = node.next if node.respond_to?(:next)
 
           until end_of_chapter?(node, item[:chapter_end_selector]) do
@@ -93,7 +92,7 @@ module BookSourceBot
         {
           id: index + 1,
           title: get_chapter_title(chapter_title_node),
-          text: chapter_text
+          text: clean_chapter(chapter_text)
         }
       end
     end # end if book.respond_to?(:css)
