@@ -144,14 +144,14 @@ module BookSourceBot
     
     node_text = trim_content(node.text)
     
-    if node_text.match?(/chapter[\b\s]+(\d+|[IXCDVM]+)[\b\s]+/i)
-      chapter_num = node_text.match(/chapter[\b\s]+(\d+|[IXCDVM]+)[\b\s]+/i)[1]
-      
+    if node_text.match?(/chapter[\b\s]+(\d+|[IXCDVM]+)\b/i)
+      chapter_num = node_text.match(/chapter[\b\s]+(\d+|[IXCDVM]+)\b/i)[1]
+     
       chapter_title = {
         h2: "Chapter #{chapter_num}",
         h3: encode_symbols(
               trim_content( 
-                node_text.gsub(/chapter[\b\s]+(\d+|[IXCDVM]+)[\b\s]+/i, '') 
+                node_text.gsub(/chapter[\b\s]+(\d+|[IXCDVM]+)[\W\s]+/i, '') 
               ).downcase.titleize
             )
         }

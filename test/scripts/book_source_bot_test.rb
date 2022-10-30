@@ -55,7 +55,20 @@ class BookSourceBotTest < ActiveSupport::TestCase
   end
 
   test '#get_chapter_title parses title data strings' do
-    puts BookSourceBot.get_chapter_title(Nokogiri::HTML("<h2>Chapter I. <br>PETER BREAKS THROUGH</h2>"))
+    titles = {
+      default: { h2: 'No title found', h3: '' },
+      roman: { h2: 'Chapter I', h3: 'Peter Breaks Through' },
+      roman_long: { h2: 'Chapter xvii', h3: 'Peter Breaks Through' },
+      num: { h2: 'Chapter 1', h3: 'Peter Breaks Through' },
+      num_long: { h2: 'Chapter 184', h3: 'Peter Breaks Through' }
+    }
+
+    assert_equal titles[:default], BookSourceBot.get_chapter_title(nil)
+    assert_equal titles[:roman], BookSourceBot.get_chapter_title(Nokogiri::HTML("<h2>Chapter I. <br>PETER BREAKS THROUGH</h2>"))
+    assert_equal titles[:roman], BookSourceBot.get_chapter_title(Nokogiri::HTML("<h2>Chapter I: </h2>\n\n<h3>PETER BREAKS THROUGH</h3>"))
+    assert_equal titles[:roman_long], BookSourceBot.get_chapter_title(Nokogiri::HTML("<h2>Chapter xvii -- PETER BREAKS THROUGH</h2>"))
+    assert_equal titles[:num], BookSourceBot.get_chapter_title(Nokogiri::HTML("<h2>Chapter 1 <br>PETER BREAKS THROUGH</h2>"))
+    assert_equal titles[:num_long], BookSourceBot.get_chapter_title(Nokogiri::HTML("<h2>Chapter 184 <br>PETER BREAKS THROUGH</h2>"))
   end
 
   test '#new_book_source_item handles nil' do
@@ -106,14 +119,12 @@ class BookSourceBotTest < ActiveSupport::TestCase
   end
 
   test '#scrape_book returns item matching our sample' do
-    skip
     pp_item_stub = PP_ITEM_STUB.dup
     
     assert_equal PP_ITEM, BookSourceBot.scrape_book(pp_item_stub)
   end
 
   test '#generate_files creates a file matching our sample' do
-    skip
     BookSourceBot.generate_files('test')
 
     book_fixture = clean_html(File.open('test/fixtures/files/peter-pan.html').read)
