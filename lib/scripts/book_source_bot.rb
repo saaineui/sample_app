@@ -136,7 +136,7 @@ module BookSourceBot
   def toc_link_node_to_name_selector(toc_link)
     return nil? if toc_link.attribute('href').nil? || toc_link.attribute('href').value.empty?
     
-    toc_link.attribute('href').value.gsub(/^#([\w\-]+)$/, '[name="\1"]')
+    toc_link.attribute('href').value.gsub(/^#([\w\-]+)$/, '[name="\1"], #\1')
   end
   
   def get_chapter_title(node)
