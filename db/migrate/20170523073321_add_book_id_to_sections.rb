@@ -1,4 +1,4 @@
-class AddBookIdToSections < ActiveRecord::Migration
+class AddBookIdToSections < ActiveRecord::Migration[4.2]
   def change
       change_table :sections do |t|
           t.integer :book_id

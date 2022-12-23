@@ -1,4 +1,4 @@
-class CoverColumnBookmarkModel < ActiveRecord::Migration
+class CoverColumnBookmarkModel < ActiveRecord::Migration[4.2]
   def change
     add_column :books, :cover_image_url, :string
 	remove_column :books, :slug

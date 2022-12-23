@@ -1,4 +1,4 @@
-class RenameSpeciesTableAffinities < ActiveRecord::Migration
+class RenameSpeciesTableAffinities < ActiveRecord::Migration[4.2]
   def change
       rename_table :species, :affinities
       rename_table :species_users, :affinities_users

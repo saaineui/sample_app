@@ -1,4 +1,4 @@
-class CreateJoinTableUsersBookmarks < ActiveRecord::Migration
+class CreateJoinTableUsersBookmarks < ActiveRecord::Migration[4.2]
   def change
       create_join_table :users, :bookmarks do |t|
           t.index :user_id

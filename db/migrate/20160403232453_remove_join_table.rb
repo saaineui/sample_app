@@ -1,4 +1,4 @@
-class RemoveJoinTable < ActiveRecord::Migration
+class RemoveJoinTable < ActiveRecord::Migration[4.2]
   def change
 	  drop_table :bookmarks_users
 	  change_table :bookmarks do |t|
