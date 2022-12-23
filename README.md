@@ -11,4 +11,5 @@
 <ul>
     <li>Ruby 3.1.2</li>
     <li>Rails 7.0.3</li>
+    <li>Postgres</li>
 </ul>
