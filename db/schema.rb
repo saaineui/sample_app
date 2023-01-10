@@ -11,7 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_10_15_210660) do
-  create_table "bookmarks", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "bookmarks", id: :serial, force: :cascade do |t|
     t.integer "book_id"
     t.integer "location"
     t.decimal "scroll", default: "0.0"
@@ -22,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_210660) do
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
-  create_table "books", force: :cascade do |t|
+  create_table "books", id: :serial, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -41,21 +44,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_210660) do
     t.integer "featured", default: 0
   end
 
-  create_table "sections", force: :cascade do |t|
+  create_table "sections", id: :serial, force: :cascade do |t|
     t.string "title"
     t.integer "order"
     t.text "text"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.boolean "indexable", default: false
     t.integer "chapter"
+    t.boolean "indexable", default: false
     t.integer "book_id"
     t.index ["book_id"], name: "index_sections_on_book_id"
     t.index ["chapter"], name: "index_sections_on_chapter"
     t.index ["order"], name: "index_sections_on_order"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
